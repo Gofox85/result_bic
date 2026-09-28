@@ -1,0 +1,20 @@
+[
+  {
+    "rollNo": "250701499",
+    "name": "Sanjay Kumar",
+    "selected": true,
+    "role": "Technical Team"
+  },
+  {
+    "rollNo": "250701501",
+    "name": "Priya Sharma",
+    "selected": true,
+    "role": "Design Team"
+  },
+  {
+    "rollNo": "250701502",
+    "name": "Aarav Mehta",
+    "selected": true,
+    "role": "Events Team"
+  }
+]
