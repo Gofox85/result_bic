@@ -3,18 +3,21 @@
     "rollNo": "250701499",
     "name": "Sanjay Kumar",
     "selected": true,
-    "role": "Technical Team"
+    "role": "Technical Team",
+    "department": "CSE"
   },
   {
     "rollNo": "250701501",
     "name": "Priya Sharma",
     "selected": true,
-    "role": "Design Team"
+    "role": "Design Team",
+    "department": "IT"
   },
   {
     "rollNo": "250701502",
     "name": "Aarav Mehta",
     "selected": true,
-    "role": "Events Team"
+    "role": "Events Team",
+    "department": "ECE"
   }
 ]

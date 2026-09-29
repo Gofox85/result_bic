@@ -8,7 +8,7 @@ A lightweight, independent website where a visitor enters a roll number to check
 
 ```text
 Roll number -> Check result -> Find exact record
-                              -> Show name and status
+                              -> Show name, department, and status
                               -> Show role only when selected
 ```
 
@@ -81,18 +81,28 @@ npm run build
 
 Edit `src/data/results.json`. Replace the fictional sample entries only with information officially approved for publication. Keep roll numbers as strings, including any leading zeroes.
 
+To convert an Excel workbook, install the Python dependency and run the converter with an input workbook and output JSON path:
+
+```sh
+python3 -m pip install -r requirements.txt
+python3 scripts/excel_to_json.py results.xlsx src/data/results.json
+```
+
+The converter reads the first worksheet. It expects columns for roll number, name, department, and role; an optional `Selected` column accepts yes/no, true/false, 1/0, or selected/not selected. Format roll-number cells as text in Excel to preserve leading zeroes. The output path is explicit, so the script does not change the app data unless you choose `src/data/results.json` as the destination.
+
 ```json
 [
   {
     "rollNo": "250123456",
     "name": "Alex Sample",
     "selected": true,
-    "role": "Technical Team"
+    "role": "Technical Team",
+    "department": "Technology"
   }
 ]
 ```
 
-Add only candidates whose results are approved for publication. Each roll number should be unique, and selected records may include their public role. Do not add a `selected: false` record: a valid roll number absent from this file returns **RESULT NOT FOUND**. That means no published result is available for that number; the app does not infer or display a candidate's name or a not-selected status without a matching record.
+Add only candidates whose results are approved for publication. Each roll number should be unique, and selected records may include their public role and department. Do not add a `selected: false` record: a valid roll number absent from this file returns **RESULT NOT FOUND**. That means no published result is available for that number; the app does not infer or display a candidate's name or a not-selected status without a matching record.
 
 ## Search and Validation
 
