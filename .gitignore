@@ -6,6 +6,7 @@ dist/
 .DS_Store
 __pycache__/
 .venv/
+.firebase/
 
 # Candidate sheets hold emails and results in the clear. Only the sealed src/data/results.json is committed.
 *.xlsx

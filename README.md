@@ -49,13 +49,16 @@ Don't put anything in the sheet you wouldn't want that candidate's classmates to
    It prints how many rows it sealed (selected / not selected), or the exact row that's wrong.
 
 3. Check it locally with a real row, then commit **only** `src/data/results.json` and push to `main`.
+   That push deploys, so the results are live about two minutes later (see Deploying).
    `.gitignore` already blocks `.xlsx` and `.csv` files; keep the sheet out of the repo.
 
 Wording on the page (next steps for selected candidates, the message for everyone else, club links) lives in
 `src/data/site.js`.
 
-The committed `results.json` is sealed from the fictional `scripts/sample-results.csv`. Try
+Until real results are published, `results.json` is sealed from the fictional `scripts/sample-results.csv`. Try
 `sanjay.sample@example.com` / `250701499` (selected) or `aarav.sample@example.com` / `250701502` (not selected).
+The tests use their own copy of the sample (`tests/fixtures/sample-results.json`), so replacing `results.json`
+with the real results doesn't break them.
 
 ## Running locally
 
@@ -69,14 +72,62 @@ npm run build    # static site in dist/
 The page needs Web Crypto, which browsers only offer over `https://` or on `localhost`. Opening the dev server
 from another device by its LAN IP will show a "needs a secure connection" message; that's expected.
 
-## Deploying
+## Deploying (Firebase Hosting)
 
-The output is a plain static site in `dist/`.
+The page is hosted as a second site, `bicrec-results`, inside the club's `bicrec` Firebase project, next to
+[bicrec.web.app](https://bicrec.web.app). `firebase.json` names the hosting target `results`, and `.firebaserc`
+maps that target to the `bicrec-results` site only, so a deploy from this repo can never overwrite the club site.
 
-- **Vercel** (already configured, `vercel.json`): import the repo, keep the Vite preset. Every push to `main`
-  redeploys.
-- **Firebase Hosting**, next to the club site: create a second site in the `bicrec` project (for example
-  `bicrec-results`) and deploy `dist/` to that site only, so the main club site is never overwritten.
+[`.github/workflows/firebase-deploy.yml`](.github/workflows/firebase-deploy.yml) runs on every push to `main`:
+
+1. **Test & build**: re-seals the sample sheet with the Python sealer, runs `npm test` (which also checks the
+   published `results.json` is sealed and has no email in the clear), and builds.
+2. **Deploy**: builds and publishes to the live channel of `bicrec-results`.
+
+A failing test stops the deploy. A manual run from the Actions tab deploys the branch it's started on.
+
+**Pushing a new `results.json` to `main` puts it live in about two minutes.** Hold the push until results
+are meant to be out. `index.html` is served with `no-cache`, so everyone gets the new results as soon as the
+deploy finishes.
+
+### One-time setup
+
+You need a Google account that is an Owner or Editor on the `bicrec` Firebase project.
+
+1. **Create the site.** In the [Firebase console](https://console.firebase.google.com/project/bicrec/hosting/sites),
+   click **Add another site** and enter `bicrec-results`. Or with the CLI:
+
+   ```sh
+   npm install -g firebase-tools
+   firebase login
+   firebase hosting:sites:create bicrec-results --project bicrec
+   ```
+
+   Site IDs are global. If `bicrec-results` is taken, pick another and change it in `.firebaserc`.
+
+2. **Add the deploy key to GitHub.**
+   - Open the project's [service accounts](https://console.cloud.google.com/iam-admin/serviceaccounts?project=bicrec).
+     Reuse the one the club site already deploys with (named like `github-action-…@bicrec.iam.gserviceaccount.com`):
+     **Keys → Add key → Create new key → JSON**. If there isn't one, create a service account with the
+     **Firebase Hosting Admin** role and make a JSON key for it.
+   - In this repo, go to **Settings → Secrets and variables → Actions → New repository secret**. Name it
+     `FIREBASE_SERVICE_ACCOUNT` and paste the whole JSON file as the value.
+   - Delete the downloaded JSON file afterwards. It's a password for the project.
+
+3. **Deploy.** Push to `main`, or open **Actions → Deploy to Firebase Hosting → Run workflow** on `main`.
+   The site is live at `https://bicrec-results.web.app`.
+
+### Deploying from your own machine
+
+```sh
+npm ci
+npm run build
+firebase deploy --only hosting:results
+```
+
+### Custom domain (optional)
+
+In the Firebase console, open **Hosting → bicrec-results → Add custom domain** and follow the DNS steps.
 
 ## Project structure
 
@@ -92,6 +143,9 @@ src/
   lib/chain.js           decorative hashes and dates
 tests/
   resultVault.test.js
+  fixtures/sample-results.json   the sample sheet, sealed, for the tests
+.github/workflows/firebase-deploy.yml
+firebase.json, .firebaserc       hosting target "results" -> site bicrec-results
 ```
 
 ## Git workflow

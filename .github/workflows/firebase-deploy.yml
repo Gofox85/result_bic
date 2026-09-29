@@ -1,0 +1,86 @@
+name: Deploy to Firebase Hosting
+
+# Every commit lands on main, so every push to main is a deploy. A manual run from the Actions tab
+# redeploys whatever branch it's started on, so start it on main.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Two pushes in quick succession would race two deploys to the live channel, and whichever finished
+# last would win regardless of which commit it built. Newer push wins, older is cancelled.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # Tests gate the live channel: this workflow deploys straight to production, so a failure here has
+  # to stop it — including a results.json that isn't sealed or has an email left in the clear.
+  test:
+    name: Test & build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Re-seal the sample sheet with the current Python sealer, so the tests prove the sealer and the
+      # browser code still agree, rather than only that an old fixture still opens.
+      - name: Re-seal the sample results
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet -r requirements.txt
+          .venv/bin/python scripts/excel_to_json.py scripts/sample-results.csv tests/fixtures/sample-results.json
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Rebuilt here rather than carried over from the test job: the build takes ~2s, less than
+      # uploading and downloading dist/ as an artifact would.
+      - name: Build
+        run: npm run build
+
+      # `target: results` deploys only to the site .firebaserc maps it to (bicrec-results), never to
+      # the club's main site in the same project.
+      - name: Deploy to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: bicrec
+          target: results

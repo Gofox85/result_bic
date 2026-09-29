@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "bicrec"
+  },
+  "targets": {
+    "bicrec": {
+      "hosting": {
+        "results": ["bicrec-results"]
+      }
+    }
+  }
+}
