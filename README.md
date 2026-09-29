@@ -1,146 +1,109 @@
-# Recruitment Result Checker
+# BIC/REC Recruitment Results
 
-## Overview
+The results page for the Blockchain Innovation Club (REC) recruitment. A candidate signs in with the **email**
+they applied with and their **roll number as the password**, and the page shows whether they were selected (and
+for which team) or not.
 
-A lightweight, independent website where a visitor enters a roll number to check an approved recruitment result. Version 1 is a static React application with no backend, database, account system, or connection to another website.
+It is a static React + Vite site styled after the club site ([bicrec.web.app](https://bicrec.web.app)) and its
+neo-brutalist design system. There is no backend.
 
-## Main Workflow
+## How results stay private
 
-```text
-Roll number -> Check result -> Find exact record
-                              -> Show name, department, and status
-                              -> Show role only when selected
-```
+The results sheet is never published. `scripts/excel_to_json.py` turns it into `src/data/results.json`, where
+every candidate's row is encrypted on its own:
 
-The website never displays a public candidate directory. The records in `src/data/results.json` are fictional samples.
+- email + roll number → PBKDF2-SHA256 (150,000 rounds, random salt) → a record id and an AES-256-GCM key
+- each record is padded to the same size, so selected and not-selected rows look identical
+- the file holds only ids and ciphertext: no names, emails, roll numbers or teams
 
-## Features
+In the browser the same derivation runs on what the candidate types. If the id exists, the key opens that one
+record; nothing is sent anywhere.
 
-- Exact roll-number lookup after trimming whitespace
-- Numeric input validation with a length limit
-- Selected and not-selected result states
-- Role shown only for selected candidates
-- Friendly invalid-input and result-not-found messages
-- Check-another-result reset action
-- Responsive layout and keyboard-accessible form
+**The limit:** the roll number is the only secret. Anyone who knows (or guesses) a candidate's email *and* roll
+number can see that candidate's result. The slow key derivation makes mass guessing expensive, not impossible.
+Don't put anything in the sheet you wouldn't want that candidate's classmates to see.
 
-## Technology
+## Publishing results
 
-- React
-- Vite
-- JavaScript
-- CSS
-- JSON
+1. Build the sheet (Excel or CSV), one row per interviewed candidate, **selected and not selected**:
 
-## Project Structure
+   | Email | Roll Number | Name | Department | Selected | Role |
+   | --- | --- | --- | --- | --- | --- |
+   | sanjay@rajalakshmi.edu.in | 250701499 | Sanjay Kumar | CSE | Yes | Technical Team |
+   | aarav@rajalakshmi.edu.in | 250701502 | Aarav Mehta | ECE | No | |
 
-```text
-src/
-  components/
-    Footer.jsx
-    Navbar.jsx
-    ResultCard.jsx
-    ResultForm.jsx
-  data/
-    findResult.js
-    results.json
-  App.jsx
-  index.css
-  main.jsx
-tests/
-  findResult.test.js
-index.html
-vite.config.js
-```
+   - **Email**, **Roll Number**, **Name** and **Selected** are required. **Role** is required when Selected is yes.
+     **Department** is optional.
+   - Selected accepts yes/no, true/false, 1/0, selected/not selected.
+   - Column names are matched loosely (`Roll No`, `Register Number`, `Team`, `Status`, ... all work).
+   - Format the roll-number column as **text** in Excel so leading zeroes survive.
+   - Emails and roll numbers must be unique. Case and extra spaces don't matter.
 
-`findResult.js` validates and looks up the submitted roll number. `results.json` is the sample data source, while the components render the form, result, header, and privacy notice.
+2. Seal it:
 
-## GitHub Codespaces Setup
+   ```sh
+   python3 -m pip install -r requirements.txt
+   python3 scripts/excel_to_json.py path/to/results.xlsx src/data/results.json
+   ```
 
-1. Open this repository in GitHub Codespaces.
-2. Open the integrated terminal.
-3. Install dependencies with `npm install`.
-4. Start Vite with `npm run dev`.
-5. Open the forwarded port shown in the **Ports** tab (Vite uses port `5173` by default).
+   It prints how many rows it sealed (selected / not selected), or the exact row that's wrong.
 
-## Installation
+3. Check it locally with a real row, then commit **only** `src/data/results.json` and push to `main`.
+   `.gitignore` already blocks `.xlsx` and `.csv` files; keep the sheet out of the repo.
+
+Wording on the page (next steps for selected candidates, the message for everyone else, club links) lives in
+`src/data/site.js`.
+
+The committed `results.json` is sealed from the fictional `scripts/sample-results.csv`. Try
+`sanjay.sample@example.com` / `250701499` (selected) or `aarav.sample@example.com` / `250701502` (not selected).
+
+## Running locally
 
 ```sh
 npm install
-npm run dev
+npm run dev      # http://localhost:5173
+npm test         # lookup + Python/browser format tests
+npm run build    # static site in dist/
 ```
 
-Run the lookup tests and production build with:
+The page needs Web Crypto, which browsers only offer over `https://` or on `localhost`. Opening the dev server
+from another device by its LAN IP will show a "needs a secure connection" message; that's expected.
+
+## Deploying
+
+The output is a plain static site in `dist/`.
+
+- **Vercel** (already configured, `vercel.json`): import the repo, keep the Vite preset. Every push to `main`
+  redeploys.
+- **Firebase Hosting**, next to the club site: create a second site in the `bicrec` project (for example
+  `bicrec-results`) and deploy `dist/` to that site only, so the main club site is never overwritten.
+
+## Project structure
+
+```text
+scripts/
+  excel_to_json.py       seals the sheet into src/data/results.json
+  sample-results.csv     fictional sample sheet
+src/
+  components/            Ticker, Navbar, PageHeader, ResultForm, ResultCard, HowItWorks, Footer, motion
+  data/results.json      sealed results (safe to publish)
+  data/site.js           page wording and club links
+  lib/resultVault.js     validation, key derivation, decryption
+  lib/chain.js           decorative hashes and dates
+tests/
+  resultVault.test.js
+```
+
+## Git workflow
+
+All work is committed and pushed directly to `main`. No feature branches, no pull requests.
 
 ```sh
-npm test
-npm run build
+git checkout main
+git pull
+# ...change things, then:
+npm test && npm run build
+git add -A
+git commit -m "Describe the change"
+git push origin main
 ```
-
-## How to Update Results
-
-Edit `src/data/results.json`. Replace the fictional sample entries only with information officially approved for publication. Keep roll numbers as strings, including any leading zeroes.
-
-To convert an Excel workbook, install the Python dependency and run the converter with an input workbook and output JSON path:
-
-```sh
-python3 -m pip install -r requirements.txt
-python3 scripts/excel_to_json.py results.xlsx src/data/results.json
-```
-
-The converter reads the first worksheet. It expects columns for roll number, name, department, and role; an optional `Selected` column accepts yes/no, true/false, 1/0, or selected/not selected. Format roll-number cells as text in Excel to preserve leading zeroes. The output path is explicit, so the script does not change the app data unless you choose `src/data/results.json` as the destination.
-
-```json
-[
-  {
-    "rollNo": "250123456",
-    "name": "Alex Sample",
-    "selected": true,
-    "role": "Technical Team",
-    "department": "Technology"
-  }
-]
-```
-
-Add only candidates whose results are approved for publication. Each roll number should be unique, and selected records may include their public role and department. Do not add a `selected: false` record: a valid roll number absent from this file returns **RESULT NOT FOUND**. That means no published result is available for that number; the app does not infer or display a candidate's name or a not-selected status without a matching record.
-
-## Search and Validation
-
-There is no public search or candidate list. The form accepts numeric roll numbers that start with `25` and contain up to 20 digits, trims surrounding whitespace, and requires an exact match. Partial matches are not returned. A number absent from the selected-only JSON produces **RESULT NOT FOUND**. Pressing Enter submits the form. **Check Another Result** clears the input and current result.
-
-## Design
-
-The interface uses a warm off-white background, black borders and text, a gold accent, and compact monospace labels. The form and result card resize for narrow screens without horizontal scrolling.
-
-## Security
-
-Input is validated before lookup and is never executed or inserted as HTML. Result fields are rendered as normal React text; the app does not use `dangerouslySetInnerHTML`, `innerHTML`, or `eval`. There are no credentials or secrets in the app.
-
-This is a static app, so the JSON file and its contents are delivered to the browser and are not confidential. A roll number is not authentication: anyone who knows another person's roll number may be able to view that record. Treat all published records as approved public information. Do not add private candidate data.
-
-## Privacy
-
-The sample data is fictional. Only approved roll number, name, selection status, and selected role are displayed. Do not publish contact details, addresses, date of birth, interview notes, application answers, or internal evaluation. The page states: “Only officially approved recruitment information is displayed.”
-
-## Git Workflow
-
-Use a feature branch and open a pull request into `main` after review. Typical commands:
-
-```sh
-git status
-git add .
-git commit -m "feat: add recruitment result checker"
-git push origin <feature-branch>
-```
-
-## Deployment
-
-Build the static site with `npm run build`; Vite writes the output to `dist/`.
-
-For **Vercel**, import the repository and use the Vite preset. The build command is `npm run build` and the output directory is `dist`.
-
-For **GitHub Pages**, configure the repository-specific `base` path in `vite.config.js` before deployment, then publish the `dist/` output using GitHub Actions or a Pages deployment action.
-
-## Future Improvements
-
-A backend, database, secure admin publishing panel, or additional candidate verification could be considered later. They are intentionally not included in this version.

@@ -1,23 +1,11 @@
-[
-  {
-    "rollNo": "250701499",
-    "name": "Sanjay Kumar",
-    "selected": true,
-    "role": "Technical Team",
-    "department": "CSE"
-  },
-  {
-    "rollNo": "250701501",
-    "name": "Priya Sharma",
-    "selected": true,
-    "role": "Design Team",
-    "department": "IT"
-  },
-  {
-    "rollNo": "250701502",
-    "name": "Aarav Mehta",
-    "selected": true,
-    "role": "Events Team",
-    "department": "ECE"
+{
+  "format": 1,
+  "published": "2026-09-29",
+  "iterations": 150000,
+  "salt": "SNIXC9SsBBuDs7e8TvmnCA==",
+  "records": {
+    "5fad16564b98d7b625fb708937fa5db6": "zt9M5IIRQ930GVQ2P9Z31GFgdMHUBBuhQeIhtGPRgf1bfK069Iar57Q5KV+34ECPp95YDeQzKiFNkjZLv9Zn7YiCNvnzVf8ciZafuygXrQOSMAEscrJ1PKWe8pNmv17zxCh+BPeXYem5LD8y45qEneSSrkioq5mWnLSs7KcW/f4oIegPNJN+ahhXx8V9E4Z4r8KK1m5NxoKB8clPe520kCCQHmerYPVbkUkh/ngNNxrbLk9SkNIeiM5j5x2Z7ZXz14dP026DFOQghkkiiHd9AX2fd6+w3mEwTbAWqn2OeRst6einjMEPAz7sURkLy7qhmXnDqINwg1+Jqfk854r8YzyBX/vn+PLuVs3TWLI6Mubb2Gj+n8/OAlcoTsA=",
+    "6a8362c90e9f2a4b64e740aeb1dd0a37": "qlU3Fay7D/xTbgjDDaxmK750ZgouukilO4BcMimlKrixycR1a2wHXyIGsrcJih57aBM8CS1jQaqU2IjR285R29SecFT9GCMhq2EqYOcvbrpT4gPuxK5jY2ktpO1PtPvF4Px0Ej93f6TMPvz0H91z+Gv5bUCGDT7CpX9jTFE0lf5xVXmhIIBoA3zeDOl583RkSiW0QDZPHgPlMBgyonzIoI9Jzk7xIpJzZ82eEvM16om+dGxPYbuhWpv8Q8q/jvusm/rf25b0cIhLtMhFwlv4+5bDYuLOUutXkrM6P56kvcnnTDUbvUB4HubAoBGtyiFPDhwkLJ/KwDhlBE1GkpQFS6N6gwXouF75wqlH2ny7KUOn51z/Zpx5F00Qgus=",
+    "6db8c70d91dea65ecaf8a7ab571bbcf3": "Dm2+ZS003Z5clOEjzoQMelqzjesQBIfYUVyiOBgSbqOzQ/6zfAe+jnHHCD7/98AY5H6PeG46sk0zYnu0Xzb52denTCiDTcanS0G4WBFlzBq1DPUzYj5yecnbBEpcb5yFTQptb7/B+7tObI0qp4PifIteAnTGByIlwAEDQFNZ4ijd3+RMPryOiYvlxzhhZlweYPa/nQ255fE3GfUhn0GcfaWZRo0dXMz1oxZ1SQTZb8OHiEdhyHyg1OnWrZVa8nbM2OabviygYleyhJ9d/0R4fmY8k/RMuiPPLRpEyFtvXIxYmg0wM5nPV74Z8a0ZhqBJLkxsUU+jWBQYu+mkCzkcU4JLskt+bpzCwuApypDrZ3N3+eINQlGxCrxQYd4="
   }
-]
+}

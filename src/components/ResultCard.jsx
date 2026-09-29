@@ -1,55 +1,96 @@
 import React from 'react';
+import { CLUB_SITE, NOT_SELECTED_MESSAGE, SELECTED_NEXT_STEPS } from '../data/site.js';
+import { pad2, sealedDate, shortHash } from '../lib/chain.js';
+import { Roll, Scramble, SplitText } from './motion.jsx';
 
-export default function ResultCard({ lookup, onCheckAnother }) {
-  if (lookup.type === 'not-found') {
-    return (
-      <section className="result-panel not-found" aria-live="polite" aria-atomic="true">
-        <p className="micro-label">LOOKUP COMPLETE</p>
-        <h2>RESULT NOT FOUND</h2>
-        <p>No result was found for the entered roll number.</p>
-        <p>Please check your roll number and try again.</p>
-        <button className="secondary-button" type="button" onClick={onCheckAnother}>CHECK ANOTHER RESULT</button>
-      </section>
-    );
-  }
+const CONFIRMATION_SLOTS = 6;
 
-  const { result } = lookup;
+// Six cells split by 3px rules, filling amber left to right: the block is confirmed.
+function Confirmations() {
+  return (
+    <div className="confirmations">
+      <div className="confirm-strip" aria-hidden="true">
+        {Array.from({ length: CONFIRMATION_SLOTS }, (_, i) => (
+          <span className="confirm-cell" key={i} style={{ '--i': i }} />
+        ))}
+      </div>
+      <p className="meta">{pad2(CONFIRMATION_SLOTS)}/{pad2(CONFIRMATION_SLOTS)} confirmations</p>
+    </div>
+  );
+}
+
+function Ledger({ rows }) {
+  return (
+    <dl className="result-ledger">
+      {rows.filter(([, value]) => value).map(([label, value, highlight]) => (
+        <div className={highlight ? 'is-highlight' : undefined} key={label}>
+          <dt className="meta">{label}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+// Greet by the first real name, skipping initials: "S. Pratiba" and "V Sanjaivel" become Pratiba and Sanjaivel.
+const greetingName = (name) => name.split(/\s+/).find((part) => part.replace(/\./g, '').length > 2) ?? name.trim();
+
+export default function ResultCard({ result, published, headingRef, onCheckAnother }) {
+  const firstName = greetingName(result.name);
+  const title = result.selected ? `Welcome to the chain, ${firstName}.` : `Not this time, ${firstName}.`;
 
   return (
-    <section className="result-panel" aria-live="polite" aria-atomic="true">
-      <div className="result-panel-heading">
-        <p className="micro-label">LOOKUP COMPLETE</p>
-        <h2>YOUR RESULT</h2>
+    <article className="result" aria-labelledby="result-title">
+      <div className="result-top">
+        <span className="stamp">
+          <span className={`chip chip-lg ${result.selected ? 'chip-mint' : ''}`}>
+            {result.selected ? 'Selected' : 'Not selected'}
+          </span>
+        </span>
+        <span className="meta">
+          <Scramble text={`record ${shortHash(result.rollNo)} · sealed ${sealedDate(published)}`} delay={0.3} />
+        </span>
       </div>
-      <dl className="result-details">
-        <div className="detail-item">
-          <dt>ROLL NUMBER</dt>
-          <dd>{result.rollNo}</dd>
-        </div>
-        <div className="detail-item">
-          <dt>NAME</dt>
-          <dd>{result.name}</dd>
-        </div>
-        {result.department && (
-          <div className="detail-item">
-            <dt>DEPARTMENT</dt>
-            <dd>{result.department}</dd>
-          </div>
+
+      <h2 className="t-h3 result-title" id="result-title" ref={headingRef} tabIndex={-1}>
+        <SplitText text={title} delay={0.15} stagger={0.045} />
+      </h2>
+
+      {result.selected ? (
+        <>
+          <p className="t-lead result-lead">
+            You&apos;ve been selected for the <strong>{result.role}</strong>.
+          </p>
+          <Ledger
+            rows={[
+              ['name', result.name],
+              ['roll number', result.rollNo],
+              ['department', result.department],
+              ['team', result.role, true],
+            ]}
+          />
+          <Confirmations />
+          <p className="t-body result-body">{SELECTED_NEXT_STEPS}</p>
+        </>
+      ) : (
+        <>
+          <p className="t-body result-body">{NOT_SELECTED_MESSAGE}</p>
+          <Ledger
+            rows={[
+              ['name', result.name],
+              ['roll number', result.rollNo],
+              ['department', result.department],
+            ]}
+          />
+        </>
+      )}
+
+      <div className="result-actions">
+        {!result.selected && (
+          <a className="btn btn-amber" href={`${CLUB_SITE}/events`}><Roll>See upcoming events</Roll></a>
         )}
-        <div className="detail-item">
-          <dt>STATUS</dt>
-          <dd><span className={`status-tag ${result.selected ? 'is-selected' : 'is-not-selected'}`}>
-            {result.selected ? 'SELECTED' : 'NOT SELECTED'}
-          </span></dd>
-        </div>
-        {result.selected && (
-          <div className="detail-item">
-            <dt>SELECTED ROLE</dt>
-            <dd>{result.role}</dd>
-          </div>
-        )}
-      </dl>
-      <button className="secondary-button" type="button" onClick={onCheckAnother}>CHECK ANOTHER RESULT</button>
-    </section>
+        <button className="btn btn-bone" type="button" onClick={onCheckAnother}><Roll>Check another result</Roll></button>
+      </div>
+    </article>
   );
 }

@@ -1,30 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Roll } from './motion.jsx';
 
-export default function ResultForm({ value, onChange, onSubmit, invalid }) {
+function FieldError({ id, children }) {
+  return children ? <p className="field-error" id={id}>{children}</p> : null;
+}
+
+export default function ResultForm({
+  email,
+  rollNo,
+  onEmailChange,
+  onRollNoChange,
+  onSubmit,
+  errors,
+  lookup,
+  iterations,
+  emailRef,
+  rollNoRef,
+}) {
+  const [showRollNo, setShowRollNo] = useState(false);
+  const checking = lookup.type === 'checking';
+
   return (
-    <form className="result-form" onSubmit={onSubmit} noValidate>
-      <label htmlFor="roll-number">ENTER YOUR ROLL NUMBER</label>
-      <input
-        id="roll-number"
-        name="rollNumber"
-        type="text"
-        inputMode="numeric"
-        autoComplete="off"
-        maxLength={21}
-        placeholder="e.g. 250701671"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        aria-invalid={invalid}
-        aria-describedby={invalid ? 'roll-number-error' : 'roll-number-hint'}
-      />
-      {invalid ? (
-        <p className="form-message form-error" id="roll-number-error" role="alert">
-          Please enter a valid roll number.
-        </p>
-      ) : (
-        <p className="form-message" id="roll-number-hint">Use the numeric roll number issued during application.</p>
+    <form className="result-form" onSubmit={onSubmit} noValidate aria-busy={checking}>
+      <h2 className="t-h3">Check your result</h2>
+
+      <div>
+        <label className="field-label" htmlFor="email">email address</label>
+        <input
+          ref={emailRef}
+          className="field"
+          id="email"
+          name="email"
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          autoCapitalize="none"
+          spellCheck={false}
+          placeholder="you@rajalakshmi.edu.in"
+          value={email}
+          onChange={(event) => onEmailChange(event.target.value)}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? 'email-error' : undefined}
+        />
+        <FieldError id="email-error">{errors.email}</FieldError>
+      </div>
+
+      <div>
+        <label className="field-label" htmlFor="roll-number">password · your roll number</label>
+        <div className={`field-group ${errors.rollNo ? 'is-invalid' : ''}`}>
+          <input
+            ref={rollNoRef}
+            className="field"
+            id="roll-number"
+            name="rollNumber"
+            type={showRollNo ? 'text' : 'password'}
+            autoComplete="off"
+            autoCapitalize="characters"
+            spellCheck={false}
+            maxLength={24}
+            placeholder="e.g. 250701499"
+            value={rollNo}
+            onChange={(event) => onRollNoChange(event.target.value)}
+            aria-invalid={Boolean(errors.rollNo)}
+            aria-describedby={errors.rollNo ? 'roll-number-error' : undefined}
+          />
+          <button
+            className="field-toggle"
+            type="button"
+            aria-controls="roll-number"
+            onClick={() => setShowRollNo((shown) => !shown)}
+          >
+            {showRollNo ? 'hide' : 'show'}<span className="sr-only"> roll number</span>
+          </button>
+        </div>
+        <FieldError id="roll-number-error">{errors.rollNo}</FieldError>
+      </div>
+
+      {lookup.type === 'not-found' && (
+        <div className="form-alert on-ink" role="alert">
+          <p className="meta">no match</p>
+          <p>No result matches that email and roll number. Check both and try again.</p>
+        </div>
       )}
-      <button className="primary-button" type="submit">CHECK RESULT <span aria-hidden="true">↗</span></button>
+      {lookup.type === 'error' && (
+        <div className="form-alert on-ink" role="alert">
+          <p className="meta">couldn&apos;t unlock</p>
+          <p>{lookup.message}</p>
+        </div>
+      )}
+
+      <button className="btn btn-amber btn-block" type="submit" disabled={checking}>
+        {checking ? <span>Unlocking<span className="caret" aria-hidden="true" /></span> : <Roll>Reveal my result</Roll>}
+      </button>
+      <p className="meta" aria-live="polite">
+        {checking
+          ? `deriving your key · ${iterations.toLocaleString('en-IN')} rounds`
+          : 'checked on this device — nothing you type is sent or stored'}
+      </p>
     </form>
   );
 }
