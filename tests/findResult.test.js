@@ -11,6 +11,7 @@ test('finds a selected result after trimming whitespace', () => {
   assert.equal(lookup.result.name, 'Sanjay Kumar');
   assert.equal(lookup.result.selected, true);
   assert.equal(lookup.result.role, 'Technical Team');
+  assert.equal(lookup.result.department, 'CSE');
 });
 
 test('returns not-found for a roll number omitted from the selected results', () => {

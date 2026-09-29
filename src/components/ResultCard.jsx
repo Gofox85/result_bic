@@ -30,6 +30,12 @@ export default function ResultCard({ lookup, onCheckAnother }) {
           <dt>NAME</dt>
           <dd>{result.name}</dd>
         </div>
+        {result.department && (
+          <div className="detail-item">
+            <dt>DEPARTMENT</dt>
+            <dd>{result.department}</dd>
+          </div>
+        )}
         <div className="detail-item">
           <dt>STATUS</dt>
           <dd><span className={`status-tag ${result.selected ? 'is-selected' : 'is-not-selected'}`}>
