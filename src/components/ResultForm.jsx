@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ROLL_NUMBER_LENGTH, rollNumberInput } from '../lib/resultVault.js';
 import { Roll } from './motion.jsx';
 
 function FieldError({ id, children }) {
@@ -10,6 +11,8 @@ export default function ResultForm({
   rollNo,
   onEmailChange,
   onRollNoChange,
+  onEmailBlur,
+  onRollNoBlur,
   onSubmit,
   errors,
   lookup,
@@ -39,6 +42,7 @@ export default function ResultForm({
           placeholder="you@rajalakshmi.edu.in"
           value={email}
           onChange={(event) => onEmailChange(event.target.value)}
+          onBlur={(event) => onEmailBlur(event.target.value)}
           aria-invalid={Boolean(errors.email)}
           aria-describedby={errors.email ? 'email-error' : undefined}
         />
@@ -54,13 +58,17 @@ export default function ResultForm({
             id="roll-number"
             name="rollNumber"
             type={showRollNo ? 'text' : 'password'}
+            inputMode="numeric"
+            pattern="[0-9]*"
             autoComplete="off"
-            autoCapitalize="characters"
+            autoCapitalize="none"
             spellCheck={false}
-            maxLength={24}
-            placeholder="e.g. 250701499"
+            maxLength={ROLL_NUMBER_LENGTH}
+            placeholder="e.g. 240101016"
             value={rollNo}
-            onChange={(event) => onRollNoChange(event.target.value)}
+            // Digits only: letters and symbols are dropped as they're typed or pasted.
+            onChange={(event) => onRollNoChange(rollNumberInput(event.target.value))}
+            onBlur={(event) => onRollNoBlur(event.target.value)}
             aria-invalid={Boolean(errors.rollNo)}
             aria-describedby={errors.rollNo ? 'roll-number-error' : undefined}
           />

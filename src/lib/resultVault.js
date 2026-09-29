@@ -7,20 +7,31 @@
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const rollNumberPattern = /^[A-Z0-9]{4,20}$/;
+// Candidates sign in with their college email and their 9-digit roll number (e.g. 240101016).
+// scripts/excel_to_json.py refuses sheet rows that break these rules, so no one is published unable to sign in.
+export const ROLL_NUMBER_LENGTH = 9;
+const emailPattern = /^[^\s@]+@rajalakshmi\.edu\.in$/;
+const rollNumberPattern = new RegExp(`^\\d{${ROLL_NUMBER_LENGTH}}$`);
+
+export const EMAIL_ERROR = 'enter valid email id';
+export const ROLL_NUMBER_ERROR = `enter valid roll number (${ROLL_NUMBER_LENGTH} digits)`;
 
 export const normalizeEmail = (value) => value.trim().toLowerCase();
 export const normalizeRollNumber = (value) => value.replace(/\s+/g, '').toUpperCase();
 
+// What the roll number field keeps of whatever is typed or pasted into it: digits only, never more than nine.
+export const rollNumberInput = (value) => value.replace(/\D/g, '').slice(0, ROLL_NUMBER_LENGTH);
+
+export const validateEmail = (email) => (emailPattern.test(normalizeEmail(email)) ? undefined : EMAIL_ERROR);
+export const validateRollNumber = (rollNo) =>
+  rollNumberPattern.test(normalizeRollNumber(rollNo)) ? undefined : ROLL_NUMBER_ERROR;
+
 export function validateCredentials(email, rollNo) {
   const errors = {};
-  if (!emailPattern.test(normalizeEmail(email))) {
-    errors.email = 'Enter the email address you applied with.';
-  }
-  if (!rollNumberPattern.test(normalizeRollNumber(rollNo))) {
-    errors.rollNo = 'Enter your roll number — letters and digits only.';
-  }
+  const emailError = validateEmail(email);
+  const rollNoError = validateRollNumber(rollNo);
+  if (emailError) errors.email = emailError;
+  if (rollNoError) errors.rollNo = rollNoError;
   return errors;
 }
 

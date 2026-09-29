@@ -2,8 +2,8 @@ import React from 'react';
 import { CLUB_EMAIL } from '../data/site.js';
 
 const steps = [
-  { title: 'Your email', body: 'Use the same email address you gave when you applied.' },
-  { title: 'Roll number as password', body: 'Type your roll number exactly as it appears on your ID card.' },
+  { title: 'Your college email', body: 'Use the @rajalakshmi.edu.in address you applied with.' },
+  { title: 'Roll number as password', body: 'Your 9-digit roll number, for example 240101016. Digits only.' },
   {
     title: 'Unlocked on your device',
     body: 'Every result is sealed. Only your email and roll number together can open yours, and nothing you type leaves this page.',

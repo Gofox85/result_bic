@@ -37,6 +37,8 @@ Don't put anything in the sheet you wouldn't want that candidate's classmates to
    - Selected accepts yes/no, true/false, 1/0, selected/not selected.
    - Column names are matched loosely (`Roll No`, `Register Number`, `Team`, `Status`, ... all work).
    - Format the roll-number column as **text** in Excel so leading zeroes survive.
+   - Emails must be `@rajalakshmi.edu.in` addresses and roll numbers exactly 9 digits (e.g. `240101016`), the
+     same rules the sign-in form enforces. The converter stops at the first row that breaks them.
    - Emails and roll numbers must be unique. Case and extra spaces don't matter.
 
 2. Seal it:
@@ -56,7 +58,7 @@ Wording on the page (next steps for selected candidates, the message for everyon
 `src/data/site.js`.
 
 Until real results are published, `results.json` is sealed from the fictional `scripts/sample-results.csv`. Try
-`sanjay.sample@example.com` / `250701499` (selected) or `aarav.sample@example.com` / `250701502` (not selected).
+`250701499@rajalakshmi.edu.in` / `250701499` (selected) or `250701502@rajalakshmi.edu.in` / `250701502` (not selected).
 The tests use their own copy of the sample (`tests/fixtures/sample-results.json`), so replacing `results.json`
 with the real results doesn't break them.
 

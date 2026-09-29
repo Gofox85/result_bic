@@ -7,12 +7,20 @@ import ResultCard from './components/ResultCard.jsx';
 import ResultForm from './components/ResultForm.jsx';
 import Ticker from './components/Ticker.jsx';
 import vault from './data/results.json';
-import { InsecureContextError, unlockResult, validateCredentials } from './lib/resultVault.js';
+import {
+  InsecureContextError,
+  unlockResult,
+  validateCredentials,
+  validateEmail,
+  validateRollNumber,
+} from './lib/resultVault.js';
 
 // Unlocking takes a moment by design (the key derivation is slow on purpose); holding the "unlocking" state
 // for at least this long keeps a fast device from flashing it.
 const MIN_UNLOCK_MS = 700;
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const validators = { email: validateEmail, rollNo: validateRollNumber };
 
 export default function App() {
   const [email, setEmail] = useState('');
@@ -71,10 +79,19 @@ export default function App() {
     setLookup({ type: 'idle' });
   }
 
+  // Fields are checked as they're filled in, not only on submit: when the candidate leaves a field, and then
+  // live on every keystroke once it has been flagged, so the error clears the moment the value is right.
   function editField(setValue, field) {
     return (value) => {
       setValue(value);
-      if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
+      if (errors[field]) setErrors((current) => ({ ...current, [field]: validators[field](value) }));
+    };
+  }
+
+  function checkField(field) {
+    return (value) => {
+      // An empty field the candidate has only tabbed through isn't an error yet; submitting it is.
+      if (value.trim()) setErrors((current) => ({ ...current, [field]: validators[field](value) }));
     };
   }
 
@@ -104,6 +121,8 @@ export default function App() {
                   rollNo={rollNo}
                   onEmailChange={editField(setEmail, 'email')}
                   onRollNoChange={editField(setRollNo, 'rollNo')}
+                  onEmailBlur={checkField('email')}
+                  onRollNoBlur={checkField('rollNo')}
                   onSubmit={handleSubmit}
                   errors={errors}
                   lookup={lookup}

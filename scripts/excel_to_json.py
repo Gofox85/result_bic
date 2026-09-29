@@ -36,8 +36,9 @@ HEADER_ALIASES = {
 }
 REQUIRED_FIELDS = {"email", "rollNo", "name", "selected"}
 
-EMAIL_PATTERN = re.compile(r"[^\s@]+@[^\s@]+\.[^\s@]+")
-ROLL_NUMBER_PATTERN = re.compile(r"[A-Z0-9]{4,20}")
+# The sign-in form only accepts these (src/lib/resultVault.js), so a row that breaks them could never be opened.
+EMAIL_PATTERN = re.compile(r"[^\s@]+@rajalakshmi\.edu\.in")
+ROLL_NUMBER_PATTERN = re.compile(r"\d{9}")
 
 
 def normalize_header(value):
@@ -58,7 +59,7 @@ def required_text(value, field_name, row_number):
 def email_value(value, row_number):
     email = optional_text(value).lower()
     if not EMAIL_PATTERN.fullmatch(email):
-        raise ValueError(f"Row {row_number}: {email!r} is not a valid email address.")
+        raise ValueError(f"Row {row_number}: {email!r} is not a @rajalakshmi.edu.in email address.")
     return email
 
 
@@ -69,7 +70,7 @@ def roll_number_value(value, row_number):
         value = int(value)
     roll_no = re.sub(r"\s+", "", str(value)).upper()
     if not ROLL_NUMBER_PATTERN.fullmatch(roll_no):
-        raise ValueError(f"Row {row_number}: roll number {roll_no!r} must be 4 to 20 letters or digits.")
+        raise ValueError(f"Row {row_number}: roll number {roll_no!r} must be exactly 9 digits.")
     return roll_no
 
 
