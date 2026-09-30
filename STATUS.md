@@ -1,0 +1,100 @@
+# Status: BIC/REC recruitment results
+
+_Last updated: 30 Sep 2026_
+
+The running record of this work across chats. **Read it before starting; update it before finishing.**
+It holds no secrets and no candidate data. This repo is public.
+
+## The two sites
+
+| | Results site | Club site |
+|---|---|---|
+| URL | https://bicrec-results.web.app | https://bicrec.web.app |
+| Repo | `Gofox85/result_bic` (this repo) | `SaIdEeVaN/BIC-REC_Site` |
+| Firebase | site `bicrec-results` in project `bicrec`, hosting target `results` | default site `bicrec` in the same project |
+| Deploy | every push to `main` (`.github/workflows/firebase-deploy.yml`): tests, then deploy | every push to `main`: lint + 4-shard Playwright, then deploy |
+| Deploy key | GitHub secret `FIREBASE_SERVICE_ACCOUNT` = key for `github-results-deploy@bicrec.iam.gserviceaccount.com` (roles: Firebase Hosting Admin, API Keys Viewer) | its own `FIREBASE_SERVICE_ACCOUNT` (the `firebase-adminsdk` account). **Don't touch it or its key.** |
+
+Both repos: **commit and push straight to `main`**, no branches or PRs (the user's rule). Every push is a production
+deploy, so run the checks first.
+
+## Current state
+
+- **Results site is live with sample data only.** Sample logins:
+  - `250701499@rajalakshmi.edu.in` / `250701499` (selected)
+  - `250701502@rajalakshmi.edu.in` / `250701502` (not selected)
+- **Club site Core Members page (`/team/core`) says "Results coming soon".** It's switched by
+  `RECRUITMENT_RESULTS_OPEN` in the club repo's `src/data/club.js` (now `false`). Set to `true`, the page shows
+  "Check your result" with a button to the results site. **The user will say when to open it.** Don't open it before
+  the real results are published, or every candidate gets "no match".
+- **Sign-in rules** (results form and Excel converter both enforce them):
+  - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
+  - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
+- **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
+- **Club Contact form:** checks the email format ("enter valid email id") but accepts any domain, because outside
+  partners write in through it. The user hasn't confirmed this yet (see below).
+
+## Waiting on the user
+
+1. **The results sheet** (Excel or CSV), one row per person interviewed:
+   `Email | Roll Number | Name | Department | Selected (Yes/No) | Role`. Role is needed only when selected. Use the
+   club's team names: Technical, Events, Design & Media, PR & Outreach, Content, Operations.
+2. **When to publish the results,** and separately, **when to open Core Members.**
+3. **The result-page messages** (`src/data/site.js` here): keep the current ones or send new text.
+4. **Contact form:** keep accepting any email (recommended), or college-only?
+5. **Old branches in this repo:** `feature/recruitment-results` and `claude/confident-mayer-k9hw1o`. Both are fully
+   merged; deleting them was blocked by session permissions, so the user deletes them or approves it.
+
+## How to do the pending work
+
+### Publish the real results (once the user sends the sheet)
+1. Keep the sheet out of the repo (`.gitignore` blocks `.xlsx`/`.csv`). Work from the scratchpad.
+2. Seal it. The system `cryptography` package is broken in this container, so use a venv:
+   ```sh
+   python3 -m venv /tmp/venv && /tmp/venv/bin/pip install -r requirements.txt
+   /tmp/venv/bin/python scripts/excel_to_json.py <sheet> src/data/results.json
+   ```
+   It prints selected / not-selected counts, or stops at the first bad row with its row number. Show the user the
+   counts and any bad rows.
+3. Spot-check a few real logins with `unlockResult` from `src/lib/resultVault.js` in node. Don't paste candidate
+   details anywhere public.
+4. Run `npm test && npm run build`, commit **only** `src/data/results.json`, and push to `main` **at the time the
+   user gives**. Watch the Actions run.
+5. Then ask whether to open Core Members.
+
+### Open Core Members ("make it available")
+In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build + the
+`team/core|Core Members` Playwright tests, and push to `main`. To close it again, set it back to `false`.
+
+### Checking work from this container
+- `*.web.app` is blocked from here. Confirm deploys through the GitHub Actions API/logs, and ask the user to check
+  the live page.
+- For Playwright, use the preinstalled Chromium: `executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'`.
+  Keep any local Playwright config **outside** the repo.
+- The club site's five `/achievements fits the viewport` checks fail **only here**: Google Fonts is blocked, so the
+  fallback font is wider. They pass in CI.
+- The GitHub check on this repo links to `results.web.app`. That's a naming quirk of Firebase's deploy action; the
+  real site is `bicrec-results.web.app`.
+
+## Decisions so far (and why)
+
+- **Results are encrypted per candidate.** Email + roll number go through PBKDF2 (150k rounds), which gives each
+  record's id and its AES-GCM key. Records are padded to one size, so `results.json` shows no names, emails, roll
+  numbers or selected count.
+  - The limit, which the user has been told: the roll number is the only secret. Anyone who knows someone's email
+    and roll number can see that person's result.
+- **UI follows the club's neo-brutalist design system** (`DESIGN_SYSTEM.md` in the club repo). Underlines are 2px,
+  the system's thinnest allowed line.
+- **Core Members history:** a redirect to the results site was tried first. The user then preferred a "Check your
+  result" button, and on 30 Sep asked for "coming soon" until results go out. That's why the page has a switch.
+
+## Log
+
+- **29 Sep:**
+  - Results site redesigned in the BIC/REC style, with email + roll number sign-in and encrypted results.
+  - Firebase site `bicrec-results` created and GitHub Action set up (the user did the console steps).
+  - First live deploy.
+- **29 Sep:** Club site Core Members: redirect, then replaced by a "Check your result" page.
+- **30 Sep:** Review feedback done on both sites: college-email and 9-digit validation, link underlines, and the
+  Contact-form email check.
+- **30 Sep:** Core Members back to "Results coming soon" behind `RECRUITMENT_RESULTS_OPEN`. This status file added.

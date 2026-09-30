@@ -1,5 +1,7 @@
 # Working in this repo
 
+- **Read `STATUS.md` first.** It records what's done, what's waiting on the user and how to do it, across this repo
+  and the club site (`SaIdEeVaN/BIC-REC_Site`). Update it before finishing any task.
 - Commit and push straight to `main`. Don't create feature branches or pull requests.
 - Every push to `main` deploys to Firebase (`bicrec-results.web.app`) via `.github/workflows/firebase-deploy.yml`.
   Run `npm test` and `npm run build` before every push.
