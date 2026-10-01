@@ -18,8 +18,11 @@ It holds no secrets and no candidate data. This repo is public.
 Both repos: **commit and push straight to `main`**, no branches or PRs (the user's rule). Every push is a production
 deploy, so run the checks first.
 
-Latest site change on `main`: results site `f451491` ("Remove the chain field background animation"), club site
-`firebase.json` no-cache change (1 Oct). This repo has only the `main` branch now.
+Latest change to each live site:
+- results site: `f451491` "Remove the chain field background animation" (later commits only touch this file);
+- club site: `11f066b` "Stop browsers caching the site's pages".
+
+This repo has only the `main` branch.
 
 ## Current state
 
@@ -33,9 +36,12 @@ Latest site change on `main`: results site `f451491` ("Remove the chain field ba
 - **Sign-in rules** (results form and Excel converter both enforce them):
   - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
   - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
-- **Caching:** both sites send `no-cache` for their pages, so deploys show up on the next visit. Hashed files under
-  `/assets/` are cached for a year. On the club site the rules are `/assets/**` and `!/assets/**`: keep them from
-  overlapping, because Firebase applies whichever matching rule is listed last.
+- **Caching** (`firebase.json` in each repo): pages are sent with `no-cache`, so a deploy shows up on the next visit
+  without a hard refresh. Hashed files under `/assets/` are cached for a year (`immutable`).
+  - Club site rules: `/assets/**` and `!/assets/**` (every page and public file).
+  - Results site rules: `/assets/**`, `/` and `**/*.html` (it's a single page at `/`).
+  - Keep Cache-Control rules from overlapping. Firebase applies whichever matching rule is listed **last**, which
+    was checked in the hosting emulator.
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
 - **Club Contact form:** checks the email format ("enter valid email id") but accepts any domain, because outside
   partners write in through it. The user hasn't confirmed this yet (see below).
@@ -85,6 +91,9 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   Keep any local Playwright config **outside** the repo.
 - The club site's five `/achievements fits the viewport` checks fail **only here**: Google Fonts is blocked, so the
   fallback font is wider. They pass in CI.
+- Test `firebase.json` changes before deploying: install `firebase-tools` in the scratchpad, copy the built `dist/`
+  and the `firebase.json` into a scratch folder, run `firebase emulators:start --only hosting --project demo-bicrec`
+  (a `demo-` project needs no login), and read the headers back with `curl -D -`.
 - The GitHub check on this repo links to `results.web.app`. That's a naming quirk of Firebase's deploy action; the
   real site is `bicrec-results.web.app`.
 
@@ -119,3 +128,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   repo; only `main` remains. STATUS.md brought up to date.
 - **1 Oct:** Confirmed both sites' code matches the last commits of 30 Sep (results `ae34b8d`, club `091ae3f`).
   Club site now tells browsers not to cache pages (`no-cache`), so changes show without a hard refresh.
+- **1 Oct:** STATUS.md checked against both repos and brought up to date. Nothing is in progress; the next step
+  is the user's results sheet and publish time.
