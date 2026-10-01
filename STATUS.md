@@ -18,6 +18,9 @@ It holds no secrets and no candidate data. This repo is public.
 Both repos: **commit and push straight to `main`**, no branches or PRs (the user's rule). Every push is a production
 deploy, so run the checks first.
 
+Latest commit on `main` when this was written: results site `f451491`, club site `a3540ac` (both "Remove the chain
+field background animation"). This repo has only the `main` branch now.
+
 ## Current state
 
 - **Results site is live with sample data only.** Sample logins:
@@ -42,8 +45,6 @@ deploy, so run the checks first.
 2. **When to publish the results,** and separately, **when to open Core Members.**
 3. **The result-page messages** (`src/data/site.js` here): keep the current ones or send new text.
 4. **Contact form:** keep accepting any email (recommended), or college-only?
-5. **Old branches in this repo:** `feature/recruitment-results` and `claude/confident-mayer-k9hw1o`. Both are fully
-   merged; deleting them was blocked by session permissions, so the user deletes them or approves it.
 
 ## How to do the pending work
 
@@ -66,7 +67,15 @@ deploy, so run the checks first.
 In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build + the
 `team/core|Core Members` Playwright tests, and push to `main`. To close it again, set it back to `false`.
 
+### Starting a new session
+- This repo is cloned at `/home/user/result_bic`. The club repo is a second repo: if `/home/user/bic-rec_site` is
+  missing, attach it with `add_repo` (owner `SaIdEeVaN`, repo `BIC-REC_Site`, **push** access; the user has
+  approved this before), clone it to `/home/user/bic-rec_site`, then `git pull` both before changing anything.
+- Python: `python3 -m venv` + `pip install -r requirements.txt` (the system `cryptography` package is broken).
+
 ### Checking work from this container
+- Deploy status: `curl -sS "https://api.github.com/repos/<owner>/<repo>/actions/runs?head_sha=<sha>"`, then
+  `.../actions/runs/<id>/jobs` for each job's result. This works from here for both repos.
 - `*.web.app` is blocked from here. Confirm deploys through the GitHub Actions API/logs, and ask the user to check
   the live page.
 - For Playwright, use the preinstalled Chromium: `executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'`.
@@ -103,3 +112,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **30 Sep:** Core Members back to "Results coming soon" behind `RECRUITMENT_RESULTS_OPEN`. This status file added.
 - **1 Oct:** Blockchain background animation added to both sites, made stronger, then reverted on both at the
   user's request (revert commits; the code is in the history if ever wanted).
+- **1 Oct:** The old branches (`feature/recruitment-results`, `claude/confident-mayer-k9hw1o`) are gone from this
+  repo; only `main` remains. STATUS.md brought up to date.
