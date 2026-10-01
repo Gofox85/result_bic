@@ -110,3 +110,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   Contact-form email check.
 - **30 Sep:** Core Members back to "Results coming soon" behind `RECRUITMENT_RESULTS_OPEN`. This status file added.
 - **1 Oct:** Blockchain background animation (the chain field) added to every page of both sites.
+- **1 Oct:** Chain field made stronger at the user's request: darker tints, more transactions, blocks mined
+  every 1.1–1.9s (was 1.5–2.5s), up to 4 at once.

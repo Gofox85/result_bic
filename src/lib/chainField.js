@@ -17,9 +17,9 @@
 
 const TONES = {
   // Bone stepped towards ink, for bone sections.
-  bone: { ground: '#EDE6D8', link: '#D7D1C4', node: '#C8C2B6', packet: '#9F998F', label: '#807C73', block: '#D9A441' },
+  bone: { ground: '#EDE6D8', link: '#CAC4B8', node: '#B5AFA4', packet: '#807C73', label: '#66625B', block: '#D9A441' },
   // Ink stepped towards bone, for ink sections.
-  ink: { ground: '#14110E', link: '#2A2622', node: '#3B3732', packet: '#625E57', label: '#807C73', block: '#D9A441' },
+  ink: { ground: '#14110E', link: '#37332E', node: '#4C4842', packet: '#807C73', label: '#9B958B', block: '#D9A441' },
 }
 
 const GENESIS = Date.UTC(2025, 7, 1) // the club's first block, as in the club site footer's block clock
@@ -30,12 +30,12 @@ const NODE = 14 // block size, px
 const PACKET = 6 // transaction size, px
 const RULE = 2 // the system's thinnest rule
 const DENSITY = 0.42 // share of grid points holding a block
-const SPEED = 0.07 // px per ms for a transaction in flight
+const SPEED = 0.08 // px per ms for a transaction in flight
 const MINE_MS = 900 // the hash churns this long before the block seals
 const HOP_MS = 560 // one link of a broadcast
 const HOLD_MS = 1600 // the sealed block and its peers stay lit this long after the last hop
 const HOPS = 2
-const MAX_EVENTS = 3
+const MAX_EVENTS = 4
 const HEX = '0123456789abcdef'
 const LABEL_FONT = '500 11px "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace'
 
@@ -182,7 +182,7 @@ export function startChainField(canvas, { tone = 'bone', animate = true } = {}) 
 
     busy.clear()
     events = []
-    const count = Math.max(4, Math.round(field.links.length / 6))
+    const count = Math.max(5, Math.round(field.links.length / 4))
     packets = Array.from({ length: Math.min(count, field.links.length) }, () => launchPacket(performance.now(), true))
     nextEventAt = performance.now() + 500
     return true
@@ -370,7 +370,7 @@ export function startChainField(canvas, { tone = 'bone', animate = true } = {}) 
     if (now >= nextEventAt && events.length < MAX_EVENTS) {
       const ev = mine(now)
       if (ev) events.push(ev)
-      nextEventAt = now + 1500 + Math.random() * 1000
+      nextEventAt = now + 1100 + Math.random() * 800
     }
   }
 
