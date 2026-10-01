@@ -18,8 +18,8 @@ It holds no secrets and no candidate data. This repo is public.
 Both repos: **commit and push straight to `main`**, no branches or PRs (the user's rule). Every push is a production
 deploy, so run the checks first.
 
-Latest commit on `main` when this was written: results site `f451491`, club site `a3540ac` (both "Remove the chain
-field background animation"). This repo has only the `main` branch now.
+Latest site change on `main`: results site `f451491` ("Remove the chain field background animation"), club site
+`firebase.json` no-cache change (1 Oct). This repo has only the `main` branch now.
 
 ## Current state
 
@@ -33,6 +33,9 @@ field background animation"). This repo has only the `main` branch now.
 - **Sign-in rules** (results form and Excel converter both enforce them):
   - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
   - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
+- **Caching:** both sites send `no-cache` for their pages, so deploys show up on the next visit. Hashed files under
+  `/assets/` are cached for a year. On the club site the rules are `/assets/**` and `!/assets/**`: keep them from
+  overlapping, because Firebase applies whichever matching rule is listed last.
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
 - **Club Contact form:** checks the email format ("enter valid email id") but accepts any domain, because outside
   partners write in through it. The user hasn't confirmed this yet (see below).
@@ -114,3 +117,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   user's request (revert commits; the code is in the history if ever wanted).
 - **1 Oct:** The old branches (`feature/recruitment-results`, `claude/confident-mayer-k9hw1o`) are gone from this
   repo; only `main` remains. STATUS.md brought up to date.
+- **1 Oct:** Confirmed both sites' code matches the last commits of 30 Sep (results `ae34b8d`, club `091ae3f`).
+  Club site now tells browsers not to cache pages (`no-cache`), so changes show without a hard refresh.
