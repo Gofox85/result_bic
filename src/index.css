@@ -32,7 +32,8 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#root { display: flex; min-height: 100vh; flex-direction: column; }
+/* Isolated, so the chain field (z-index -1) sits above the page background but below everything on it. */
+#root { display: flex; min-height: 100vh; flex-direction: column; isolation: isolate; }
 main { flex: 1; }
 
 h1, h2, h3, p, dl, dd, ol, ul { margin: 0; }
@@ -405,7 +406,11 @@ img { display: block; }
 .fill-up:is(:hover, :focus-visible)::before { transform: scaleY(1); }
 
 /* Footer */
-.site-footer { border-top: 3px solid var(--bone); background: var(--ink); color: var(--bone); }
+.site-footer { position: relative; isolation: isolate; border-top: 3px solid var(--bone); background: var(--ink); color: var(--bone); }
+
+/* The animated chain (components/ChainField.jsx). Fixed behind the page, or filling one ink section. */
+.chain-field { position: fixed; z-index: -1; inset: 0; display: block; width: 100%; height: 100%; pointer-events: none; }
+.chain-field.is-contained { position: absolute; }
 .footer-grid { display: grid; gap: 48px; }
 .footer-wordmark { display: inline-block; }
 .footer-blurb { max-width: 38ch; margin-top: 20px; }

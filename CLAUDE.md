@@ -8,6 +8,7 @@
 - Deploy only through the `results` hosting target. Never deploy to the project's default site: that is the
   club's main site, bicrec.web.app.
 - Never commit a candidate sheet (`.xlsx` / `.csv`). Only the sealed `src/data/results.json` goes in the repo.
+- `src/lib/chainField.js` (the background animation) is shared with the club site: keep both copies identical.
 - `src/lib/resultVault.js` (browser) and `scripts/excel_to_json.py` (sealer) share one format. Change them together;
   `tests/resultVault.test.js` checks they still agree.
 - The UI follows the BIC/REC neo-brutalist design system from the club site
