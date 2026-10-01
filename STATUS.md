@@ -31,17 +31,6 @@ deploy, so run the checks first.
   - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
   - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
-- **Background animation on both sites, every page** ("the chain field"):
-  - What it shows: a faint lattice of blocks and links; transactions travel the links; every couple of seconds a
-    block is mined (`mining · 0x…`), seals amber (`block #… · sealed`) and is broadcast two hops to its peers.
-  - Where: a bone field is fixed behind each page, and ink sections carry their own. On the club site that's the
-    footer, InkCTA, and the Home, Projects and Core Members ink sections; on this site, the footer.
-  - Blocks are only mined where nothing on the page sits on top (no text, controls, panels or rules). Crowded pages,
-    like most pages on a phone, get blocks without the text label.
-  - Cost: 24fps, repaints only the patches that changed, pauses off screen and in background tabs, and shows a
-    still frame under reduced motion.
-  - Code: `src/lib/chainField.js` (engine, **identical copy in both repos**) and `ChainField.jsx` in each.
-    Colours are documented in the club repo's `DESIGN_SYSTEM.md` ("grain tints").
 - **Club Contact form:** checks the email format ("enter valid email id") but accepts any domain, because outside
   partners write in through it. The user hasn't confirmed this yet (see below).
 
@@ -96,6 +85,9 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
     and roll number can see that person's result.
 - **UI follows the club's neo-brutalist design system** (`DESIGN_SYSTEM.md` in the club repo). Underlines are 2px,
   the system's thinnest allowed line.
+- **No background animation.** A blockchain background (an animated field of blocks and links behind every page)
+  was added to both sites on 1 Oct and removed the same day: the user didn't like how it looked. Don't bring
+  back background animation unless the user asks for it again.
 - **Core Members history:** a redirect to the results site was tried first. The user then preferred a "Check your
   result" button, and on 30 Sep asked for "coming soon" until results go out. That's why the page has a switch.
 
@@ -109,6 +101,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **30 Sep:** Review feedback done on both sites: college-email and 9-digit validation, link underlines, and the
   Contact-form email check.
 - **30 Sep:** Core Members back to "Results coming soon" behind `RECRUITMENT_RESULTS_OPEN`. This status file added.
-- **1 Oct:** Blockchain background animation (the chain field) added to every page of both sites.
-- **1 Oct:** Chain field made stronger at the user's request: darker tints, more transactions, blocks mined
-  every 1.1–1.9s (was 1.5–2.5s), up to 4 at once.
+- **1 Oct:** Blockchain background animation added to both sites, made stronger, then reverted on both at the
+  user's request (revert commits; the code is in the history if ever wanted).

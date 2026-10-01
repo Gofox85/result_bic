@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CLUB_EMAIL, CLUB_INSTAGRAM, CLUB_LINKEDIN, CLUB_SITE, RECRUITMENT_YEAR } from '../data/site.js';
 import { pad2, sealedDate } from '../lib/chain.js';
-import ChainField from './ChainField.jsx';
 import { Desync, Roll } from './motion.jsx';
 
 const socialLinks = [
@@ -37,7 +36,6 @@ function BlockClock() {
 export default function Footer({ published }) {
   return (
     <footer className="site-footer on-ink">
-      <ChainField tone="ink" contained />
       <div className="wrap section footer-grid">
         <div>
           <a className="t-cta footer-wordmark" href={CLUB_SITE}><Desync text="BIC/REC" /></a>

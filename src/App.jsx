@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ChainField from './components/ChainField.jsx';
 import Footer from './components/Footer.jsx';
 import HowItWorks from './components/HowItWorks.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -100,7 +99,6 @@ export default function App() {
 
   return (
     <>
-      <ChainField />
       <a className="skip-link" href="#check">Skip to the result checker</a>
       <Ticker published={vault.published} />
       <Navbar />
