@@ -353,7 +353,7 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct:** Official domain names applied on both sites, the release file re-sealed with them, and the three
   scheduled tasks updated. Checked: all 244 logins, the 08:00 unlock command, page layouts at 360–1280px with the
   47-member roster filled in temporarily, and the club e2e suite (only the five known `/achievements` font checks fail).
-- **2 Oct:** Gallery restored on both sites for the club's real photos (see "Photos: ON HOLD"). Drive was still
+- **2 Oct:** Gallery restored on both sites for the club's real photos (see "Gallery"). Drive was still
   blocked from this container at that point; the user then allowed it.
 - **2 Oct:** Drive access working. Batch 1 download started, then stopped at 97 of 266 when the user said to leave
   the gallery part for now. Photos on hold; the Gallery page is unchanged (placeholders).
