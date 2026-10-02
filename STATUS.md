@@ -177,6 +177,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   Club site now tells browsers not to cache pages (`no-cache`), so changes show without a hard refresh.
 - **1 Oct:** STATUS.md checked against both repos and brought up to date. Nothing is in progress; the next step
   is the user's results sheet and publish time.
+- **2 Oct:** Unused-file sweep of both repos (import graph from every entry point, barrel exports, member photos):
+  only `.env.example` here was unused, and it's deleted. The club repo had nothing unused.
 - **2 Oct:** Go-live set by the user for 3 Oct 08:00 IST. Locked release file committed, and the 07:30 pre-flight
   and 08:00 release scheduled.
 - **2 Oct:** Real data received (4 shortlist sheets + selection list, then the master sheet as source of truth).
