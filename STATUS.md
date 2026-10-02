@@ -11,7 +11,8 @@ It holds no secrets and no candidate data. This repo is public.
 - **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
   (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
 - **Club site:** team split into Board (8), Core (16) and Associates, with "Meet us"; official domain names; one
-  faculty coordinator; no Join us; Gallery has real albums (the first: the KBAIC inauguration, 18 Sep 2025).
+  faculty coordinator; no Join us; Gallery has 2 real albums (Decode Blockchain, 15 Oct 2025; the KBAIC
+  inauguration, 18 Sep 2025).
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   07:30 pre-flight check → 08:00 real results live + Associates page says "Check your result" → 10:00 the 47
   associates listed. All three were confirmed enabled at the end of 2 Oct.
@@ -35,7 +36,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `068b1c6`, KBA spelled out as the Kerala Blockchain Academy everywhere. Before it: `8c202d1` (four
+- club site: `c2e5ee0`, the Gallery's Decode Blockchain album. Before it: `068b1c6` (KBA spelled out as the
+  Kerala Blockchain Academy everywhere), `8c202d1` (four
   more photos in the Gallery's first album, nine now, see "Gallery"),
   `8c165b2` (the Gallery's first real album), `52bd3b5` (Join us removed,
   Kabilan S removed from the Technical team), `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
@@ -127,6 +129,12 @@ This repo has only the `main` branch.
     titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
     2 Oct whether to rename them (e.g. "Technical Lead"); no answer yet.
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
+  - **Decode Blockchain**, **15 October 2025**: the club's **first event** (the user), a hands-on workshop organised
+    by the Blockchain Innovation Club with the Department of CSE ("BIC × … Workshop" on the screen, theme
+    "Unlocking the Future of Blockchain"). 5 photos from the chat: the group in front of the workshop screen
+    (lead), participants at laptops, the big group photo, the team with the speaker, six members under the palms.
+    Neutral captions, nobody named. It is **not on the Events page** (which lists Jan–May 2026 events only);
+    offered to the user to add it.
   - **Album 1:** "KBAIC Inauguration Ceremony", **18 September 2025**: the start of the club (as KBA Club REC,
     since renamed the Blockchain Innovation Club) and the inauguration of its **first board** (the user, 2 Oct),
     with the Department of CSE, theme "Unlocking the Future of Blockchain". 9 photos the user sent in the chat on
@@ -251,7 +259,9 @@ above). The user only needs to keep this chat session (not archive it).
 Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 - **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
-- **Gallery:** more albums to come from the user. For album 1: names for the people in the photos (optional).
+- **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
+- **Events page:** Decode Blockchain (15 Oct 2025, the club's first event) isn't listed there. Add it if the user
+  gives the details (time, venue, speaker, a short write-up).
 - **WhatsApp group name:** the selected results say "the club's WhatsApp group". If the group has a name (e.g.
   "BIC/REC Associates"), it can go in `SELECTED_NEXT_STEPS` in `src/data/site.js`.
 
@@ -385,3 +395,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   the description says the first board was inaugurated too. Gallery tests pass at every width.
 - **2 Oct:** KBA is the Kerala Blockchain Academy (the user). "Association" corrected to "Academy" on both sites
   (8 places), and the inauguration album spells it out.
+- **2 Oct:** Gallery album "Decode Blockchain" (15 Oct 2025, the club's first event, 5 photos) added above the
+  inauguration. Gallery tests pass at every width.
