@@ -8,7 +8,8 @@ It holds no secrets and no candidate data. This repo is public.
 ## At a glance (end of 2 Oct)
 
 - **Both repos are pushed to `main` and deployed** (results `Gofox85/result_bic`, club `SaIdEeVaN/BIC-REC_Site`).
-- **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in.
+- **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
+  (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
 - **Club site:** team split into Board (8), Core (16) and Associates, with "Meet us"; official domain names; one
   faculty coordinator; no Join us; Gallery shows placeholders.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
@@ -30,7 +31,8 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site (both deploys succeeded):
-- results site: `b152d21`, the club's new result messages (see "Result-page messages"). Before it: `b8d470d` (official
+- results site: `3b2011f`, WhatsApp in the selected results' next steps. Before it: `b152d21` (the club's new result
+  messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
 - club site: `52bd3b5`, Join us removed (recruitment is over) and Kabilan S removed from the Technical team. Before
@@ -248,6 +250,8 @@ Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 - **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Photos / Gallery:** on hold until the user brings it up (see "Photos: ON HOLD").
+- **WhatsApp group name:** the selected results say "the club's WhatsApp group". If the group has a name (e.g.
+  "BIC/REC Associates"), it can go in `SELECTED_NEXT_STEPS` in `src/data/site.js`.
 
 ## How to do the pending work
 
