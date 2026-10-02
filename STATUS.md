@@ -15,10 +15,10 @@ It holds no secrets and no candidate data. This repo is public.
     group led by the new Media Director, Mohammed Irfan S) and Associates (empty until 13:00 on 3 Oct), with
     "Meet us". **Every board and core member has a photo.** Titles use the official domain names. One faculty
     coordinator. Padma Priya J and Kabilan S removed.
-  - **Gallery:** 5 real albums, 34 photos (DeFi Unlocked, 11 Apr 2026; Hack to Blockchain, 13 Feb 2026; European
-    Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC inauguration, 18 Sep 2025), each
-    with its own page (`/gallery/<slug>`).
-  - **Events:** the club's 6 real events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery"
+  - **Gallery:** 6 real albums, 37 photos (DeFi Unlocked, 11 Apr 2026; Hack to Blockchain, 13 Feb 2026; Home of
+    Hope Visit, 26 Jan 2026; European Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC
+    inauguration, 18 Sep 2025), each with its own page (`/gallery/<slug>`).
+  - **Events:** the club's 7 real events (those 6 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery"
     button opens its album page. Home and Achievements count their figures from this list.
   - No Join us, no News page.
 - **Both sites stay light on phones set to dark mode** (the user, 2 Oct): they declare `color-scheme: only light`
@@ -51,7 +51,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `f84d736`, light by default on phones set to dark mode. The 2 Oct changes before it, newest first:
+- club site: `e2d1a93`, the Home of Hope visit (album and event). The 2 Oct changes before it, newest first:
+  - `f84d736`: light by default on phones set to dark mode.
   - `1ff5b47`: the event button reads "Explore gallery".
   - `de391ef`, `cd9e0f6`: member photos (every board and core member has one now); Pavithra J moved to the core
     board; Padma Priya J removed.
@@ -163,10 +164,17 @@ This repo has only the `main` branch.
     Co-Head of Design, Design Co-Lead, Digital Media Co-Lead), and so does Frontend Lead. All the media titles are settled
     (see the Media group above).
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
-  5 albums, 34 photos. **Each album also has its own page**, `/gallery/<slug>` (the user, 2 Oct: an event's photos
+  6 albums, 37 photos. **Each album also has its own page**, `/gallery/<slug>` (the user, 2 Oct: an event's photos
   should open that event's gallery, not the whole page): back link to all albums, date and count, title,
   description, tags, "About the event →", the photos and the full view. Album titles on `/gallery` link there; an
   unknown slug says "Album not found". Each album page has its own share tags and is in the sitemap.
+  - **Home of Hope Visit**, **26 January 2026** (the user): the club's visit to Home of Hope Children's Home near
+    Porur, a unit of the Rose Bedeiah Foundation (30 children, 7 staff). 3 photos from the chat (cut from a social
+    post: its pink rounded frame trimmed off), in this order: the team outside the home (lead), introductions with
+    the children, everyone in one circle. **Every child whose face could be made out is blurred** (10 faces in
+    profile across photos 2 and 3; the rest face away). The user wasn't asked to confirm consent for the children;
+    blurring was the safe default, and the album says so. If the home has approved the photos, the unblurred
+    trims are in the scratchpad (`orphanage/src-43.png`, `src-44.png`) and the originals are `images/43–45.jpg`.
   - **DeFi Unlocked**, **11 April 2026**, a workshop (the user). 3 photos from the chat: the speaker deploying a
     contract from Remix with MetaMask on Sepolia (lead), a full lab, a club member hosting Q&A in front of the
     closing slide. **The closing slide showed the speaker's phone number; it was painted over** (filled with the
@@ -229,22 +237,27 @@ This repo has only the `main` branch.
   1. KBAIC Inauguration Ceremony, 18 Sep 2025 (type Inauguration)
   2. Decode Blockchain, 15 Oct 2025 (Workshop)
   3. European Immersion Program, 6 Jan 2026 (Immersion Program)
-  4. **Byte the Dust: A Cyber Forensics**, 12 Feb 2026: a cyber forensics challenge (the user): each team was
+  4. **Home of Hope Visit**, 26 Jan 2026 (Outreach), at Home of Hope Children's Home, near Porur. Added on 2 Oct,
+     which moved the three later events up one block number (their addresses too: `/events/5`–`/events/7`).
+  5. **Byte the Dust: A Cyber Forensics**, 12 Feb 2026: a cyber forensics challenge (the user): each team was
      given a case and applied the process of cyber and digital forensics to identify, preserve, analyse and
      document what happened. No photos or venue yet.
-  5. Hack to Blockchain, 13 Feb 2026
-  6. **DeFi Unlocked**, 11 Apr 2026 (Workshop). Speaker: Janakiraman K, Cryptocortex Crew (from the closing
+  6. Hack to Blockchain, 13 Feb 2026
+  7. **DeFi Unlocked**, 11 Apr 2026 (Workshop). Speaker: Janakiraman K, Cryptocortex Crew (from the closing
      slide; the user confirmed naming him).
   - Fields: `time`, `venue`, `highlights`, `speakers`, `certificate` are optional (only what's known is shown);
     `album` is the gallery slug. An event with an album shows four of its photos and an "Explore gallery" button, which
-    opens the album's own page (`/gallery/<slug>`); without one it says "Photos pending". The filter tabs are built from the events' types.
+    opens the album's own page (`/gallery/<slug>`); without one it says "Photos pending". The photo strip has as many
+    columns as photos (up to four). The filter tabs are built from the events' types.
+  - Events are numbered in date order (`id` = block number). An event added between two others takes its place in
+    the order and the later ones move up one, so the chain stays in date order.
   - Types: Byte the Dust and Hack to Blockchain are "Technical Event", and the inauguration is listed as an
     event (both confirmed by the user). Venues are "Rajalakshmi Engineering College" for the five with photos (they
     show REC), none for Byte the Dust. No times anywhere.
   - **The club's figures follow this list** (the user: the Events page count matters): `stats` in club
-    `src/data/achievements.js` counts `events` (every event: 6), `workshops` (type Workshop: 2) and
-    `immersionPrograms` (type Immersion Program: 1) from `events.js`. Home shows "6 events & workshops"; the
-    Achievements page shows 6 events, 2 workshops, 1 immersion program. Home's "working force of N members" is read
+    `src/data/achievements.js` counts `events` (every event: 7), `workshops` (type Workshop: 2) and
+    `immersionPrograms` (type Immersion Program: 1) from `events.js`. Home shows "7 events & workshops"; the
+    Achievements page shows 7 events, 2 workshops, 1 immersion program. Home's "working force of N members" is read
     from the roster too (it said 25; there are 24). Add an event and every count follows.
   - Home's "Events that define us" shows the three most recent; the "next event" card says "coming soon" (all past).
   - **No News page** (removed on 2 Oct at the user's word; it only had the template's made-up items): page, data,
@@ -356,12 +369,8 @@ Open, not blocking (asked on 2 Oct; change only if they answer):
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
 - **Events:** Byte the Dust's venue and photos; times and venues for the others, if they have them.
-- **Orphanage visit (waiting on the date):** the user sent 3 photos and the details: a visit to **Home of Hope
-  Children's Home** (a unit of the Rose Bedeiah Foundation), near Porur; 30 children, 7 staff. No date given, and
-  the photos carry none, so it isn't published yet. Ready in the scratchpad (`orphanage/out/`, frames trimmed, no
-  metadata; order: the team's group photo outside, then the two photos inside with the children). Asked for the
-  date, and whether the home is fine with the children being recognisable (a few boys' faces show in photo 2;
-  most children face away); offered to blur them. Then: album + event (type e.g. "Outreach"), push.
+- **Home of Hope photos:** the children's faces are blurred by default. If the home has approved the photos, the
+  user can say so and the unblurred versions go up (see "Gallery").
 
 ## How to do the pending work
 
@@ -529,3 +538,6 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   that event's album page.
 - **2 Oct (night):** Both sites declare "only light", so phones in dark mode no longer repaint them dark (the club's
   own dark theme still works). Orphanage visit photos prepared, waiting on its date.
+- **2 Oct (night):** Home of Hope visit (26 Jan 2026) added as an album and an event (block #0004; the three later
+  events moved up one). Children's faces blurred. Event photo strips fit their photo count. Swept both sites for
+  stale links and names (removed pages, old event addresses, removed members): nothing left.
