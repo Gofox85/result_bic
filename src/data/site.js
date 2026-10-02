@@ -13,7 +13,7 @@ export const SELECTED_CLOSING = 'The journey starts now.';
 
 // Shown under a selected result's details.
 export const SELECTED_NEXT_STEPS =
-  'Keep an eye on your college email — the core team will reach out with onboarding details and the date of your first meet.';
+  'Keep an eye on your college email and WhatsApp. The core team will share your onboarding details and the date of your first meet, and invite you to the club’s WhatsApp group.';
 
 // Shown under a not-selected result.
 export const NOT_SELECTED_MESSAGE =

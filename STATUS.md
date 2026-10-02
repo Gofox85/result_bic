@@ -177,8 +177,9 @@ This repo has only the `main` branch.
   BIC/REC", an em dash). The user said Claude may refine them.
   - Selected, under the title: "A new block has been added to the chain! Congratulations on being selected as a/an
     **<role>**. The journey starts now." (`SELECTED_OPENING` + the role sentence in `ResultCard.jsx` +
-    `SELECTED_CLOSING`.) The next-steps line ("Keep an eye on your college email…", `SELECTED_NEXT_STEPS`) stays
-    under the details.
+    `SELECTED_CLOSING`.) Under the details, the next steps (`SELECTED_NEXT_STEPS`, WhatsApp added at the user's
+    request on 2 Oct): "Keep an eye on your college email and WhatsApp. The core team will share your onboarding
+    details and the date of your first meet, and invite you to the club's WhatsApp group."
   - Not selected (`NOT_SELECTED_MESSAGE`): "Thank you for applying to BIC/REC. We truly value your interest and
     participation. Although you weren't selected this time, our events and workshops stay open to everyone — come
     build with us."
@@ -370,3 +371,4 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   from the Technical team. Club e2e suite passes apart from the five known `/achievements` font checks.
 - **2 Oct (end of day):** STATUS.md checked again: both repos in sync with `main`, the three 3 Oct tasks enabled
   (07:30, 08:00, 10:00 IST). Added "At a glance".
+- **2 Oct:** Selected results' next steps now mention WhatsApp and the club's WhatsApp group (the user's request).
