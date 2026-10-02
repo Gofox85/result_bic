@@ -16,8 +16,9 @@ It holds no secrets and no candidate data. This repo is public.
   inauguration, 18 Sep 2025), each with its own page (`/gallery/<slug>`). The Events page lists the club's 6 real
   events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "See all N photos" opens its album page.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
-  07:30 pre-flight check → 08:00 real results live + Associates page says "Check your result" → 10:00 the 47
-  associates listed. All three were confirmed enabled at the end of 2 Oct.
+  10:30 pre-flight check → **11:00 real results live** + Associates page says "Check your result" → 13:00 the 47
+  associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
+  tasks were moved together (they were 07:30 / 08:00 / 10:00) and confirmed enabled at the new times.
 - **Open, not blocking:** see "Waiting on the user". More gallery albums are coming from the user.
 
 ## The two sites
@@ -56,39 +57,42 @@ Latest change to each live site (both deploys succeeded):
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
 on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: ask the user.
 
-## Release scheduled: 3 Oct 2026, 08:00 IST (02:30 UTC)
+## Release scheduled: 3 Oct 2026, 11:00 IST (05:30 UTC)
 
 - **The file:** `release/results.json.enc` is the verified, sealed `results.json` (244 records), encrypted again
   (AES-256-GCM) with a random key that is **not in this repo**. It was re-sealed on 2 Oct (`b8d470d`) with the official
-  domain names in the roles, every login re-verified, and locked again with the same key. The 07:30 and 08:00 tasks
-  were updated with the new file's checksum, and the 10:00 task with the new team names. It's in the repo so the
+  domain names in the roles, every login re-verified, and locked again with the same key. The pre-flight and go-live tasks
+  were updated with the new file's checksum, and the associates task with the new team names. It's in the repo so the
   release survives a reset session. It isn't part of the built site, and it's useless without the key.
 - **Three scheduled tasks (`send_later`) wake this session**, so the user doesn't need to give a notice. The key, the
   expected sha256, the associates list and the exact steps are in their messages, which are private to the user's account.
   They don't depend on the scratchpad: the unlock uses plain `node` crypto. All three were checked on 2 Oct (enabled,
-  right times), and the 08:00 and 10:00 ones again after the team split. **This chat session must not be archived or
-  deleted before 10:00 IST on 3 Oct**, since the tasks wake it. The user can close the app; that's fine.
-  - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 07:30 IST: pre-flight. Checks the workflow is enabled, unlocks the file into the
+  right times), the go-live and associates ones again after the team split, and all three were moved on the
+  evening of 2 Oct when the user changed the release from 08:00 to 11:00 IST. **This chat session must not be
+  archived or deleted before 13:00 IST on 3 Oct**, since the tasks wake it. The user can close the app; that's fine.
+  - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 10:30 IST (05:00 UTC): pre-flight. Checks the workflow is enabled, unlocks the file into the
     scratchpad, dry-runs both builds, and alerts the user if anything's wrong.
-  - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, 08:00 IST: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
+  - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, **11:00 IST (05:30 UTC)**: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
     removes `release/` and pushes. Then sets `RECRUITMENT_RESULTS_OPEN = true` on the club site (which opens the
     Associates page, `/team/associates`) and pushes, watches both deploys, and tells the user.
-  - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 10:00 IST: the associates. Fills `src/data/associates.js` in the club repo
-    with the 47 new associates (the list is in the task's private message), then pushes and tells the user. It
-    first checks that the 08:00 release happened. (Updated on 2 Oct for the team split: it used to fill
+  - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 13:00 IST (07:30 UTC): the associates. Fills `src/data/associates.js` in the
+    club repo with the 47 new associates (the list is in the task's private message), then pushes and tells the
+    user. It first checks that the 11:00 release happened. It kept its two-hour gap after the release: the list
+    names who was selected, so it must never go up before the results. (The user may want a different time; any
+    time after 11:00 is fine.) (Updated on 2 Oct for the team split: it used to fill
     `src/data/coreMembers.js`, which is now `associates.js`.)
 - **To move or cancel the release:** `update_trigger` with a new `run_once_at` (keeps the message), or `delete_trigger`
   the IDs. Move all three together: the associates list waits for the release, and the pre-flight comes 30 minutes
   before it.
 - **Where the selected members' details are:** not in either repo in readable form (both are public). The user
   has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
-  From 10:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
+  From 13:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
 
 This repo has only the `main` branch.
 
 ## Current state
 
-- **Results site is live with sample data only** until 08:00 IST on 3 Oct. Sample logins:
+- **Results site is live with sample data only** until 11:00 IST on 3 Oct. Sample logins:
   - `250701499@rajalakshmi.edu.in` / `250701499`: selected, Technical Associate
   - `250701501@rajalakshmi.edu.in` / `250701501`: selected, Design Associate
   - `250701502@rajalakshmi.edu.in` / `250701502`: not selected
@@ -104,9 +108,9 @@ This repo has only the `main` branch.
   - **Associate members** (`/team/associates`): the new recruits ("associates"). This is the recruitment page that
     used to be `/team/core`: it says **"Results coming soon"** until `RECRUITMENT_RESULTS_OPEN` (club
     `src/data/club.js`, now `false`) is set to `true`, then "Check your result" with a button to the results site.
-    The 08:00 task opens it right after the results go live; don't open it before, or every candidate gets "no
+    The 11:00 task opens it right after the results go live; don't open it before, or every candidate gets "no
     match". Its roster (domain tabs, a card per associate with name, department and "<domain> Associate") renders
-    only when `associates` in `src/data/associates.js` is non-empty. It's empty now; the 10:00 task fills it.
+    only when `associates` in `src/data/associates.js` is non-empty. It's empty now; the 13:00 task fills it.
   - **Meet us**: a section with three cells linking to the three pages (`src/components/MeetUs.jsx`, data in
     `src/data/teams.js`). It's its own page (`/team`, "Meet us" in the main menu), sits on Home and About, and ends
     each team page with the current team inked. The associates' cell says "results soon"/"results are live" until
@@ -265,7 +269,7 @@ This repo has only the `main` branch.
   matching CSS delays in `index.css`. The user asked for it faster, so it now takes about 1.7s from click to the full
   result (was 2.5s), including the 0.5s minimum unlock wait (`MIN_UNLOCK_MS`, was 0.7s).
 
-## Results data: ready, release scheduled for 3 Oct 08:00 IST
+## Results data: ready, release scheduled for 3 Oct 11:00 IST
 
 **Source of truth:** the master form-response sheet ("BIC Recruitment 2026-27 Responses"), which the user says is
 100% correct. It supplies every email, roll number, name and department.
@@ -296,7 +300,7 @@ survive a reset, and the release doesn't need it):
 If the scratchpad is gone and the data has to be rebuilt, ask the user to re-upload the master sheet and the
 selection list, then redo the matching.
 
-**Go-live steps:** automated by the 08:00 task. If it ever has to be done by hand, follow that task's message (it has
+**Go-live steps:** automated by the 11:00 task. If it ever has to be done by hand, follow that task's message (it has
 the key):
 1. Results site: unlock `release/results.json.enc` into `src/data/results.json`, check the sha256, run
    `npm test && npm run build`, `git rm -r release`, commit and push. **Check the deploy workflow is enabled first**
@@ -307,7 +311,7 @@ the key):
 
 ## Waiting on the user
 
-Nothing blocks the launch: the 07:30 check, the 08:00 release and the 10:00 associates list are scheduled (see
+Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 associates list are scheduled (see
 above). The user only needs to keep this chat session (not archive it).
 
 Open, not blocking (offered to the user on 2 Oct; change only if they answer):
@@ -337,7 +341,7 @@ Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 3. Spot-check a few real logins with `unlockResult` from `src/lib/resultVault.js` in node. Don't paste candidate
    details anywhere public.
 4. Run `npm test && npm run build`, commit **only** `src/data/results.json`, and push to `main` **at the time the
-   user gives** (before the release, a push makes it live early; re-lock it instead and update the 08:00 task).
+   user gives** (before the release, a push makes it live early; re-lock it instead and update the go-live task).
    Watch the Actions run.
 
 ### Open the Associates page ("make it available"; it used to be Core Members)
@@ -467,3 +471,6 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   phone number on a slide painted out. Every album now has its own page (`/gallery/<slug>`) and an event's photos
   open it (the user). The album grid handles any photo count. Club e2e passes apart from the five known
   `/achievements` font checks.
+- **2 Oct (evening):** The user moved the results release from 08:00 to **11:00 IST** on 3 Oct. The three tasks
+  were moved together: pre-flight 10:30, go-live 11:00, associates list 13:00 (still two hours after the release).
+  The sealed file needs no change (its `published` value is a date, not a time) and no page mentions 8 AM.
