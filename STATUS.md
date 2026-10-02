@@ -39,8 +39,9 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `4ea9a03`, DeFi Unlocked (album and event) and a page of its own for every album (see "Gallery").
-  Before it: `e3ea5da` (the Events page lists the club's real events, linked to their albums, see "Events page"),
+- club site: `3f7a0b3`: Byte the Dust's write-up, the club's figures counted from the Events page, the News
+  page removed, core team titles in the official domain names (see "Events page" and "Club team pages"). Before
+  it: `4ea9a03` (DeFi Unlocked, and a page of its own for every album, see "Gallery"), `e3ea5da` (the Events page lists the club's real events, linked to their albums, see "Events page"),
   `e26ea0f` (Gallery albums European Immersion Program and Hack to Blockchain, and a grid
   that fits any photo shape), `65bf931` (four more Decode Blockchain photos), `c2e5ee0` (the Gallery's Decode
   Blockchain album), `068b1c6` (KBA spelled out as the
@@ -136,8 +137,12 @@ This repo has only the `main` branch.
     The core team's groups on `/team/core` follow the same order.
   - Club core team page (`/team/core`) group headings, in this order: Event, PR and Outreach, Technical, Design,
     Research and Innovation, and "Visual and Digital Media" (one group of media leads covering both). People's own
-    titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
-    2 Oct whether to rename them (e.g. "Technical Lead"); no answer yet.
+    titles use the official domain names (the user said yes on 2 Oct): PR and Outreach Lead / Co-Lead, Technical
+    Lead / Co-Lead, Research and Innovation Lead (Muhilan S was "Research Lead"; M. Harish Karthikeyan already had
+    that title). Titles that already named their domain stay (Head of Events, Event Co-Lead, Head of Design,
+    Co-Head of Design, Design Co-Lead, Digital Media Co-Lead), and so does Frontend Lead. **Still to rename:** the
+    two "Media Lead"s (Yogadharshini NK, Keerthana G) and the "Media Co-Lead" (Harshini): asked the user whether
+    each is Visual Media or Digital Media.
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
   5 albums, 34 photos. **Each album also has its own page**, `/gallery/<slug>` (the user, 2 Oct: an event's photos
   should open that event's gallery, not the whole page): back link to all albums, date and count, title,
@@ -205,18 +210,26 @@ This repo has only the `main` branch.
   1. KBAIC Inauguration Ceremony, 18 Sep 2025 (type Inauguration)
   2. Decode Blockchain, 15 Oct 2025 (Workshop)
   3. European Immersion Program, 6 Jan 2026 (Immersion Program)
-  4. **Byte the Dust: A Cyber Forensics**, 12 Feb 2026 (the user; no photos, venue or details yet)
+  4. **Byte the Dust: A Cyber Forensics**, 12 Feb 2026: a cyber forensics challenge (the user): each team was
+     given a case and applied the process of cyber and digital forensics to identify, preserve, analyse and
+     document what happened. No photos or venue yet.
   5. Hack to Blockchain, 13 Feb 2026
-  6. **DeFi Unlocked**, 11 Apr 2026 (Workshop; the one workshop counted in `achievements.js`)
+  6. **DeFi Unlocked**, 11 Apr 2026 (Workshop). Speaker: Janakiraman K, Cryptocortex Crew (from the closing
+     slide; the user confirmed naming him).
   - Fields: `time`, `venue`, `highlights`, `speakers`, `certificate` are optional (only what's known is shown);
     `album` is the gallery slug. An event with an album shows four of its photos and "See all N photos", which
     opens the album's own page (`/gallery/<slug>`); without one it says "Photos pending". The filter tabs are built from the events' types.
-  - Types for Byte the Dust and Hack to Blockchain are "Technical Event" (a guess); venues are "Rajalakshmi
-    Engineering College" for the four with photos (they show REC), none for Byte the Dust. No times anywhere.
+  - Types: Byte the Dust and Hack to Blockchain are "Technical Event", and the inauguration is listed as an
+    event (both confirmed by the user). Venues are "Rajalakshmi Engineering College" for the five with photos (they
+    show REC), none for Byte the Dust. No times anywhere.
+  - **The club's figures follow this list** (the user: the Events page count matters): `stats` in club
+    `src/data/achievements.js` counts `events` (every event: 6), `workshops` (type Workshop: 2) and
+    `immersionPrograms` (type Immersion Program: 1) from `events.js`. Home shows "6 events & workshops"; the
+    Achievements page shows 6 events, 2 workshops, 1 immersion program. Home's "working force of N members" is read
+    from the roster too (it said 25; there are 24). Add an event and every count follows.
   - Home's "Events that define us" shows the three most recent; the "next event" card says "coming soon" (all past).
-  - News (`src/data/news.js`) is still the template's items (a Web3 Hackathon recap, the Jan workshop, a bootcamp,
-    a newspaper feature); the two that linked to `/events/1` and `/events/2` were unlinked, since those addresses now
-    belong to real events. Offered to the user to replace News too.
+  - **No News page** (removed on 2 Oct at the user's word; it only had the template's made-up items): page, data,
+    footer link and share tags are gone, and an old `/news` link redirects to `/events`.
 - **Big photo batches from Drive** (if the user sends whole folders or zips rather than picked photos):
   - Drive access works (the environment's network access was set on 2 Oct). List a shared folder with
     `https://drive.google.com/embeddedfolderview?id=<folder id>`; download a file with
@@ -314,18 +327,16 @@ the key):
 Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 associates list are scheduled (see
 above). The user only needs to keep this chat session (not archive it).
 
-Open, not blocking (offered to the user on 2 Oct; change only if they answer):
-- **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
+Open, not blocking (asked on 2 Oct; change only if they answer):
+- **Media titles:** are Yogadharshini NK and Keerthana G ("Media Lead") and Harshini ("Media Co-Lead") Visual Media
+  or Digital Media? Then rename them like the others.
+- **WhatsApp group name:** the user said the group has a name (2 Oct) but hasn't given it yet. It goes in
+  `SELECTED_NEXT_STEPS` in `src/data/site.js` (results repo), in place of "the club's WhatsApp group"; before
+  11:00 on 3 Oct a push goes live with the sample data only, which is fine.
+- **Associates list time:** 13:00 IST on 3 Oct unless the user picks another time after 11:00.
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
-- **Events page:** Byte the Dust (12 Feb 2026) has only its name and date: add a line or two, the venue, its type
-  and photos if the user sends them. Times, venues and speakers for the others too, if they have them. Confirm
-  the event types ("Technical Event" for Byte the Dust and Hack to Blockchain) and whether the inauguration should be
-  listed as an event.
-- **News page:** still the template's made-up items; replace with real news (e.g. one per real event) if the user
-  wants.
-- **WhatsApp group name:** the selected results say "the club's WhatsApp group". If the group has a name (e.g.
-  "BIC/REC Associates"), it can go in `SELECTED_NEXT_STEPS` in `src/data/site.js`.
+- **Events:** Byte the Dust's venue and photos; times and venues for the others, if they have them.
 
 ## How to do the pending work
 
@@ -474,3 +485,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct (evening):** The user moved the results release from 08:00 to **11:00 IST** on 3 Oct. The three tasks
   were moved together: pre-flight 10:30, go-live 11:00, associates list 13:00 (still two hours after the release).
   The sealed file needs no change (its `published` value is a date, not a time) and no page mentions 8 AM.
+- **2 Oct (night):** The user's answers: Byte the Dust described (a cyber forensics challenge); the club's figures now
+  counted from the Events page (6 events, 2 workshops, 1 immersion program; Home's member count from the roster);
+  News page removed (`/news` redirects to `/events`); DeFi Unlocked names its speaker; core team titles in the
+  official domain names (the three Media titles wait on the user); event types and the inauguration confirmed.
+  Club e2e passes apart from the five known `/achievements` font checks.
