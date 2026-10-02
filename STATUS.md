@@ -36,7 +36,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `c2e5ee0`, the Gallery's Decode Blockchain album. Before it: `068b1c6` (KBA spelled out as the
+- club site: `65bf931`, four more Decode Blockchain photos (nine). Before it: `c2e5ee0` (the Gallery's Decode
+  Blockchain album), `068b1c6` (KBA spelled out as the
   Kerala Blockchain Academy everywhere), `8c202d1` (four
   more photos in the Gallery's first album, nine now, see "Gallery"),
   `8c165b2` (the Gallery's first real album), `52bd3b5` (Join us removed,
@@ -131,8 +132,10 @@ This repo has only the `main` branch.
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
   - **Decode Blockchain**, **15 October 2025**: the club's **first event** (the user), a hands-on workshop organised
     by the Blockchain Innovation Club with the Department of CSE ("BIC × … Workshop" on the screen, theme
-    "Unlocking the Future of Blockchain"). 5 photos from the chat: the group in front of the workshop screen
-    (lead), participants at laptops, the big group photo, the team with the speaker, six members under the palms.
+    "Unlocking the Future of Blockchain"). 9 photos from the chat, in this order: the group in front of the
+    workshop screen (lead), the wallet set-up with the speaker, participants at laptops, a full room at work, two
+    participants on one laptop, the team talking the room through it, the big group photo, the team with the
+    speaker, six members under the palms.
     Neutral captions, nobody named. It is **not on the Events page** (which lists Jan–May 2026 events only);
     offered to the user to add it.
   - **Album 1:** "KBAIC Inauguration Ceremony", **18 September 2025**: the start of the club (as KBA Club REC,
@@ -397,3 +400,4 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   (8 places), and the inauguration album spells it out.
 - **2 Oct:** Gallery album "Decode Blockchain" (15 Oct 2025, the club's first event, 5 photos) added above the
   inauguration. Gallery tests pass at every width.
+- **2 Oct:** Four more Decode Blockchain photos (nine in the album). Both albums now fill their grids evenly.
