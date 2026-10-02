@@ -11,11 +11,11 @@ It holds no secrets and no candidate data. This repo is public.
 - **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
   (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
 - **Club site:** team split into Board (8), Core (16) and Associates, with "Meet us"; official domain names; one
-  faculty coordinator; no Join us; Gallery shows placeholders.
+  faculty coordinator; no Join us; Gallery has real albums (the first: the KBAIC inauguration, 18 Sep 2025).
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   07:30 pre-flight check → 08:00 real results live + Associates page says "Check your result" → 10:00 the 47
   associates listed. All three were confirmed enabled at the end of 2 Oct.
-- **Open, not blocking:** see "Waiting on the user". Photos for the Gallery are on hold until the user sends them.
+- **Open, not blocking:** see "Waiting on the user". More gallery albums are coming from the user.
 
 ## The two sites
 
@@ -35,8 +35,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `52bd3b5`, Join us removed (recruitment is over) and Kabilan S removed from the Technical team. Before
-  it: `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
+- club site: `8c165b2`, the Gallery's first real album (see "Gallery"). Before it: `52bd3b5` (Join us removed,
+  Kabilan S removed from the Technical team), `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
   board, core and associate members with "Meet us", see "Club team pages"), `3e94254` (Gallery page brought back),
   `77a4118` (official domain names), `8089d4b` (the roster section, now on the Associates page) and `d893df9`
   (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a
@@ -124,41 +124,36 @@ This repo has only the `main` branch.
     Research and Innovation, and "Visual and Digital Media" (one group of media leads covering both). People's own
     titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
     2 Oct whether to rename them (e.g. "Technical Lead"); no answer yet.
-- **Gallery: back, waiting for real photos.** Removed on 2 Oct at the user's ask, then restored the same day
-  (club revert of `5cdd90a`, results footer link re-added) because the club is adding real photos. It still shows
-  the 12 placeholder frames (categories and titles are placeholders too) until the photos arrive.
-- **Photos: ON HOLD.** On 2 Oct the user said to leave the gallery part for now, so don't process photos or change
-  the Gallery page until they bring it up again. Later that day they asked whether they could send **5–10 photos
-  per gallery, with each gallery's details**, for Claude to add: the answer was yes, and what to send (see "When
-  the photos come"). It stays as it is (placeholder frames). Where it got to:
-  - **Drive access works now** (the user set the environment's network access on 2 Oct).
-  - Batch 1 is a Drive folder of 266 separate JPGs (not a zip), from a Canon EOS 80D at 6000×4000, about 6 MB each.
-    The camera's clock was wrong: the EXIF dates say February 2016, so dates can't be used to match these photos to
-    events. List them with `https://drive.google.com/embeddedfolderview?id=<folder id>` and download each with
+- **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
+  - **Album 1:** "KBAIC Inauguration Ceremony", **18 September 2025**: the club's inauguration as KBA Club REC
+    (since renamed the Blockchain Innovation Club), with the Department of CSE, theme "Unlocking the Future of
+    Blockchain". 5 photos the user sent in the chat on 2 Oct (the dais, a welcome with flowers, a speaker at the
+    podium, the front row, the full hall). The captions and alt texts are neutral first drafts: nobody is named,
+    since the user didn't name anyone.
+  - The user said KBA was the "Kerala Blockchain Association"; the event's own screen reads "Kerala Blockchain
+    Academy Club REC". The album only says "KBA Club REC" until the user says which to spell out.
+  - **How it's built** (club repo): `src/data/gallery.js` (albums: slug, title, date, datetime, tags, description,
+    photos with `n`, `alt`, `caption`), `src/lib/galleryPhotos.js` (resolves the files),
+    `src/assets/gallery/<slug>/<nn>.webp` (1600px) and `<nn>-thumb.webp` (960px), README in that folder.
+    `src/pages/Gallery.jsx`: the first photo takes a double cell; any photo opens a full view (a modal `<dialog>`:
+    arrow keys or buttons step through, Esc closes, focus returns to the photo).
+  - **To add an album** (the user sends 5–10 photos with a title, date, a line or two, captions optional): run the
+    scratchpad's `gallery-process.py <out folder> <photos in order>` (Pillow: converts to sRGB, resizes, saves WebP
+    with **no metadata at all**; if the scratchpad is gone, rewrite it along those lines), add the album at the top
+    of `albums`, run lint + build + e2e (the gallery tests check every photo loads, and the full view), screenshot
+    it for the user, push.
+  - History: removed on 2 Oct at the user's ask, restored the same day (revert of `5cdd90a`), photos put on hold,
+    then the user sent album 1 in the chat.
+- **Big photo batches from Drive** (if the user sends whole folders or zips rather than picked photos):
+  - Drive access works (the environment's network access was set on 2 Oct). List a shared folder with
+    `https://drive.google.com/embeddedfolderview?id=<folder id>`; download a file with
     `https://drive.usercontent.google.com/download?id=<file id>&export=download&confirm=t`.
-  - The download was stopped at 97 of 266 photos. Those 97 are in the scratchpad (`photos/batch1-raw/`, private,
-    never commit).
-
-  **When the photos come** (the user's 5–10 per gallery): for each gallery the user gives a title, the date, a line
-  or two about it, and optionally a caption per photo; photos attached in the chat or as a shared Drive link. Then:
-  resize to web sizes (a large view and a thumbnail, about 200–300 KB at most each), strip all metadata (GPS above
-  all), and rebuild the Gallery page from the placeholder frames into one album per gallery, with a full-size view
-  when a photo is clicked. Show the user screenshots before pushing.
-
-  The plan agreed earlier, for when it resumes. The user sends photos **one batch at a time** as Drive links:
-  - Handle one zip at a time: download, unzip, read each photo's metadata (date taken, camera, size, GPS present),
-    shrink for the web, delete the zip and the unzipped folder. Pillow + `pillow-heif` (iPhone HEIC) and WebP support
-    are in the scratchpad venv; `unzip` is installed; there's no `exiftool` (Pillow reads EXIF).
-  - Match photos to events by the date taken (the club's events are dated in `src/data/events.js`), order them, and
-    skip near-duplicates and bursts.
-  - Give the user a private spreadsheet of every photo's metadata, and a thumbnail sheet of the suggested picks to
-    approve. Publish only the approved selection: the site can't hold thousands of photos.
-  - **Strip all metadata (GPS especially) from published images.** Keep the metadata spreadsheet private.
-  - Still to decide with the user: how the gallery is organised (by event or by the current categories) and whether
-    event pages show their own photos.
-  - **Batch 1** (link sent 2 Oct, a Drive folder; the link is in the chat): the inauguration of the **first-tenure
-    board**, from when the club was still the **Kerala Blockchain Association (KBA) club**; it was renamed Blockchain
-    Innovation Club later. Caption it accordingly.
+  - The first Drive folder (the inauguration, 266 JPGs from a Canon EOS 80D whose clock said February 2016, so dates
+    are useless) was stopped at 97 photos; those are in the scratchpad (`photos/batch1-raw/`, private, never
+    commit). The user then picked 5 and sent them in the chat.
+  - For zips: one at a time (download, unzip, read metadata, web-size the picks, delete the rest); Pillow +
+    `pillow-heif` + WebP are in the scratchpad venv, `unzip` is installed, no `exiftool`. Suggest picks with a
+    thumbnail sheet for the user to approve; publish only the approved ones.
 - **Photos from Google Drive:** Drive is reachable from here since 2 Oct: the user set the environment's network
   access to Custom with `drive.google.com`, `drive.usercontent.google.com` and `*.googleusercontent.com` (plus the
   default list). Drive files must be shared as "Anyone with the link". The user may send 5–6 large files (under
@@ -249,7 +244,8 @@ above). The user only needs to keep this chat session (not archive it).
 Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 - **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
-- **Photos / Gallery:** on hold until the user brings it up (see "Photos: ON HOLD").
+- **Gallery:** more albums to come from the user. For album 1: names for the people in the photos (optional), and
+  whether "KBA" should read Kerala Blockchain Association or Kerala Blockchain Academy.
 - **WhatsApp group name:** the selected results say "the club's WhatsApp group". If the group has a name (e.g.
   "BIC/REC Associates"), it can go in `SELECTED_NEXT_STEPS` in `src/data/site.js`.
 
@@ -376,3 +372,6 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct (end of day):** STATUS.md checked again: both repos in sync with `main`, the three 3 Oct tasks enabled
   (07:30, 08:00, 10:00 IST). Added "At a glance".
 - **2 Oct:** Selected results' next steps now mention WhatsApp and the club's WhatsApp group (the user's request).
+- **2 Oct:** Gallery rebuilt around real albums; the first is the KBAIC inauguration (18 Sep 2025, 5 photos the user
+  sent). Photos web-sized as WebP with no metadata; full-screen viewer. Club e2e suite passes (new gallery tests
+  included) apart from the five known `/achievements` font checks.
