@@ -21,9 +21,9 @@ deploy, so run the checks first.
 Latest change to each live site (both deploys succeeded):
 - results site: `b8d470d`, the official domain names in the roles (see "Official domain names"), after `f0c7cfe` (no
   Gallery link) and the result reveal. The live data is still the sample data until the release.
-- club site: `3e94254`, the Gallery page brought back (reverting `5cdd90a`). Before it: `77a4118` (official domain
-  names), `8089d4b` (Core Members roster section, empty until 10:00 IST on 3 Oct) and `d893df9` (Contact form
-  college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
+- club site: `60d01c0`, the team split into board, core and associate members with "Meet us" (see "Club team
+  pages"). Before it: `3e94254` (Gallery page brought back), `77a4118` (official domain names), `8089d4b` (the
+  roster section, now on the Associates page) and `d893df9` (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
@@ -43,16 +43,17 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
   - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 07:30 IST: pre-flight. Checks the workflow is enabled, unlocks the file into the
     scratchpad, dry-runs both builds, and alerts the user if anything's wrong.
   - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, 08:00 IST: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
-    removes `release/` and pushes. Then sets `RECRUITMENT_RESULTS_OPEN = true` on the club site and pushes, watches
-    both deploys, and tells the user.
-  - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 10:00 IST: club site roster. Fills `src/data/coreMembers.js` in the club repo
-    with the 47 new core members (the list is in the task's private message), then pushes and tells the user. It
-    first checks that the 08:00 release happened.
+    removes `release/` and pushes. Then sets `RECRUITMENT_RESULTS_OPEN = true` on the club site (which opens the
+    Associates page, `/team/associates`) and pushes, watches both deploys, and tells the user.
+  - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 10:00 IST: the associates. Fills `src/data/associates.js` in the club repo
+    with the 47 new associates (the list is in the task's private message), then pushes and tells the user. It
+    first checks that the 08:00 release happened. (Updated on 2 Oct for the team split: it used to fill
+    `src/data/coreMembers.js`, which is now `associates.js`.)
 - **To move or cancel the release:** `update_trigger` with a new `run_once_at` (keeps the message), or `delete_trigger`
   the IDs. Move all three together: the roster waits for the release, and the pre-flight comes 30 minutes before it.
 - **Where the selected members' details are:** not in either repo in readable form (both are public). The user
   has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
-  From 10:00 IST on 3 Oct, the club repo's `src/data/coreMembers.js` holds names, teams and departments only.
+  From 10:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
 
 This repo has only the `main` branch.
 
@@ -62,13 +63,28 @@ This repo has only the `main` branch.
   - `250701499@rajalakshmi.edu.in` / `250701499`: selected, Technical Associate
   - `250701501@rajalakshmi.edu.in` / `250701501`: selected, Design Associate
   - `250701502@rajalakshmi.edu.in` / `250701502`: not selected
-- **Club site Core Members page (`/team/core`) says "Results coming soon".** It's switched by
-  `RECRUITMENT_RESULTS_OPEN` in the club repo's `src/data/club.js` (now `false`). Set to `true`, the page shows
-  "Check your result" with a button to the results site. The 08:00 task opens it right after the results go live.
-  Don't open it before the real results are published, or every candidate gets "no match".
-- **Core Members roster:** a "Meet the core team" section (team tabs, a card per member with name, department and
-  role) renders only when `coreMembers` in the club repo's `src/data/coreMembers.js` is non-empty. It's empty now; the
-  10:00 task fills it with the 47 new members (names, teams and departments only).
+- **Club team pages** (the user's structure, 2 Oct). The club's members are in three teams, each with its own page
+  and an "about" section:
+  - **Board members** (`/team/board`): the faculty coordinators, then the **core board** (President, Vice President,
+    ambassadors) and the **executive team**: 8 people. Profiles at `/team/board/<slug>`.
+  - **Core members** (`/team/core`): everyone else from the old board page, the domain leads and co-leads (17),
+    grouped by domain in the official order. Profiles at `/team/core/<slug>`; an old `/team/board/<slug>` link to a
+    core member redirects. The header has a "2026–27 recruitment" button to the Associates page, for anyone arriving
+    from an old link (this address used to be the recruitment page).
+  - **Associate members** (`/team/associates`): the new recruits ("associates"). This is the recruitment page that
+    used to be `/team/core`: it says **"Results coming soon"** until `RECRUITMENT_RESULTS_OPEN` (club
+    `src/data/club.js`, now `false`) is set to `true`, then "Check your result" with a button to the results site.
+    The 08:00 task opens it right after the results go live; don't open it before, or every candidate gets "no
+    match". Its roster (domain tabs, a card per associate with name, department and "<domain> Associate") renders
+    only when `associates` in `src/data/associates.js` is non-empty. It's empty now; the 10:00 task fills it.
+  - **Meet us**: a section with three cells linking to the three pages (`src/components/MeetUs.jsx`, data in
+    `src/data/teams.js`). It's its own page (`/team`, "Meet us" in the main menu), sits on Home and About, and ends
+    each team page with the current team inked. The associates' cell says "results soon"/"results are live" until
+    the list is filled, then the count.
+  - Data: `src/data/members.js` (`boardGroups`/`coreGroups`, `boardMembers`/`coreTeamMembers`, `memberPath`),
+    `src/data/associates.js`, `src/data/domains.js`. The "about" texts are in each page file (`ABOUT`); they're
+    first drafts the user can change.
+  - The main menu's side padding is tighter below 1280px so its seven items fit on one line at 1024px.
 - **Sign-in rules** (results form and Excel converter both enforce them):
   - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
   - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
@@ -81,7 +97,8 @@ This repo has only the `main` branch.
 - **Official domain names** (the user, 2 Oct), in the club's order: **Event, PR and Outreach, Technical, Design,
   Research and Innovation, Visual Media, Digital Media.** Use exactly these everywhere. Where they appear:
   - Results: roles are `<domain> Associate` (e.g. "Technical Associate", "PR and Outreach Associate").
-  - Club `src/data/coreMembers.js`: `CORE_TEAMS` (the roster's tabs, in this order); each member's `team` must match.
+  - Club `src/data/domains.js`: `DOMAINS` (the associates' tabs, in this order); each associate's `team` must match.
+    The core team's groups on `/team/core` follow the same order.
   - Club Join us page, "Find your team": these seven. The skill chips under each are placeholders picked on 2 Oct
     (the user can change them). Content and Operations teams were removed: they aren't club domains.
   - Club board page group headings: Design, Event, PR and Outreach, Technical, Research and Innovation, and "Visual
@@ -175,8 +192,8 @@ the key):
 1. Results site: unlock `release/results.json.enc` into `src/data/results.json`, check the sha256, run
    `npm test && npm run build`, `git rm -r release`, commit and push. **Check the deploy workflow is enabled first**
    (see the warning near the top).
-2. Club site: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build, and push. The user
-   wants Core Members to switch **at the same time** as the results go live.
+2. Club site: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js` (opens the Associates page), run lint +
+   build, and push. The user wants it to switch **at the same time** as the results go live.
 3. Watch both deploys, then tell the user.
 
 ## Waiting on the user
@@ -201,9 +218,9 @@ answered. The user only needs to keep this chat session open. Anything else is n
    user gives** (before the release, a push makes it live early; re-lock it instead and update the 08:00 task).
    Watch the Actions run.
 
-### Open Core Members ("make it available")
+### Open the Associates page ("make it available"; it used to be Core Members)
 In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build + the
-`team/core|Core Members` Playwright tests, and push to `main`. To close it again, set it back to `false`.
+`Associates` Playwright tests, and push to `main`. To close it again, set it back to `false`.
 
 ### Starting a new session
 - This repo is cloned at `/home/user/result_bic`. The club repo is a second repo: if `/home/user/bic-rec_site` is
@@ -243,8 +260,9 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   was added to both sites on 1 Oct and removed the same day: the user didn't like how it looked. Don't bring
   back background animation unless the user asks for it again. The result reveal (2 Oct) is different: it only
   moves the page's own blocks, once, when a result opens, using the design system's shunt/stamp motion (no fades).
-- **Core Members history:** a redirect to the results site was tried first. The user then preferred a "Check your
-  result" button, and on 30 Sep asked for "coming soon" until results go out. That's why the page has a switch.
+- **Recruitment page history:** a redirect to the results site was tried first. The user then preferred a "Check your
+  result" button, and on 30 Sep asked for "coming soon" until results go out. That's why the page has a switch. It
+  was the Core Members page until 2 Oct, when the team was split and it became the Associates page.
 
 ## Log
 
@@ -289,3 +307,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   blocked from this container; the user has the steps to allow it.
 - **2 Oct:** Drive access working. Batch 1 download started, then stopped at 97 of 266 when the user said to leave
   the gallery part for now. Photos on hold; the Gallery page is unchanged (placeholders).
+- **2 Oct:** Club team split into board, core and associate members (each page with an "about"), plus "Meet us"
+  (its own page, in the menu, on Home and About). The recruitment page moved from `/team/core` to
+  `/team/associates`. The 08:00 and 10:00 tasks were updated to match. Club e2e suite passes (apart from the five
+  known `/achievements` font checks), including new tests for Meet us, member links and the old-link redirect, and
+  the associates tests with the 47 filled in temporarily.
