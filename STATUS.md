@@ -39,7 +39,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `cd9e0f6`, four member photos, Pavithra J on the core board, Padma Priya J removed. Before it:
+- club site: `de391ef`, photos for Karthick Raja R, M. Harish Karthikeyan and Harshini: **every board and
+  core member now has a photo**. Before it: `cd9e0f6` (four member photos, Pavithra J on the core board, Padma Priya J removed),
   `aa6fc0f` (Mohammed Irfan S, Media Director, and the "Media" group), `d02d641`
   (Harshini's title) and `3f7a0b3`: Byte the Dust's write-up, the club's figures counted from the Events page, the News
   page removed, core team titles in the official domain names (see "Events page" and "Club team pages"). Before
@@ -335,13 +336,6 @@ Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 asso
 above). The user only needs to keep this chat session (not archive it).
 
 Open, not blocking (asked on 2 Oct; change only if they answer):
-- **Three member photos to resend:** Karthick Raja R (PR and Outreach Lead), M. Harish Karthikeyan (Research and
-  Innovation Lead) and Harshini (Visual Media Co-Lead) are the only members without a photo. The user has sent
-  them twice, both times while a task was running, when attachments aren't saved to disk (the user named them:
-  teal shirt = Karthick Raja R, maroon shirt = M. Harish Karthikeyan, white shirt = Harshini). Asked for them once
-  more as a normal message. Then: square-crop each on the person to 800×800 JPG, convert to sRGB **whenever there's
-  a colour profile** (a profile named "Display P3 Gamut with sRGB Transfer" is P3, not sRGB), save with no
-  metadata as `src/assets/members/<slug>.jpg` (`karthick-raja-r`, `m-harish-karthikeyan`, `harshini`), push.
 - **WhatsApp group name:** the user said the group has a name (2 Oct) but hasn't given it yet. It goes in
   `SELECTED_NEXT_STEPS` in `src/data/site.js` (results repo), in place of "the club's WhatsApp group"; before
   11:00 on 3 Oct a push goes live with the sample data only, which is fine.
@@ -510,3 +504,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   profile to sRGB (it skipped profiles whose name contained "sRGB"; no published photo was affected).
 - **2 Oct (night):** Member photos for Arjun K, Kishoreathava S, Muhammed Fahad SJ and Mohammed Irfan S (named by the
   user). Pavithra J (Secretary) moved to the core board; Padma Priya J (Head of Events) removed with her photo.
+- **2 Oct (night):** Photos for Karthick Raja R, M. Harish Karthikeyan and Harshini (resent as a normal message, so
+  they were saved). Every board and core member has a photo now.
