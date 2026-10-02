@@ -51,7 +51,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `e0dee7b`, Pavithra J right after the Vice President. The 2 Oct changes before it, newest first:
+- club site: `35eb99b`, Byte the Dust marked as part of Titanium 2026. The 2 Oct changes before it, newest first:
+  - `e0dee7b`: Pavithra J right after the Vice President.
   - `e2d1a93`: the Home of Hope visit (album and event).
   - `f84d736`: light by default on phones set to dark mode.
   - `1ff5b47`: the event button reads "Explore gallery".
@@ -243,7 +244,8 @@ This repo has only the `main` branch.
      which moved the three later events up one block number (their addresses too: `/events/5`–`/events/7`).
   5. **Byte the Dust: A Cyber Forensics**, 12 Feb 2026: a cyber forensics challenge (the user): each team was
      given a case and applied the process of cyber and digital forensics to identify, preserve, analyse and
-     document what happened. No photos or venue yet.
+     document what happened. **Part of Titanium 2026** (the user): with Hack to Blockchain the next day, the club's
+     two events at the symposium; both pages say so. Venue REC. No photos yet.
   6. Hack to Blockchain, 13 Feb 2026
   7. **DeFi Unlocked**, 11 Apr 2026 (Workshop). Speaker: Janakiraman K, Cryptocortex Crew (from the closing
      slide; the user confirmed naming him).
@@ -368,7 +370,7 @@ the Vice President.
 Open, not blocking (change only if they answer):
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
-- **Events:** Byte the Dust's venue and photos; times and venues for the others, if they have them.
+- **Events:** Byte the Dust's photos; times for all of them, if they have them.
 - **Home of Hope photos:** the children's faces are blurred by default. If the home has approved the photos, the
   user can say so and the unblurred versions go up (see "Gallery").
 
@@ -543,3 +545,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   stale links and names (removed pages, old event addresses, removed members): nothing left.
 - **2 Oct (night):** The user settled the open questions: WhatsApp wording unchanged; results at 11:00 and the
   associates list at 13:00 as scheduled; Pavithra J moved to right after the Vice President.
+- **2 Oct (night):** Byte the Dust was part of Titanium 2026 (the user): its page says so and gives the REC venue;
+  Hack to Blockchain is the club's second event there.
