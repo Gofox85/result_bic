@@ -21,8 +21,8 @@ deploy, so run the checks first.
 Latest change to each live site (both deploys succeeded):
 - results site: `b8d470d`, the official domain names in the roles (see "Official domain names"), after `f0c7cfe` (no
   Gallery link) and the result reveal. The live data is still the sample data until the release.
-- club site: `60d01c0`, the team split into board, core and associate members with "Meet us" (see "Club team
-  pages"). Before it: `3e94254` (Gallery page brought back), `77a4118` (official domain names), `8089d4b` (the
+- club site: `2c3cef5`, only Dr. Muneeshwari R as faculty coordinator. Before it: `60d01c0`, the team split into
+  board, core and associate members with "Meet us" (see "Club team pages"), `3e94254` (Gallery page brought back), `77a4118` (official domain names), `8089d4b` (the
   roster section, now on the Associates page) and `d893df9` (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
@@ -65,7 +65,7 @@ This repo has only the `main` branch.
   - `250701502@rajalakshmi.edu.in` / `250701502`: not selected
 - **Club team pages** (the user's structure, 2 Oct). The club's members are in three teams, each with its own page
   and an "about" section:
-  - **Board members** (`/team/board`): the faculty coordinators, then the **core board** (President, Vice President,
+  - **Board members** (`/team/board`): the faculty coordinator, then the **core board** (President, Vice President,
     ambassadors) and the **executive team**: 8 people. Profiles at `/team/board/<slug>`.
   - **Core members** (`/team/core`): everyone else from the old board page, the domain leads and co-leads (17),
     grouped by domain in the official order. Profiles at `/team/core/<slug>`; an old `/team/board/<slug>` link to a
@@ -137,6 +137,9 @@ This repo has only the `main` branch.
   with the link") or uploads the photos in the chat. The user may send 5–6 large files (under 2 GB each): about
   30 GB of disk is free here, so handle them one at a time (download, extract, resize for the web, delete the
   original). Only web-sized images go into a repo (GitHub refuses files over 100 MB).
+- **Faculty coordinator: Dr. Muneeshwari R only** (the user, 2 Oct). Dr. Manoranjini J isn't the club's coordinator,
+  so her entry and photo were removed. Text naming the coordinators as a group uses `FACULTY` from the club's
+  `src/data/members.js` ("faculty coordinator" while there's one).
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
 - **Club Contact form:** takes only `@rajalakshmi.edu.in` addresses (the user's choice, 2 Oct). Anything else shows
   "enter valid email id". A line under the form points people outside REC to the club's email.
@@ -312,3 +315,4 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   `/team/associates`. The 08:00 and 10:00 tasks were updated to match. Club e2e suite passes (apart from the five
   known `/achievements` font checks), including new tests for Meet us, member links and the old-link redirect, and
   the associates tests with the 47 filled in temporarily.
+- **2 Oct:** Faculty coordinators: only Dr. Muneeshwari R now (entry and photo of the other removed).
