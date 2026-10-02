@@ -21,8 +21,8 @@ deploy, so run the checks first.
 Latest change to each live site (both deploys succeeded):
 - results site: `8d453a1`, the faster result reveal (see "Current state"). The live data is still the sample data
   until the release.
-- club site: `8089d4b`, the Core Members roster section (empty until 10:00 IST on 3 Oct), after `d893df9` (Contact form
-  college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
+- club site: `5cdd90a`, the Gallery page removed. Before it: `8089d4b`, the Core Members roster section (empty until
+  10:00 IST on 3 Oct), and `d893df9`, the Contact form made college-only. Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
@@ -75,6 +75,12 @@ This repo has only the `main` branch.
   - Results site rules: `/assets/**`, `/` and `**/*.html` (it's a single page at `/`).
   - Keep Cache-Control rules from overlapping. Firebase applies whichever matching rule is listed **last**, which
     was checked in the hosting emulator.
+- **No Gallery** (the user's ask, 2 Oct). The club site's Gallery page only held placeholder photo frames, so it's
+  gone, along with every link to it on both sites: the club header and footer, the results-site footer and the
+  button on event pages. Event pages still say "Photos pending". `/gallery` now shows the club's 404 page.
+- **Photos from Google Drive:** this container can't reach `drive.google.com`, `drive.usercontent.google.com` or
+  `lh3.googleusercontent.com` (blocked by the environment's network policy; checked 2 Oct). To use Drive photos,
+  the user either adds those hosts in the environment's Network access settings or uploads the photos in the chat.
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
 - **Club Contact form:** takes only `@rajalakshmi.edu.in` addresses (the user's choice, 2 Oct). Anything else shows
   "enter valid email id". A line under the form points people outside REC to the club's email.
@@ -231,3 +237,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   the 3 Oct launches need a nudge: they don't. The three scheduled tasks were checked (enabled, right times).
 - **2 Oct:** STATUS.md refreshed: club site's latest commits, all three scheduled tasks, the roster section, one
   sample-login list, and go-live steps marked as automated.
+- **2 Oct:** Gallery removed from the club site (page, route, share tags, links) and from the results-site footer.
+  Club e2e suite run locally: all pass except the five known `/achievements` font checks.
