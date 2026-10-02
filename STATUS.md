@@ -90,8 +90,17 @@ This repo has only the `main` branch.
 - **Gallery: back, waiting for real photos.** Removed on 2 Oct at the user's ask, then restored the same day
   (club revert of `5cdd90a`, results footer link re-added) because the club is adding real photos. It still shows
   the 12 placeholder frames (categories and titles are placeholders too) until the photos arrive.
-- **Photos (in progress):** the user will send zip files of photos (about 2 GB each) **one at a time**, as Google
-  Drive links. Plan agreed on 2 Oct:
+- **Photos: ON HOLD.** On 2 Oct the user said to leave the gallery part for now, so don't process photos or change
+  the Gallery page until they bring it up again. It stays as it is (placeholder frames). Where it got to:
+  - **Drive access works now** (the user set the environment's network access on 2 Oct).
+  - Batch 1 is a Drive folder of 266 separate JPGs (not a zip), from a Canon EOS 80D at 6000×4000, about 6 MB each.
+    The camera's clock was wrong: the EXIF dates say February 2016, so dates can't be used to match these photos to
+    events. List them with `https://drive.google.com/embeddedfolderview?id=<folder id>` and download each with
+    `https://drive.usercontent.google.com/download?id=<file id>&export=download&confirm=t`.
+  - The download was stopped at 97 of 266 photos. Those 97 are in the scratchpad (`photos/batch1-raw/`, private,
+    never commit).
+
+  The plan agreed earlier, for when it resumes. The user sends photos **one batch at a time** as Drive links:
   - Handle one zip at a time: download, unzip, read each photo's metadata (date taken, camera, size, GPS present),
     shrink for the web, delete the zip and the unzipped folder. Pillow + `pillow-heif` (iPhone HEIC) and WebP support
     are in the scratchpad venv; `unzip` is installed; there's no `exiftool` (Pillow reads EXIF).
@@ -104,8 +113,7 @@ This repo has only the `main` branch.
     event pages show their own photos.
   - **Batch 1** (link sent 2 Oct, a Drive folder; the link is in the chat): the inauguration of the **first-tenure
     board**, from when the club was still the **Kerala Blockchain Association (KBA) club**; it was renamed Blockchain
-    Innovation Club later. Caption and date it accordingly. Not downloaded yet: Drive was still blocked at 07:29 UTC
-    (proxy 403 on `drive.google.com`, `drive.usercontent.google.com`, `lh3.googleusercontent.com`).
+    Innovation Club later. Caption it accordingly.
 - **Photos from Google Drive:** this container can't reach `drive.google.com`, `drive.usercontent.google.com` or
   `lh3.googleusercontent.com` (blocked by the environment's network policy; checked 2 Oct). To use Drive photos,
   the user either adds those hosts in the environment's Network access settings (and shares the files as "Anyone
@@ -279,3 +287,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   47-member roster filled in temporarily, and the club e2e suite (only the five known `/achievements` font checks fail).
 - **2 Oct:** Gallery restored on both sites for the club's real photos (see "Photos (in progress)"). Drive is still
   blocked from this container; the user has the steps to allow it.
+- **2 Oct:** Drive access working. Batch 1 download started, then stopped at 97 of 266 when the user said to leave
+  the gallery part for now. Photos on hold; the Gallery page is unchanged (placeholders).
