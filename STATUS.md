@@ -39,7 +39,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `aa6fc0f`, Mohammed Irfan S (Media Director) and the "Media" group; before it `d02d641`
+- club site: `cd9e0f6`, four member photos, Pavithra J on the core board, Padma Priya J removed. Before it:
+  `aa6fc0f` (Mohammed Irfan S, Media Director, and the "Media" group), `d02d641`
   (Harshini's title) and `3f7a0b3`: Byte the Dust's write-up, the club's figures counted from the Events page, the News
   page removed, core team titles in the official domain names (see "Events page" and "Club team pages"). Before
   it: `4ea9a03` (DeFi Unlocked, and a page of its own for every album, see "Gallery"), `e3ea5da` (the Events page lists the club's real events, linked to their albums, see "Events page"),
@@ -101,9 +102,11 @@ This repo has only the `main` branch.
 - **Club team pages** (the user's structure, 2 Oct). The club's members are in three teams, each with its own page
   and an "about" section:
   - **Board members** (`/team/board`): the faculty coordinator, then the **core board** (President, Vice President,
-    ambassadors) and the **executive team**: 8 people. Profiles at `/team/board/<slug>`.
+    two ambassadors, and the Secretary, Pavithra J, moved up from the executive team on 2 Oct at the user's word)
+    and the **executive team** (Operations Executive, Technology Executive, Treasurer): 8 people. Profiles at `/team/board/<slug>`.
   - **Core members** (`/team/core`): everyone else from the old board page, the domain leads and co-leads (16;
-    Kabilan S, the Technical team's Blockchain Lead, was removed on 2 Oct at the user's request, with his photo),
+    Kabilan S, the Technical team's Blockchain Lead, and Padma Priya J, Head of Events, were removed on 2 Oct at the
+    user's request, with their photos; Mohammed Irfan S, Media Director, was added),
     grouped by domain in the official order. Profiles at `/team/core/<slug>`; an old `/team/board/<slug>` link to a
     core member redirects. The header has a "2026–27 recruitment" button to the Associates page, for anyone arriving
     from an old link (this address used to be the recruitment page).
@@ -141,7 +144,7 @@ This repo has only the `main` branch.
     it was "Visual and Digital Media"). Media is led by **Mohammed Irfan S, Media Director** (added 2 Oct with
     department AI & DS, email, LinkedIn and Instagram; his roll number was given but is not published), then the
     Visual Media Lead (Yogadharshini NK), Digital Media Lead (Keerthana G), Digital Media Co-Lead (Janis Olivia A)
-    and Visual Media Co-Lead (Harshini), from the user's team list. The core team is 17 now, the club 25. People's own
+    and Visual Media Co-Lead (Harshini), from the user's team list. The core team is 16, the club 24 (after Padma Priya J's removal). People's own
     titles use the official domain names (the user said yes on 2 Oct): PR and Outreach Lead / Co-Lead, Technical
     Lead / Co-Lead, Research and Innovation Lead (Muhilan S was "Research Lead"; M. Harish Karthikeyan already had
     that title). Titles that already named their domain stay (Head of Events, Event Co-Lead, Head of Design,
@@ -332,14 +335,13 @@ Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 asso
 above). The user only needs to keep this chat session (not archive it).
 
 Open, not blocking (asked on 2 Oct; change only if they answer):
-- **Member photos: who is who?** The user sent 4 member photos on 2 Oct without names (already cropped to
-  800×800, no metadata, in the scratchpad's `members/photo-30..33.jpg`; numbered sheet `members/who-is-who.jpg`).
-  Asked which member each is. Members without a photo: Muhammed Fahad SJ, Karthick Raja R, Arjun K, Kishoreathava
-  S, M. Harish Karthikeyan, Mohammed Irfan S, Harshini. Once named, copy each to `src/assets/members/<slug>.jpg`.
-  (Three earlier photos, for M. Harish Karthikeyan, Harshini and Karthick Raja R, were sent mid-task and never
-  saved to disk; they're different photos from these four.) If the scratchpad is gone: square-crop to 800×800
-  JPG, convert to sRGB **whenever there's a colour profile** (a profile named "Display P3 Gamut with sRGB
-  Transfer" is P3, not sRGB), and save with no metadata.
+- **Three member photos to resend:** Karthick Raja R (PR and Outreach Lead), M. Harish Karthikeyan (Research and
+  Innovation Lead) and Harshini (Visual Media Co-Lead) are the only members without a photo. The user has sent
+  them twice, both times while a task was running, when attachments aren't saved to disk (the user named them:
+  teal shirt = Karthick Raja R, maroon shirt = M. Harish Karthikeyan, white shirt = Harshini). Asked for them once
+  more as a normal message. Then: square-crop each on the person to 800×800 JPG, convert to sRGB **whenever there's
+  a colour profile** (a profile named "Display P3 Gamut with sRGB Transfer" is P3, not sRGB), save with no
+  metadata as `src/assets/members/<slug>.jpg` (`karthick-raja-r`, `m-harish-karthikeyan`, `harshini`), push.
 - **WhatsApp group name:** the user said the group has a name (2 Oct) but hasn't given it yet. It goes in
   `SELECTED_NEXT_STEPS` in `src/data/site.js` (results repo), in place of "the club's WhatsApp group"; before
   11:00 on 3 Oct a push goes live with the sample data only, which is fine.
@@ -506,3 +508,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   Yogadharshini NK Visual Media Lead, Keerthana G Digital Media Lead (from the user's team list). Four unnamed
   member photos prepared, waiting on who's who. The scratchpad's `gallery-process.py` now converts every colour
   profile to sRGB (it skipped profiles whose name contained "sRGB"; no published photo was affected).
+- **2 Oct (night):** Member photos for Arjun K, Kishoreathava S, Muhammed Fahad SJ and Mohammed Irfan S (named by the
+  user). Pavithra J (Secretary) moved to the core board; Padma Priya J (Head of Events) removed with her photo.
