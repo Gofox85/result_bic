@@ -19,10 +19,10 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site (both deploys succeeded):
-- results site: `8d453a1`, the faster result reveal (see "Current state"). The live data is still the sample data
-  until the release.
-- club site: `5cdd90a`, the Gallery page removed. Before it: `8089d4b`, the Core Members roster section (empty until
-  10:00 IST on 3 Oct), and `d893df9`, the Contact form made college-only. Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
+- results site: `b8d470d`, the official domain names in the roles (see "Official domain names"), after `f0c7cfe` (no
+  Gallery link) and the result reveal. The live data is still the sample data until the release.
+- club site: `77a4118`, the official domain names. Before it: `5cdd90a` (Gallery page removed), `8089d4b` (Core
+  Members roster section, empty until 10:00 IST on 3 Oct) and `d893df9` (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
@@ -31,7 +31,9 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
 ## Release scheduled: 3 Oct 2026, 08:00 IST (02:30 UTC)
 
 - **The file:** `release/results.json.enc` is the verified, sealed `results.json` (244 records), encrypted again
-  (AES-256-GCM) with a random key that is **not in this repo**. It's in the repo so the release survives a reset
+  (AES-256-GCM) with a random key that is **not in this repo**. It was re-sealed on 2 Oct (`b8d470d`) with the official
+  domain names in the roles, every login re-verified, and locked again with the same key. The 07:30 and 08:00 tasks
+  were updated with the new file's checksum, and the 10:00 task with the new team names. It's in the repo so the release survives a reset
   session. It isn't part of the built site, and it's useless without the key.
 - **Three scheduled tasks (`send_later`) wake this session**, so the user doesn't need to give a notice. The key, the
   expected sha256, the roster list and the exact steps are in their messages, which are private to the user's account.
@@ -56,7 +58,7 @@ This repo has only the `main` branch.
 ## Current state
 
 - **Results site is live with sample data only** until 08:00 IST on 3 Oct. Sample logins:
-  - `250701499@rajalakshmi.edu.in` / `250701499`: selected, Tech Associate
+  - `250701499@rajalakshmi.edu.in` / `250701499`: selected, Technical Associate
   - `250701501@rajalakshmi.edu.in` / `250701501`: selected, Design Associate
   - `250701502@rajalakshmi.edu.in` / `250701502`: not selected
 - **Club site Core Members page (`/team/core`) says "Results coming soon".** It's switched by
@@ -75,12 +77,24 @@ This repo has only the `main` branch.
   - Results site rules: `/assets/**`, `/` and `**/*.html` (it's a single page at `/`).
   - Keep Cache-Control rules from overlapping. Firebase applies whichever matching rule is listed **last**, which
     was checked in the hosting emulator.
+- **Official domain names** (the user, 2 Oct), in the club's order: **Event, PR and Outreach, Technical, Design,
+  Research and Innovation, Visual Media, Digital Media.** Use exactly these everywhere. Where they appear:
+  - Results: roles are `<domain> Associate` (e.g. "Technical Associate", "PR and Outreach Associate").
+  - Club `src/data/coreMembers.js`: `CORE_TEAMS` (the roster's tabs, in this order); each member's `team` must match.
+  - Club Join us page, "Find your team": these seven. The skill chips under each are placeholders picked on 2 Oct
+    (the user can change them). Content and Operations teams were removed: they aren't club domains.
+  - Club board page group headings: Design, Event, PR and Outreach, Technical, Research and Innovation, and "Visual
+    and Digital Media" (one group of media leads covering both). People's own titles ("Tech Lead", "Media Lead", …)
+    were left as they are; they're the board's positions.
 - **No Gallery** (the user's ask, 2 Oct). The club site's Gallery page only held placeholder photo frames, so it's
   gone, along with every link to it on both sites: the club header and footer, the results-site footer and the
   button on event pages. Event pages still say "Photos pending". `/gallery` now shows the club's 404 page.
 - **Photos from Google Drive:** this container can't reach `drive.google.com`, `drive.usercontent.google.com` or
   `lh3.googleusercontent.com` (blocked by the environment's network policy; checked 2 Oct). To use Drive photos,
-  the user either adds those hosts in the environment's Network access settings or uploads the photos in the chat.
+  the user either adds those hosts in the environment's Network access settings (and shares the files as "Anyone
+  with the link") or uploads the photos in the chat. The user may send 5–6 large files (under 2 GB each): about
+  30 GB of disk is free here, so handle them one at a time (download, extract, resize for the web, delete the
+  original). Only web-sized images go into a repo (GitHub refuses files over 100 MB).
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
 - **Club Contact form:** takes only `@rajalakshmi.edu.in` addresses (the user's choice, 2 Oct). Anything else shows
   "enter valid email id". A line under the form points people outside REC to the club's email.
@@ -109,9 +123,10 @@ This repo has only the `main` branch.
 
 **What gets published:**
 - **Every applicant can check** (the user's choice): 244 people, of whom 47 are selected and 197 not selected.
-- Selected per team (from the user's selection list): Event 8, Tech 8, Design 8, PR 7, Research 6, Digital
-  Media 5, Visual Media 5.
-- **Role text** (the user's rule): `<team> Associate`. The page reads "selected as a/an <role>".
+- Selected per team (from the user's selection list): Event 8, PR and Outreach 7, Technical 8, Design 8, Research
+  and Innovation 6, Visual Media 5, Digital Media 5.
+- **Role text** (the user's rule): `<team> Associate`, with the official domain names. The page reads "selected as
+  a/an <role>".
 - Matching the selection list to the master: every name resolved to exactly one applicant. A few list entries
   differ from the master in spelling or an initial, and one candidate's roll number on a shortlist sheet differed
   from the master. The master wins everywhere.
@@ -120,9 +135,12 @@ This repo has only the `main` branch.
 
 **In the scratchpad** (never commit any of it; it holds candidate emails and roll numbers in the clear; it may not
 survive a reset, and the release doesn't need it):
-- `ready-results.json`: sealed and verified. All 244 logins open the right record; wrong pairs open nothing.
+- `ready-results-v3.json` (from `v3-everyone.csv`): sealed with the official domain names, and the source of the
+  current release file. All 244 logins open the right record; wrong pairs open nothing. (`ready-results.json` /
+  `v2-everyone.csv` are the older Tech/PR/Research version.)
 - `build_v2.py` + `master.py`: rebuild it (`build_v2.py OUT.csv --everyone`, then `scripts/excel_to_json.py`).
-- `verify.mjs`: checks every login.
+- `verify-v3.mjs`: checks every login against the v3 files.
+- `BIC-selected-members-2026.xlsx`: the private list of the 47 for the user, updated to the official names.
 
 If the scratchpad is gone and the data has to be rebuilt, ask the user to re-upload the master sheet and the
 selection list, then redo the matching.
@@ -239,3 +257,6 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   sample-login list, and go-live steps marked as automated.
 - **2 Oct:** Gallery removed from the club site (page, route, share tags, links) and from the results-site footer.
   Club e2e suite run locally: all pass except the five known `/achievements` font checks.
+- **2 Oct:** Official domain names applied on both sites, the release file re-sealed with them, and the three
+  scheduled tasks updated. Checked: all 244 logins, the 08:00 unlock command, page layouts at 360–1280px with the
+  47-member roster filled in temporarily, and the club e2e suite (only the five known `/achievements` font checks fail).
