@@ -22,7 +22,7 @@ export default function PageHeader({ published }) {
             <Desync text={TITLE}><SplitText text={TITLE} delay={0.15} /></Desync>
           </h1>
           <p className="t-lead page-lead">
-            Interviewed with the Blockchain Innovation Club? Sign in with your email and roll number to find out
+            Applied to the Blockchain Innovation Club? Sign in with your email and roll number to find out
             whether you&apos;ve made the chain.
           </p>
         </div>

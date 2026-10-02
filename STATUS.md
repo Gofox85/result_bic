@@ -46,30 +46,40 @@ This repo has only the `main` branch.
 - **Club Contact form:** checks the email format ("enter valid email id") but accepts any domain, because outside
   partners write in through it. The user hasn't confirmed this yet (see below).
 
-## Results data: in progress (2 Oct)
+## Results data: ready, waiting for the user's go time (2 Oct)
 
-The user sent the real data as uploads in the chat: four round-2 shortlist sheets (Visual & Digital Media, Design,
-Tech, Research), each with name, roll number, department and email, plus a markdown list of who was selected per
-team. Teams: Event, Digital Media, Design, Tech, Research, Visual Media, PR.
-- **Who goes in:** everyone on a round-2 shortlist can sign in. They're "selected" only if they're on the selection
-  list.
-- **Role text** (the user's rule): `<team name> Associate`, e.g. "Design Associate", "Tech Associate".
-- **Matched so far:** 56 shortlisted people; 32 of the 47 selected names match one of them. A dry run through
-  `scripts/excel_to_json.py` passes. Nothing is published yet.
-- **Where the work is:** `build_sheet.py` (scratchpad) merges the sheets and the list into the converter's CSV.
-  The scratchpad and uploads don't survive a new session; if they're gone, ask the user to upload the files again.
-  **Never commit the sheets or the CSV.**
-- **Blocked on the user:**
-  - the Event and PR teams' shortlist sheets (14 selected people have no email or roll number yet);
-  - one selected Tech candidate who isn't on the Tech sheet;
-  - one selected name whose initial differs from the sheet;
-  - one candidate listed with two different roll numbers;
-  - when to publish, and whether to open Core Members at the same time.
+**Source of truth:** the master form-response sheet ("BIC Recruitment 2026-27 Responses"), which the user says is
+100% correct. It supplies every email, roll number, name and department.
+- Where a college-email cell is malformed, the form's login-email column holds the correct address.
+- Five people submitted twice, with identical details both times.
+
+**What gets published:**
+- **Every applicant can check** (the user's choice): 244 people, of whom 47 are selected and 197 not selected.
+- Selected per team (from the user's selection list): Event 8, Tech 8, Design 8, PR 7, Research 6, Digital
+  Media 5, Visual Media 5.
+- **Role text** (the user's rule): `<team> Associate`. The page reads "selected as a/an <role>".
+- Matching the selection list to the master: every name resolved to exactly one applicant. A few list entries
+  differ from the master in spelling or an initial, and one candidate's roll number on a shortlist sheet differed
+  from the master. The master wins everywhere.
+
+**Ready in the scratchpad** (never commit any of it; it holds candidate emails and roll numbers in the clear):
+- `ready-results.json`: sealed and verified. All 244 logins open the right record; wrong pairs open nothing.
+- `build_v2.py` + `master.py`: rebuild it (`build_v2.py OUT.csv --everyone`, then `scripts/excel_to_json.py`).
+- `verify.mjs`: checks every login.
+
+If the scratchpad is gone, ask the user to re-upload the master sheet and the selection list, then redo the
+matching.
+
+**Go-live steps** (only at the time the user gives):
+1. Results site: copy `ready-results.json` to `src/data/results.json`, run `npm test && npm run build`, commit
+   only that file, and push.
+2. Club site: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build, and push. The user
+   wants Core Members to switch **at the same time** as the results go live.
+3. Watch both deploys, then tell the user.
 
 ## Waiting on the user
 
-1. **The answers above**, then the results go out.
-2. **When to publish the results,** and separately, **when to open Core Members.**
+1. **The go-live time.** Results and Core Members switch together.
 3. **The result-page messages** (`src/data/site.js` here): keep the current ones or send new text.
 4. **Contact form:** keep accepting any email (recommended), or college-only?
 
@@ -148,5 +158,7 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   Club site now tells browsers not to cache pages (`no-cache`), so changes show without a hard refresh.
 - **1 Oct:** STATUS.md checked against both repos and brought up to date. Nothing is in progress; the next step
   is the user's results sheet and publish time.
-- **2 Oct:** Real data received (4 shortlist sheets + selection list). Matched and dry-run sealed in the
-  scratchpad; waiting on the user's answers before publishing (see "Results data: in progress").
+- **2 Oct:** Real data received (4 shortlist sheets + selection list, then the master sheet as source of truth).
+  The user chose "every applicant can check" and to publish at a time they give, with Core Members switching at
+  the same moment. Wording changed from "interviewed" to "applied" on both sites, and the result reads "selected as
+  a/an <role>". Sealed data verified and ready (see "Results data: ready").

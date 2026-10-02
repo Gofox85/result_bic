@@ -59,14 +59,14 @@ export default function ResultCard({ result, published, headingRef, onCheckAnoth
       {result.selected ? (
         <>
           <p className="t-lead result-lead">
-            You&apos;ve been selected for the <strong>{result.role}</strong>.
+            You&apos;ve been selected as {/^[aeiou]/i.test(result.role) ? 'an' : 'a'} <strong>{result.role}</strong>.
           </p>
           <Ledger
             rows={[
               ['name', result.name],
               ['roll number', result.rollNo],
               ['department', result.department],
-              ['team', result.role, true],
+              ['role', result.role, true],
             ]}
           />
           <Confirmations />

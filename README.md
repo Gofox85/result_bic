@@ -25,7 +25,7 @@ Don't put anything in the sheet you wouldn't want that candidate's classmates to
 
 ## Publishing results
 
-1. Build the sheet (Excel or CSV), one row per interviewed candidate, **selected and not selected**:
+1. Build the sheet (Excel or CSV), one row per candidate who can check (for 2026: every applicant), **selected and not selected**:
 
    | Email | Roll Number | Name | Department | Selected | Role |
    | --- | --- | --- | --- | --- | --- |

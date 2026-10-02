@@ -12,4 +12,4 @@ export const SELECTED_NEXT_STEPS =
 
 // Shown under a not-selected result.
 export const NOT_SELECTED_MESSAGE =
-  'Thank you for taking the time to interview with us. We had far more strong candidates than places this round, and we could not offer you a spot this time. Our events and workshops stay open to everyone — come build with us, and apply again next season.';
+  'Thank you for applying to BIC/REC. We had far more strong candidates than places this round, and we could not offer you a spot this time. Our events and workshops stay open to everyone — come build with us, and apply again next season.';
