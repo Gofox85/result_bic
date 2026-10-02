@@ -10,15 +10,22 @@ It holds no secrets and no candidate data. This repo is public.
 - **Both repos are pushed to `main` and deployed** (results `Gofox85/result_bic`, club `SaIdEeVaN/BIC-REC_Site`).
 - **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
   (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
-- **Club site:** team split into Board (8), Core (16) and Associates, with "Meet us"; official domain names; one
-  faculty coordinator; no Join us; Gallery has 5 real albums, 34 photos (DeFi Unlocked, 11 Apr 2026; Hack to
-  Blockchain, 13 Feb 2026; European Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC
-  inauguration, 18 Sep 2025), each with its own page (`/gallery/<slug>`). The Events page lists the club's 6 real
-  events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery" button opens its album page.
+- **Club site:**
+  - **Team:** Board (8: core board 5 incl. the Secretary, executive team 3), Core (16, by domain, with a "Media"
+    group led by the new Media Director, Mohammed Irfan S) and Associates (empty until 13:00 on 3 Oct), with
+    "Meet us". **Every board and core member has a photo.** Titles use the official domain names. One faculty
+    coordinator. Padma Priya J and Kabilan S removed.
+  - **Gallery:** 5 real albums, 34 photos (DeFi Unlocked, 11 Apr 2026; Hack to Blockchain, 13 Feb 2026; European
+    Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC inauguration, 18 Sep 2025), each
+    with its own page (`/gallery/<slug>`).
+  - **Events:** the club's 6 real events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery"
+    button opens its album page. Home and Achievements count their figures from this list.
+  - No Join us, no News page.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   10:30 pre-flight check → **11:00 real results live** + Associates page says "Check your result" → 13:00 the 47
   associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
-  tasks were moved together (they were 07:30 / 08:00 / 10:00) and confirmed enabled at the new times.
+  tasks were moved together (they were 07:30 / 08:00 / 10:00). Re-checked at the end of 2 Oct: all three enabled,
+  next runs 05:00, 05:30 and 07:30 UTC on 3 Oct.
 - **Open, not blocking:** see "Waiting on the user". More gallery albums are coming from the user.
 
 ## The two sites
@@ -39,24 +46,22 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `1ff5b47`, the event button reads "Explore gallery" (the user). Before it: `de391ef`, photos for Karthick Raja R, M. Harish Karthikeyan and Harshini: **every board and
-  core member now has a photo**. Before it: `cd9e0f6` (four member photos, Pavithra J on the core board, Padma Priya J removed),
-  `aa6fc0f` (Mohammed Irfan S, Media Director, and the "Media" group), `d02d641`
-  (Harshini's title) and `3f7a0b3`: Byte the Dust's write-up, the club's figures counted from the Events page, the News
-  page removed, core team titles in the official domain names (see "Events page" and "Club team pages"). Before
-  it: `4ea9a03` (DeFi Unlocked, and a page of its own for every album, see "Gallery"), `e3ea5da` (the Events page lists the club's real events, linked to their albums, see "Events page"),
-  `e26ea0f` (Gallery albums European Immersion Program and Hack to Blockchain, and a grid
-  that fits any photo shape), `65bf931` (four more Decode Blockchain photos), `c2e5ee0` (the Gallery's Decode
-  Blockchain album), `068b1c6` (KBA spelled out as the
-  Kerala Blockchain Academy everywhere), `8c202d1` (four
-  more photos in the Gallery's first album, nine now, see "Gallery"),
-  `8c165b2` (the Gallery's first real album), `52bd3b5` (Join us removed,
-  Kabilan S removed from the Technical team), `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
-  board, core and associate members with "Meet us", see "Club team pages"), `3e94254` (Gallery page brought back),
-  `77a4118` (official domain names), `8089d4b` (the roster section, now on the Associates page) and `d893df9`
-  (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a
-  **dark theme** switched from the header and a `status.md` in the club repo. That `status.md` is the user's own
-  (last updated 1 Oct); this file is the one kept up to date.
+- club site: `1ff5b47`, the event button reads "Explore gallery". The 2 Oct changes before it, newest first:
+  - `de391ef`, `cd9e0f6`: member photos (every board and core member has one now); Pavithra J moved to the core
+    board; Padma Priya J removed.
+  - `aa6fc0f`, `d02d641`: Mohammed Irfan S (Media Director); the "Media" group; the media titles.
+  - `3f7a0b3`: Byte the Dust's write-up, figures counted from the Events page, News page removed, titles in the
+    official domain names.
+  - `4ea9a03`, `e3ea5da`, `e26ea0f`: DeFi Unlocked; a page for every album; the Events page rebuilt from the
+    gallery; the European Immersion Program and Hack to Blockchain albums; a grid that fits any photo count.
+  - `65bf931`, `c2e5ee0`, `8c202d1`, `8c165b2`: the Decode Blockchain and KBAIC inauguration albums.
+  - `068b1c6`: KBA spelled out as the Kerala Blockchain Academy everywhere.
+  - `52bd3b5`, `2c3cef5`, `60d01c0`, `3e94254`, `77a4118`: Join us and Kabilan S removed; one faculty
+    coordinator; the board/core/associates split with "Meet us"; the Gallery page back; official domain names.
+  - Earlier: `8089d4b` (the roster section, now on the Associates page), `d893df9` (Contact form college-only),
+    and the user's own `9ab2722`, a merge from another session that added a **dark theme** switched from the
+    header and a `status.md` in the club repo. That `status.md` is the user's own (last updated 1 Oct); this file
+    is the one kept up to date.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
 on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: ask the user.
@@ -340,6 +345,8 @@ Open, not blocking (asked on 2 Oct; change only if they answer):
   `SELECTED_NEXT_STEPS` in `src/data/site.js` (results repo), in place of "the club's WhatsApp group"; before
   11:00 on 3 Oct a push goes live with the sample data only, which is fine.
 - **Associates list time:** 13:00 IST on 3 Oct unless the user picks another time after 11:00.
+- **Pavithra J's place:** last in the core board, right above the executive team. Offered to put her after the
+  Vice President instead.
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
 - **Events:** Byte the Dust's venue and photos; times and venues for the others, if they have them.
