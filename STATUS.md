@@ -11,8 +11,9 @@ It holds no secrets and no candidate data. This repo is public.
 - **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
   (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
 - **Club site:** team split into Board (8), Core (16) and Associates, with "Meet us"; official domain names; one
-  faculty coordinator; no Join us; Gallery has 2 real albums (Decode Blockchain, 15 Oct 2025; the KBAIC
-  inauguration, 18 Sep 2025).
+  faculty coordinator; no Join us; Gallery has 4 real albums, 31 photos (Hack to Blockchain, 13 Feb 2026; European
+  Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC inauguration, 18 Sep 2025). The Events
+  page lists the club's 5 real events (those 4 plus Byte the Dust, 12 Feb 2026), each linked to its album.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   07:30 pre-flight check → 08:00 real results live + Associates page says "Check your result" → 10:00 the 47
   associates listed. All three were confirmed enabled at the end of 2 Oct.
@@ -36,7 +37,9 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `65bf931`, four more Decode Blockchain photos (nine). Before it: `c2e5ee0` (the Gallery's Decode
+- club site: `e3ea5da`, the Events page lists the club's real events, linked to their gallery albums (see
+  "Events page"). Before it: `e26ea0f` (Gallery albums European Immersion Program and Hack to Blockchain, and a grid
+  that fits any photo shape), `65bf931` (four more Decode Blockchain photos), `c2e5ee0` (the Gallery's Decode
   Blockchain album), `068b1c6` (KBA spelled out as the
   Kerala Blockchain Academy everywhere), `8c202d1` (four
   more photos in the Gallery's first album, nine now, see "Gallery"),
@@ -130,14 +133,23 @@ This repo has only the `main` branch.
     titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
     2 Oct whether to rename them (e.g. "Technical Lead"); no answer yet.
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
+  4 albums, 31 photos.
+  - **Hack to Blockchain**, **13 February 2026** (the user). The screen in the photos reads "Hack to Blockchain" with
+    Rajalakshmi Engineering College, Notion and Titanium 2026 logos; Titanium '26 is the national-level technical
+    symposium (club `achievements.js`), so the album calls it the club's event at Titanium 2026, with Notion. 5 photos
+    (4 Samsung HEIC, 1 iPhone HEIC with GPS, removed), in this order: the whole hall (lead), the consensus session,
+    a Notion bag handed over, a certificate on stage, the team with a faculty member. Tags: titanium 2026, with notion.
+  - **European Immersion Program**, **6 January 2026** (the user): students from top European institutions came to
+    REC for an immersion program in blockchain and quantum cryptography. 8 photos (3 JPG, 5 iPhone HEIC with GPS,
+    removed), in this order: the group at the Idea Factory (lead), gathered round the code, Blockverse on every
+    screen, the session in the lab, laughs at a desk, Q&A, club members with two visitors, faculty with visitors.
   - **Decode Blockchain**, **15 October 2025**: the club's **first event** (the user), a hands-on workshop organised
     by the Blockchain Innovation Club with the Department of CSE ("BIC × … Workshop" on the screen, theme
     "Unlocking the Future of Blockchain"). 9 photos from the chat, in this order: the group in front of the
     workshop screen (lead), the wallet set-up with the speaker, participants at laptops, a full room at work, two
     participants on one laptop, the team talking the room through it, the big group photo, the team with the
     speaker, six members under the palms.
-    Neutral captions, nobody named. It is **not on the Events page** (which lists Jan–May 2026 events only);
-    offered to the user to add it.
+    Neutral captions, nobody named. On the Events page as block #0002 (see "Events page").
   - **Album 1:** "KBAIC Inauguration Ceremony", **18 September 2025**: the start of the club (as KBA Club REC,
     since renamed the Blockchain Innovation Club) and the inauguration of its **first board** (the user, 2 Oct),
     with the Department of CSE, theme "Unlocking the Future of Blockchain". 9 photos the user sent in the chat on
@@ -153,8 +165,12 @@ This repo has only the `main` branch.
   - **How it's built** (club repo): `src/data/gallery.js` (albums: slug, title, date, datetime, tags, description,
     photos with `n`, `alt`, `caption`), `src/lib/galleryPhotos.js` (resolves the files),
     `src/assets/gallery/<slug>/<nn>.webp` (1600px) and `<nn>-thumb.webp` (960px), README in that folder.
-    `src/pages/Gallery.jsx`: the first photo takes a double cell; any photo opens a full view (a modal `<dialog>`:
-    arrow keys or buttons step through, Esc closes, focus returns to the photo).
+    `src/pages/Gallery.jsx`: the first five photos make a block, the lead at double size (2×2 from lg; its image is
+    taken out of the flow so any photo shape fills the cell exactly) with four beside it; the rest follow in rows
+    of four (three when they come in threes), and on phones an odd last one takes the full width. Any photo opens a
+    full view (a modal `<dialog>`: arrow keys or buttons step through, Esc closes, focus returns to the photo).
+    Each album section has `id=<slug>`, so `/gallery#<slug>` lands on it, and an "About the event →" link when an
+    event in `src/data/events.js` names it as its `album`.
   - **To add an album** (the user sends 5–10 photos with a title, date, a line or two, captions optional): run the
     scratchpad's `gallery-process.py <out folder> <photos in order>` (Pillow: converts to sRGB, resizes, saves WebP
     with **no metadata at all**; if the scratchpad is gone, rewrite it along those lines), add the album at the top
@@ -162,6 +178,24 @@ This repo has only the `main` branch.
     it for the user, push.
   - History: removed on 2 Oct at the user's ask, restored the same day (revert of `5cdd90a`), photos put on hold,
     then the user sent album 1 in the chat.
+- **Events page** (club `src/data/events.js`, from 2 Oct): the club's **real** events, oldest first (block #0001
+  up). It used to list 6 template events that never happened (a Jan 2026 "inaugural" Blockchain Fundamentals
+  Workshop, a Web3 Hackathon with ₹50,000 prizes, a DeFi lecture, a bootcamp, a quiz, a meetup); the user said to
+  take the events from the gallery, and Decode Blockchain was the club's first event, so they were replaced:
+  1. KBAIC Inauguration Ceremony, 18 Sep 2025 (type Inauguration)
+  2. Decode Blockchain, 15 Oct 2025 (Workshop)
+  3. European Immersion Program, 6 Jan 2026 (Immersion Program)
+  4. **Byte the Dust: A Cyber Forensics**, 12 Feb 2026 (the user; no photos, venue or details yet)
+  5. Hack to Blockchain, 13 Feb 2026
+  - Fields: `time`, `venue`, `highlights`, `speakers`, `certificate` are optional (only what's known is shown);
+    `album` is the gallery slug. An event with an album shows four of its photos and "All N photos in the gallery"
+    (to `/gallery#<slug>`); without one it says "Photos pending". The filter tabs are built from the events' types.
+  - Types for Byte the Dust and Hack to Blockchain are "Technical Event" (a guess); venues are "Rajalakshmi
+    Engineering College" for the four with photos (they show REC), none for Byte the Dust. No times anywhere.
+  - Home's "Events that define us" shows the three most recent; the "next event" card says "coming soon" (all past).
+  - News (`src/data/news.js`) is still the template's items (a Web3 Hackathon recap, the Jan workshop, a bootcamp,
+    a newspaper feature); the two that linked to `/events/1` and `/events/2` were unlinked, since those addresses now
+    belong to real events. Offered to the user to replace News too.
 - **Big photo batches from Drive** (if the user sends whole folders or zips rather than picked photos):
   - Drive access works (the environment's network access was set on 2 Oct). List a shared folder with
     `https://drive.google.com/embeddedfolderview?id=<folder id>`; download a file with
@@ -263,8 +297,12 @@ Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 - **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
-- **Events page:** Decode Blockchain (15 Oct 2025, the club's first event) isn't listed there. Add it if the user
-  gives the details (time, venue, speaker, a short write-up).
+- **Events page:** Byte the Dust (12 Feb 2026) has only its name and date: add a line or two, the venue, its type
+  and photos if the user sends them. Times, venues and speakers for the others too, if they have them. Confirm
+  the event types ("Technical Event" for Byte the Dust and Hack to Blockchain) and whether the inauguration should be
+  listed as an event.
+- **News page:** still the template's made-up items; replace with real news (e.g. one per real event) if the user
+  wants.
 - **WhatsApp group name:** the selected results say "the club's WhatsApp group". If the group has a name (e.g.
   "BIC/REC Associates"), it can go in `SELECTED_NEXT_STEPS` in `src/data/site.js`.
 
@@ -401,3 +439,10 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct:** Gallery album "Decode Blockchain" (15 Oct 2025, the club's first event, 5 photos) added above the
   inauguration. Gallery tests pass at every width.
 - **2 Oct:** Four more Decode Blockchain photos (nine in the album). Both albums now fill their grids evenly.
+- **2 Oct:** Gallery albums "European Immersion Program" (6 Jan 2026, 8 photos) and "Hack to Blockchain" (13 Feb
+  2026, 5 photos, at Titanium 2026 with Notion). HEICs converted (Display P3 to sRGB), GPS stripped. The album grid
+  now fits any photo shape (4:3 and 16:9 too) and any count. Club e2e passes apart from the five known
+  `/achievements` font checks.
+- **2 Oct:** Events page rebuilt from the gallery (the user): the 6 template events replaced by the club's 5 real
+  ones, Byte the Dust (12 Feb 2026) added, each event linked to its album and back. Two news links unlinked. Tests
+  updated and two added; the same five known font checks are the only failures locally.
