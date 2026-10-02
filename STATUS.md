@@ -11,15 +11,17 @@ It holds no secrets and no candidate data. This repo is public.
 - **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
   (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
 - **Club site:**
-  - **Team:** Board (8: core board 5 incl. the Secretary, executive team 3), Core (16, by domain, with a "Media"
+  - **Team:** Board (8: core board 5, in order President, Vice President, Secretary, two ambassadors; executive
+    team 3), Core (16, by domain, with a "Media"
     group led by the new Media Director, Mohammed Irfan S) and Associates (empty until 13:00 on 3 Oct), with
     "Meet us". **Every board and core member has a photo.** Titles use the official domain names. One faculty
     coordinator. Padma Priya J and Kabilan S removed.
   - **Gallery:** 6 real albums, 37 photos (DeFi Unlocked, 11 Apr 2026; Hack to Blockchain, 13 Feb 2026; Home of
     Hope Visit, 26 Jan 2026; European Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC
     inauguration, 18 Sep 2025), each with its own page (`/gallery/<slug>`).
-  - **Events:** the club's 7 real events (those 6 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery"
-    button opens its album page. Home and Achievements count their figures from this list.
+  - **Events:** the club's 7 real events (those 6 plus Byte the Dust, 12 Feb 2026; Byte the Dust and Hack to
+    Blockchain were the club's two events at Titanium 2026); an event's "Explore gallery" button opens its album
+    page. Home and Achievements count their figures from this list.
   - No Join us, no News page.
 - **Both sites stay light on phones set to dark mode** (the user, 2 Oct): they declare `color-scheme: only light`
   (a meta tag in `index.html` and the CSS), so browsers with a forced dark mode (Chrome's auto-dark, Samsung
@@ -28,9 +30,10 @@ It holds no secrets and no candidate data. This repo is public.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   10:30 pre-flight check → **11:00 real results live** + Associates page says "Check your result" → 13:00 the 47
   associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
-  tasks were moved together (they were 07:30 / 08:00 / 10:00). Re-checked at the end of 2 Oct: all three enabled,
-  next runs 05:00, 05:30 and 07:30 UTC on 3 Oct.
-- **Open, not blocking:** see "Waiting on the user". More gallery albums are coming from the user.
+  tasks were moved together (they were 07:30 / 08:00 / 10:00). Re-checked again late on 2 Oct, after the last
+  site changes: all three enabled, next runs 05:00, 05:30 and 07:30 UTC on 3 Oct, unchanged steps (key, checksum
+  `08146bf3…`, the 47 associates). The user confirmed: results at 11:00, associates list at 13:00.
+- **Open, not blocking:** see "Waiting on the user". Nothing is needed from the user for 3 Oct.
 
 ## The two sites
 
