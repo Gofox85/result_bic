@@ -1,5 +1,11 @@
 import React from 'react';
-import { CLUB_SITE, NOT_SELECTED_MESSAGE, SELECTED_NEXT_STEPS } from '../data/site.js';
+import {
+  CLUB_SITE,
+  NOT_SELECTED_MESSAGE,
+  SELECTED_CLOSING,
+  SELECTED_NEXT_STEPS,
+  SELECTED_OPENING,
+} from '../data/site.js';
 import { pad2, sealedDate, shortHash } from '../lib/chain.js';
 import { Roll, Scramble, SplitText } from './motion.jsx';
 
@@ -64,7 +70,8 @@ export default function ResultCard({ result, published, revealDelay = 0, heading
       {result.selected ? (
         <>
           <p className="t-lead result-lead">
-            You&apos;ve been selected as {/^[aeiou]/i.test(result.role) ? 'an' : 'a'} <strong>{result.role}</strong>.
+            {SELECTED_OPENING} Congratulations on being selected as {/^[aeiou]/i.test(result.role) ? 'an' : 'a'}{' '}
+            <strong>{result.role}</strong>. {SELECTED_CLOSING}
           </p>
           <Ledger
             rows={[
