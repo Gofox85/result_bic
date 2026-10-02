@@ -21,8 +21,9 @@ deploy, so run the checks first.
 Latest change to each live site (both deploys succeeded):
 - results site: `b8d470d`, the official domain names in the roles (see "Official domain names"), after `f0c7cfe` (no
   Gallery link) and the result reveal. The live data is still the sample data until the release.
-- club site: `77a4118`, the official domain names. Before it: `5cdd90a` (Gallery page removed), `8089d4b` (Core
-  Members roster section, empty until 10:00 IST on 3 Oct) and `d893df9` (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
+- club site: `3e94254`, the Gallery page brought back (reverting `5cdd90a`). Before it: `77a4118` (official domain
+  names), `8089d4b` (Core Members roster section, empty until 10:00 IST on 3 Oct) and `d893df9` (Contact form
+  college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
@@ -86,9 +87,21 @@ This repo has only the `main` branch.
   - Club board page group headings: Design, Event, PR and Outreach, Technical, Research and Innovation, and "Visual
     and Digital Media" (one group of media leads covering both). People's own titles ("Tech Lead", "Media Lead", …)
     were left as they are; they're the board's positions.
-- **No Gallery** (the user's ask, 2 Oct). The club site's Gallery page only held placeholder photo frames, so it's
-  gone, along with every link to it on both sites: the club header and footer, the results-site footer and the
-  button on event pages. Event pages still say "Photos pending". `/gallery` now shows the club's 404 page.
+- **Gallery: back, waiting for real photos.** Removed on 2 Oct at the user's ask, then restored the same day
+  (club revert of `5cdd90a`, results footer link re-added) because the club is adding real photos. It still shows
+  the 12 placeholder frames (categories and titles are placeholders too) until the photos arrive.
+- **Photos (in progress):** the user will send zip files of photos (about 2 GB each) **one at a time**, as Google
+  Drive links. Plan agreed on 2 Oct:
+  - Handle one zip at a time: download, unzip, read each photo's metadata (date taken, camera, size, GPS present),
+    shrink for the web, delete the zip and the unzipped folder. Pillow + `pillow-heif` (iPhone HEIC) and WebP support
+    are in the scratchpad venv; `unzip` is installed; there's no `exiftool` (Pillow reads EXIF).
+  - Match photos to events by the date taken (the club's events are dated in `src/data/events.js`), order them, and
+    skip near-duplicates and bursts.
+  - Give the user a private spreadsheet of every photo's metadata, and a thumbnail sheet of the suggested picks to
+    approve. Publish only the approved selection: the site can't hold thousands of photos.
+  - **Strip all metadata (GPS especially) from published images.** Keep the metadata spreadsheet private.
+  - Still to decide with the user: how the gallery is organised (by event or by the current categories) and whether
+    event pages show their own photos.
 - **Photos from Google Drive:** this container can't reach `drive.google.com`, `drive.usercontent.google.com` or
   `lh3.googleusercontent.com` (blocked by the environment's network policy; checked 2 Oct). To use Drive photos,
   the user either adds those hosts in the environment's Network access settings (and shares the files as "Anyone
@@ -260,3 +273,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct:** Official domain names applied on both sites, the release file re-sealed with them, and the three
   scheduled tasks updated. Checked: all 244 logins, the 08:00 unlock command, page layouts at 360–1280px with the
   47-member roster filled in temporarily, and the club e2e suite (only the five known `/achievements` font checks fail).
+- **2 Oct:** Gallery restored on both sites for the club's real photos (see "Photos (in progress)"). Drive is still
+  blocked from this container; the user has the steps to allow it.

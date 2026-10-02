@@ -12,6 +12,7 @@ const socialLinks = [
 const clubLinks = [
   { label: 'About', path: '/about' },
   { label: 'Events', path: '/events' },
+  { label: 'Gallery', path: '/gallery' },
   { label: 'Contact', path: '/contact' },
 ];
 
