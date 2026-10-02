@@ -10,13 +10,16 @@ const steps = [
   },
 ];
 
-export default function HowItWorks() {
+// state: 'idle'; 'checking' while a key is derived (the blocks light up in turn); 'leaving' once it matched (they
+// lock amber and shunt off the page); 'returning' when it's back after a result (they shunt back on).
+// Each piece carries its place in the order (--i) so they move one after another.
+export default function HowItWorks({ state = 'idle' }) {
   return (
-    <section className="how" aria-labelledby="how-title">
-      <h2 className="t-h3" id="how-title">How it works</h2>
+    <section className={`how is-${state}`} aria-labelledby="how-title">
+      <h2 className="t-h3" id="how-title" style={{ '--i': 0 }}>How it works</h2>
       <ol className="steps">
         {steps.map((step, i) => (
-          <li className="step" key={step.title}>
+          <li className="step" key={step.title} style={{ '--i': i + 1 }}>
             <span className={`node ${i === steps.length - 1 ? 'node-head' : ''}`} aria-hidden="true" />
             <div>
               <p className="meta">block #{String(i + 1).padStart(4, '0')}{i === steps.length - 1 ? ' · head' : ''}</p>
@@ -26,7 +29,7 @@ export default function HowItWorks() {
           </li>
         ))}
       </ol>
-      <p className="t-small how-help">
+      <p className="t-small how-help" style={{ '--i': steps.length + 1 }}>
         Can&apos;t find your result? Write to{' '}
         <a className="text-link" href={`mailto:${CLUB_EMAIL}`}>{CLUB_EMAIL}</a> with your name and roll number.
       </p>

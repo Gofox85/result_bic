@@ -191,9 +191,11 @@ img { display: block; }
 .page-aside dd { font-family: var(--mono); font-size: 12.5px; font-weight: 500; text-align: right; text-transform: uppercase; }
 
 /* Checker: the form panel comes first in reading order, so phones reach it before the explainer. */
+.checker { overflow-x: clip; }
 .checker-grid { display: grid; gap: 48px; }
 
 .panel {
+  position: relative;
   min-width: 0;
   padding: 24px;
   border: 3px solid var(--ink);
@@ -206,6 +208,39 @@ img { display: block; }
   from { transform: translate(-12px, -12px); box-shadow: 19px 19px 0 var(--ink); }
   to { transform: none; box-shadow: 7px 7px 0 var(--ink); }
 }
+/* The result panel's entrance is the carry-over from the form's spot (App.jsx), not the slam. */
+.panel-result { animation: none; }
+
+/* The seal: slats of ciphertext over the panel, border included. They shunt in from alternate sides to cover the
+   form, and shunt back out, top to bottom, to open the result once it has been set down. */
+.shutter {
+  position: absolute;
+  z-index: 3;
+  inset: -3px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: none;
+}
+.slat {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  overflow: hidden;
+  padding-inline: 16px;
+  background: var(--ink);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.slat + .slat { border-top: 3px solid var(--bone); }
+.shutter.is-close .slat { animation: slat-in 280ms var(--ease-shunt) calc(var(--i) * 20ms) both; }
+.shutter.is-open .slat { animation: slat-out 260ms var(--ease-shunt) calc(380ms + var(--i) * 30ms) both; }
+@keyframes slat-in { from { transform: translateX(calc(var(--dir) * 101%)); } }
+@keyframes slat-out { to { transform: translateX(calc(var(--dir) * 101%)); } }
 
 /* Form */
 .result-form { display: flex; flex-direction: column; gap: 20px; }
@@ -303,11 +338,30 @@ img { display: block; }
 .chip-mint { background: var(--mint); }
 
 /* Rubber stamp: absent, then brought down oversized and askew onto the page. */
-.stamp { display: inline-block; animation: stamp 420ms var(--ease-spring) 250ms both; }
+.stamp {
+  position: relative;
+  display: inline-block;
+  animation: stamp 420ms var(--ease-spring) calc(var(--reveal, 0ms) + 250ms) both;
+}
 @keyframes stamp {
   0% { visibility: hidden; transform: scale(1.8) rotate(-8deg); }
   1% { visibility: visible; }
   100% { transform: none; }
+}
+/* Selected: as the stamp lands, a hard outline of it is knocked outward and cut off. */
+.stamp-impact::after {
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--ink);
+  content: '';
+  pointer-events: none;
+  animation: impact 340ms var(--ease-shunt) calc(var(--reveal, 0ms) + 520ms) both;
+}
+@keyframes impact {
+  0% { visibility: hidden; }
+  1% { visibility: visible; inset: 0; }
+  99% { visibility: visible; }
+  100% { visibility: hidden; inset: -18px; }
 }
 
 /* Result */
@@ -315,7 +369,8 @@ img { display: block; }
 .result-title { margin-top: 22px; }
 .result-lead { margin-top: 14px; }
 .result-body { margin-top: 20px; }
-.result-ledger { margin-top: 24px; border: 3px solid var(--ink); }
+.result-ledger { overflow: hidden; margin-top: 24px; border: 3px solid var(--ink); }
+/* Rows shunt into the ledger's frame one after another, the role (amber) last. */
 .result-ledger > div {
   display: flex;
   align-items: baseline;
@@ -323,7 +378,9 @@ img { display: block; }
   gap: 16px;
   padding: 10px 14px;
   border-top: 3px solid var(--ink);
+  animation: row-in 340ms var(--ease-shunt) calc(var(--reveal, 0ms) + 300ms + var(--i) * 60ms) both;
 }
+@keyframes row-in { from { transform: translateX(-101%); } }
 .result-ledger > div:first-child { border-top: 0; }
 .result-ledger dd { min-width: 0; font-weight: 800; text-align: right; overflow-wrap: anywhere; }
 .result-ledger .is-highlight { background: var(--amber); }
@@ -340,19 +397,37 @@ img { display: block; }
   background: var(--amber);
   content: '';
   transform-origin: left;
-  animation: confirm 280ms var(--ease-shunt) calc(500ms + var(--i) * 90ms) both;
+  animation: confirm 280ms var(--ease-shunt) calc(var(--reveal, 0ms) + 640ms + var(--i) * 90ms) both;
 }
 @keyframes confirm { from { transform: scaleX(0); } }
 
-/* How it works */
-.steps { margin-top: 24px; border-block: 3px solid var(--ink); }
+/* How it works. Each step carries its own rules, so a step can leave the page with them. */
+.steps { margin-top: 24px; }
 .step { display: grid; grid-template-columns: 16px 1fr; gap: 16px; padding-block: 20px; border-top: 3px solid var(--ink); }
-.step:first-child { border-top: 0; }
+.step:last-child { border-bottom: 3px solid var(--ink); }
 .step .t-row { margin-top: 6px; }
 .step .t-small { margin-top: 8px; max-width: 52ch; }
 .node { width: 16px; height: 16px; margin-top: 1px; border: 3px solid var(--ink); background: var(--bone); }
 .node-head { background: var(--amber); }
 .how-help { margin-top: 20px; }
+/* While a key is derived, the blocks light up in turn: the chain being checked. */
+/* Negative delays put the three in phase from the first frame: block 1, then 2, then the head. */
+.how.is-checking .node { animation: verify 720ms steps(1) calc(var(--i) * 240ms - 960ms) infinite; }
+@keyframes verify {
+  0% { background: var(--amber); }
+  33% { background: var(--bone); }
+}
+/* A match: every block locks amber, then the column shunts off the left of the page, top first. */
+.how.is-leaving .node { background: var(--amber); }
+.how.is-leaving :is(.t-h3, .step, .how-help) {
+  animation: shunt-off 300ms var(--ease-shunt) calc(var(--i) * 35ms) both;
+}
+@keyframes shunt-off { to { transform: translateX(calc(-100% - 64px)); } }
+/* Back after a result: the column shunts back on from the left. */
+.how.is-returning :is(.t-h3, .step, .how-help) {
+  animation: shunt-on 420ms var(--ease-shunt) calc(120ms + var(--i) * 45ms) both;
+}
+@keyframes shunt-on { from { transform: translateX(calc(-100% - 64px)); } }
 
 /* Motion: headline words shunt up out of their own line box */
 .split-word { display: inline-block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; vertical-align: top; }
@@ -450,8 +525,12 @@ img { display: block; }
   .checker-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 580px); align-items: start; }
   .checker-grid .panel { grid-column: 2; grid-row: 1; }
   .checker-grid .how { grid-column: 1; grid-row: 1; }
+  /* The result has the row to itself, centred at a readable width. */
+  .checker-grid.is-revealed { grid-template-columns: minmax(0, 760px); justify-content: center; }
+  .checker-grid.is-revealed .panel { grid-column: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  .shutter { display: none; }
 }

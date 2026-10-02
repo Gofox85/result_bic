@@ -22,8 +22,8 @@ function Confirmations() {
 function Ledger({ rows }) {
   return (
     <dl className="result-ledger">
-      {rows.filter(([, value]) => value).map(([label, value, highlight]) => (
-        <div className={highlight ? 'is-highlight' : undefined} key={label}>
+      {rows.filter(([, value]) => value).map(([label, value, highlight], i) => (
+        <div className={highlight ? 'is-highlight' : undefined} key={label} style={{ '--i': i }}>
           <dt className="meta">{label}</dt>
           <dd>{value}</dd>
         </div>
@@ -35,25 +35,30 @@ function Ledger({ rows }) {
 // Greet by the first real name, skipping initials: "S. Pratiba" and "V Sanjaivel" become Pratiba and Sanjaivel.
 const greetingName = (name) => name.split(/\s+/).find((part) => part.replace(/\./g, '').length > 2) ?? name.trim();
 
-export default function ResultCard({ result, published, headingRef, onCheckAnother }) {
+// revealDelay (seconds): how long the panel's shutter keeps the card covered, so its entrances wait for it.
+// The CSS entrances read the same delay from --reveal on the panel.
+export default function ResultCard({ result, published, revealDelay = 0, headingRef, onCheckAnother }) {
   const firstName = greetingName(result.name);
   const title = result.selected ? `Welcome to the chain, ${firstName}.` : `Not this time, ${firstName}.`;
 
   return (
     <article className="result" aria-labelledby="result-title">
       <div className="result-top">
-        <span className="stamp">
+        <span className={`stamp ${result.selected ? 'stamp-impact' : ''}`}>
           <span className={`chip chip-lg ${result.selected ? 'chip-mint' : ''}`}>
             {result.selected ? 'Selected' : 'Not selected'}
           </span>
         </span>
         <span className="meta">
-          <Scramble text={`record ${shortHash(result.rollNo)} · sealed ${sealedDate(published)}`} delay={0.3} />
+          <Scramble
+            text={`record ${shortHash(result.rollNo)} · sealed ${sealedDate(published)}`}
+            delay={revealDelay + 0.3}
+          />
         </span>
       </div>
 
       <h2 className="t-h3 result-title" id="result-title" ref={headingRef} tabIndex={-1}>
-        <SplitText text={title} delay={0.15} stagger={0.045} />
+        <SplitText text={title} delay={revealDelay + 0.15} stagger={0.045} />
       </h2>
 
       {result.selected ? (

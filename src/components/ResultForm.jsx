@@ -22,9 +22,11 @@ export default function ResultForm({
 }) {
   const [showRollNo, setShowRollNo] = useState(false);
   const checking = lookup.type === 'checking';
+  // A match: the form stays up for a moment while the page clears for the result.
+  const unlocked = lookup.type === 'found';
 
   return (
-    <form className="result-form" onSubmit={onSubmit} noValidate aria-busy={checking}>
+    <form className="result-form" onSubmit={onSubmit} noValidate aria-busy={checking || unlocked}>
       <h2 className="t-h3">Check your result</h2>
 
       <div>
@@ -97,13 +99,15 @@ export default function ResultForm({
         </div>
       )}
 
-      <button className="btn btn-amber btn-block" type="submit" disabled={checking}>
-        {checking ? <span>Unlocking<span className="caret" aria-hidden="true" /></span> : <Roll>Reveal my result</Roll>}
+      <button className="btn btn-amber btn-block" type="submit" disabled={checking || unlocked}>
+        {checking && <span>Unlocking<span className="caret" aria-hidden="true" /></span>}
+        {unlocked && <span>Unlocked</span>}
+        {!checking && !unlocked && <Roll>Reveal my result</Roll>}
       </button>
       <p className="meta" aria-live="polite">
-        {checking
-          ? `deriving your key · ${iterations.toLocaleString('en-IN')} rounds`
-          : 'checked on this device — nothing you type is sent or stored'}
+        {checking && `deriving your key · ${iterations.toLocaleString('en-IN')} rounds`}
+        {unlocked && 'key matched · opening your record'}
+        {!checking && !unlocked && 'checked on this device — nothing you type is sent or stored'}
       </p>
     </form>
   );

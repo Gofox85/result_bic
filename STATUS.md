@@ -19,8 +19,8 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site:
-- results site: `c73305f` and earlier: the "applied" wording and "selected as a/an <role>". The live data is still
-  the sample data until the release.
+- results site: the result reveal animation (2 Oct, see "Current state"), on top of the "applied" wording and
+  "selected as a/an <role>". The live data is still the sample data until the release.
 - club site: `b5f36f4`, on top of the user's own `9ab2722`. That merge, from another session, added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
@@ -71,6 +71,19 @@ This repo has only the `main` branch.
 - **Club Contact form:** takes only `@rajalakshmi.edu.in` addresses (the user's choice, 2 Oct). Anything else shows
   "enter valid email id". A line under the form points people outside REC to the club's email.
 - **Result-page messages** (`src/data/site.js`): the user confirmed on 2 Oct to keep them as they are.
+- **Result reveal** (the user's ask, 2 Oct: "when I click Reveal my result, the content to the left of the box should
+  be removed, with custom animations"). On a match:
+  1. The form says "Unlocked". The "How it works" blocks lock amber and shunt off the left of the page, top first,
+     while slats of ciphertext close over the form (`<Shutter>` in `motion.jsx`).
+  2. The result panel gets the row to itself (centred, 760px wide on desktop; "How it works" isn't rendered). It's
+     carried over from where the form was and set down (a FLIP animation in `App.jsx`), then the slats open.
+  3. The card plays in: stamp, title, ledger rows one by one, confirmations. Selected results get an outline knocked
+     off the stamp.
+
+  While the key is being derived, the three "How it works" blocks light up in turn. "Check another result" brings
+  "How it works" back, shunting in from the left. A no-match leaves the page as it is. With reduced motion, a match
+  goes straight to the result with no animation. Timings are `LEAVE_MS`/`SLIDE_MS`/`REVEAL_MS` in `App.jsx` and the
+  matching CSS delays in `index.css`.
 - **Sample logins** (live until the release): `250701499@rajalakshmi.edu.in` / `250701499` (selected, Tech
   Associate), `250701501@…` / `250701501` (selected, Design Associate), `250701502@…` / `250701502` (not selected).
 
@@ -163,7 +176,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   the system's thinnest allowed line.
 - **No background animation.** A blockchain background (an animated field of blocks and links behind every page)
   was added to both sites on 1 Oct and removed the same day: the user didn't like how it looked. Don't bring
-  back background animation unless the user asks for it again.
+  back background animation unless the user asks for it again. The result reveal (2 Oct) is different: it only
+  moves the page's own blocks, once, when a result opens, using the design system's shunt/stamp motion (no fades).
 - **Core Members history:** a redirect to the results site was tried first. The user then preferred a "Check your
   result" button, and on 30 Sep asked for "coming soon" until results go out. That's why the page has a switch.
 
@@ -195,3 +209,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   The user chose "every applicant can check" and to publish at a time they give, with Core Members switching at
   the same moment. Wording changed from "interviewed" to "applied" on both sites, and the result reads "selected as
   a/an <role>". Sealed data verified and ready (see "Results data: ready").
+- **2 Oct:** Result reveal animation added (see "Current state"). Checked in Chromium at desktop and phone sizes,
+  for selected, not selected, no match, "Check another result" and reduced motion.

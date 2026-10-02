@@ -118,6 +118,24 @@ export function Desync({ text, children }) {
   );
 }
 
+const SLATS = 8;
+const hexLine = () =>
+  Array.from({ length: 24 }, () => Math.floor(Math.random() * 0x10000).toString(16).padStart(4, '0')).join(' ');
+// One set per page load, so the seal over the form and the seal over the result read as the same block.
+const SHUTTER_LINES = Array.from({ length: SLATS }, hexLine);
+
+// Seal: slats of ciphertext cover the panel. "close" shunts them in from alternate sides; "open" shunts them back
+// out, top to bottom, to show what's underneath. Not rendered at all when reduced motion is requested.
+export function Shutter({ mode }) {
+  return (
+    <div className={`shutter is-${mode}`} aria-hidden="true">
+      {SHUTTER_LINES.map((line, i) => (
+        <span className="slat" key={i} style={{ '--i': i, '--dir': i % 2 ? 1 : -1 }}>{line}</span>
+      ))}
+    </div>
+  );
+}
+
 // Label roll: on hover the label shunts up out of its slot and an identical copy rises into it.
 export function Roll({ children }) {
   return (
