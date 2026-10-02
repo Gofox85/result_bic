@@ -102,6 +102,10 @@ This repo has only the `main` branch.
   - **Strip all metadata (GPS especially) from published images.** Keep the metadata spreadsheet private.
   - Still to decide with the user: how the gallery is organised (by event or by the current categories) and whether
     event pages show their own photos.
+  - **Batch 1** (link sent 2 Oct, a Drive folder; the link is in the chat): the inauguration of the **first-tenure
+    board**, from when the club was still the **Kerala Blockchain Association (KBA) club**; it was renamed Blockchain
+    Innovation Club later. Caption and date it accordingly. Not downloaded yet: Drive was still blocked at 07:29 UTC
+    (proxy 403 on `drive.google.com`, `drive.usercontent.google.com`, `lh3.googleusercontent.com`).
 - **Photos from Google Drive:** this container can't reach `drive.google.com`, `drive.usercontent.google.com` or
   `lh3.googleusercontent.com` (blocked by the environment's network policy; checked 2 Oct). To use Drive photos,
   the user either adds those hosts in the environment's Network access settings (and shares the files as "Anyone
