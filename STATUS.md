@@ -39,7 +39,13 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
   - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, 08:00 IST: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
     removes `release/` and pushes. Then sets `RECRUITMENT_RESULTS_OPEN = true` on the club site and pushes, watches
     both deploys, and tells the user.
-- **To move or cancel the release:** `delete_trigger` both IDs, and schedule again if needed.
+  - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 10:00 IST: club site roster. Fills `src/data/coreMembers.js` in the club repo
+    with the 47 new core members (the list is in the task's private message), then pushes and tells the user. It
+    first checks that the 08:00 release happened.
+- **To move or cancel the release:** `delete_trigger` the IDs, and schedule again if needed.
+- **Where the selected members' details are:** not in either repo in readable form (both are public). The user
+  has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
+  From 10:00 IST on 3 Oct, the club repo's `src/data/coreMembers.js` holds names, teams and departments only.
 
 This repo has only the `main` branch.
 
@@ -62,8 +68,11 @@ This repo has only the `main` branch.
   - Keep Cache-Control rules from overlapping. Firebase applies whichever matching rule is listed **last**, which
     was checked in the hosting emulator.
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
-- **Club Contact form:** checks the email format ("enter valid email id") but accepts any domain, because outside
-  partners write in through it. The user hasn't confirmed this yet (see below).
+- **Club Contact form:** takes only `@rajalakshmi.edu.in` addresses (the user's choice, 2 Oct). Anything else shows
+  "enter valid email id". A line under the form points people outside REC to the club's email.
+- **Result-page messages** (`src/data/site.js`): the user confirmed on 2 Oct to keep them as they are.
+- **Sample logins** (live until the release): `250701499@rajalakshmi.edu.in` / `250701499` (selected, Tech
+  Associate), `250701501@…` / `250701501` (selected, Design Associate), `250701502@…` / `250701502` (not selected).
 
 ## Results data: ready, waiting for the user's go time (2 Oct)
 
@@ -98,9 +107,8 @@ matching.
 
 ## Waiting on the user
 
-1. Nothing for the release: it's scheduled (see above). Anything else is new work.
-3. **The result-page messages** (`src/data/site.js` here): keep the current ones or send new text.
-4. **Contact form:** keep accepting any email (recommended), or college-only?
+Nothing. The 08:00 release and the 10:00 roster are scheduled (see above), and every open question has been
+answered. Anything else is new work.
 
 ## How to do the pending work
 
@@ -179,6 +187,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   is the user's results sheet and publish time.
 - **2 Oct:** Unused-file sweep of both repos (import graph from every entry point, barrel exports, member photos):
   only `.env.example` here was unused, and it's deleted. The club repo had nothing unused.
+- **2 Oct:** Contact form made college-only. Sample results switched to the "<team> Associate" roles. Club site
+  got the Core Members roster section (empty until 10:00 IST on 3 Oct), and the roster task was scheduled.
 - **2 Oct:** Go-live set by the user for 3 Oct 08:00 IST. Locked release file committed, and the 07:30 pre-flight
   and 08:00 release scheduled.
 - **2 Oct:** Real data received (4 shortlist sheets + selection list, then the master sheet as source of truth).
