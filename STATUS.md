@@ -18,10 +18,11 @@ It holds no secrets and no candidate data. This repo is public.
 Both repos: **commit and push straight to `main`**, no branches or PRs (the user's rule). Every push is a production
 deploy, so run the checks first.
 
-Latest change to each live site:
-- results site: the result reveal animation (2 Oct, see "Current state"), on top of the "applied" wording and
-  "selected as a/an <role>". The live data is still the sample data until the release.
-- club site: `b5f36f4`, on top of the user's own `9ab2722`. That merge, from another session, added a **dark theme**
+Latest change to each live site (both deploys succeeded):
+- results site: `8d453a1`, the faster result reveal (see "Current state"). The live data is still the sample data
+  until the release.
+- club site: `8089d4b`, the Core Members roster section (empty until 10:00 IST on 3 Oct), after `d893df9` (Contact form
+  college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
@@ -32,8 +33,10 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
 - **The file:** `release/results.json.enc` is the verified, sealed `results.json` (244 records), encrypted again
   (AES-256-GCM) with a random key that is **not in this repo**. It's in the repo so the release survives a reset
   session. It isn't part of the built site, and it's useless without the key.
-- **Two scheduled tasks (`send_later`) wake this session.** The key, the expected sha256 and the exact steps are in
-  their messages, which are private to the user's account.
+- **Three scheduled tasks (`send_later`) wake this session**, so the user doesn't need to give a notice. The key, the
+  expected sha256, the roster list and the exact steps are in their messages, which are private to the user's account.
+  They don't depend on the scratchpad: the unlock uses plain `node` crypto. All three were checked on 2 Oct (enabled,
+  right times). **This chat session must not be archived or deleted before 10:00 IST on 3 Oct**, since the tasks wake it.
   - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 07:30 IST: pre-flight. Checks the workflow is enabled, unlocks the file into the
     scratchpad, dry-runs both builds, and alerts the user if anything's wrong.
   - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, 08:00 IST: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
@@ -42,7 +45,8 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
   - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 10:00 IST: club site roster. Fills `src/data/coreMembers.js` in the club repo
     with the 47 new core members (the list is in the task's private message), then pushes and tells the user. It
     first checks that the 08:00 release happened.
-- **To move or cancel the release:** `delete_trigger` the IDs, and schedule again if needed.
+- **To move or cancel the release:** `update_trigger` with a new `run_once_at` (keeps the message), or `delete_trigger`
+  the IDs. Move all three together: the roster waits for the release, and the pre-flight comes 30 minutes before it.
 - **Where the selected members' details are:** not in either repo in readable form (both are public). The user
   has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
   From 10:00 IST on 3 Oct, the club repo's `src/data/coreMembers.js` holds names, teams and departments only.
@@ -51,13 +55,17 @@ This repo has only the `main` branch.
 
 ## Current state
 
-- **Results site is live with sample data only.** Sample logins:
-  - `250701499@rajalakshmi.edu.in` / `250701499` (selected)
-  - `250701502@rajalakshmi.edu.in` / `250701502` (not selected)
+- **Results site is live with sample data only** until 08:00 IST on 3 Oct. Sample logins:
+  - `250701499@rajalakshmi.edu.in` / `250701499`: selected, Tech Associate
+  - `250701501@rajalakshmi.edu.in` / `250701501`: selected, Design Associate
+  - `250701502@rajalakshmi.edu.in` / `250701502`: not selected
 - **Club site Core Members page (`/team/core`) says "Results coming soon".** It's switched by
   `RECRUITMENT_RESULTS_OPEN` in the club repo's `src/data/club.js` (now `false`). Set to `true`, the page shows
-  "Check your result" with a button to the results site. **The user will say when to open it.** Don't open it before
-  the real results are published, or every candidate gets "no match".
+  "Check your result" with a button to the results site. The 08:00 task opens it right after the results go live.
+  Don't open it before the real results are published, or every candidate gets "no match".
+- **Core Members roster:** a "Meet the core team" section (team tabs, a card per member with name, department and
+  role) renders only when `coreMembers` in the club repo's `src/data/coreMembers.js` is non-empty. It's empty now; the
+  10:00 task fills it with the 47 new members (names, teams and departments only).
 - **Sign-in rules** (results form and Excel converter both enforce them):
   - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
   - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
@@ -85,10 +93,8 @@ This repo has only the `main` branch.
   goes straight to the result with no animation. Timings are `LEAVE_MS`/`SLIDE_MS`/`REVEAL_MS` in `App.jsx` and the
   matching CSS delays in `index.css`. The user asked for it faster, so it now takes about 1.7s from click to the full
   result (was 2.5s), including the 0.5s minimum unlock wait (`MIN_UNLOCK_MS`, was 0.7s).
-- **Sample logins** (live until the release): `250701499@rajalakshmi.edu.in` / `250701499` (selected, Tech
-  Associate), `250701501@…` / `250701501` (selected, Design Associate), `250701502@…` / `250701502` (not selected).
 
-## Results data: ready, waiting for the user's go time (2 Oct)
+## Results data: ready, release scheduled for 3 Oct 08:00 IST
 
 **Source of truth:** the master form-response sheet ("BIC Recruitment 2026-27 Responses"), which the user says is
 100% correct. It supplies every email, roll number, name and department.
@@ -104,17 +110,22 @@ This repo has only the `main` branch.
   differ from the master in spelling or an initial, and one candidate's roll number on a shortlist sheet differed
   from the master. The master wins everywhere.
 
-**Ready in the scratchpad** (never commit any of it; it holds candidate emails and roll numbers in the clear):
+**In the repo:** only `release/results.json.enc` (locked; see "Release scheduled").
+
+**In the scratchpad** (never commit any of it; it holds candidate emails and roll numbers in the clear; it may not
+survive a reset, and the release doesn't need it):
 - `ready-results.json`: sealed and verified. All 244 logins open the right record; wrong pairs open nothing.
 - `build_v2.py` + `master.py`: rebuild it (`build_v2.py OUT.csv --everyone`, then `scripts/excel_to_json.py`).
 - `verify.mjs`: checks every login.
 
-If the scratchpad is gone, ask the user to re-upload the master sheet and the selection list, then redo the
-matching.
+If the scratchpad is gone and the data has to be rebuilt, ask the user to re-upload the master sheet and the
+selection list, then redo the matching.
 
-**Go-live steps** (only at the time the user gives):
-1. Results site: copy `ready-results.json` to `src/data/results.json`, run `npm test && npm run build`, commit
-   only that file, and push. **Check the deploy workflow is enabled first** (see the warning near the top).
+**Go-live steps:** automated by the 08:00 task. If it ever has to be done by hand, follow that task's message (it has
+the key):
+1. Results site: unlock `release/results.json.enc` into `src/data/results.json`, check the sha256, run
+   `npm test && npm run build`, `git rm -r release`, commit and push. **Check the deploy workflow is enabled first**
+   (see the warning near the top).
 2. Club site: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build, and push. The user
    wants Core Members to switch **at the same time** as the results go live.
 3. Watch both deploys, then tell the user.
@@ -122,11 +133,11 @@ matching.
 ## Waiting on the user
 
 Nothing. The 08:00 release and the 10:00 roster are scheduled (see above), and every open question has been
-answered. Anything else is new work.
+answered. The user only needs to keep this chat session open. Anything else is new work.
 
 ## How to do the pending work
 
-### Publish the real results (once the user sends the sheet)
+### Re-seal the results (only if the sheet changes)
 1. Keep the sheet out of the repo (`.gitignore` blocks `.xlsx`/`.csv`). Work from the scratchpad.
 2. Seal it. The system `cryptography` package is broken in this container, so use a venv:
    ```sh
@@ -138,8 +149,8 @@ answered. Anything else is new work.
 3. Spot-check a few real logins with `unlockResult` from `src/lib/resultVault.js` in node. Don't paste candidate
    details anywhere public.
 4. Run `npm test && npm run build`, commit **only** `src/data/results.json`, and push to `main` **at the time the
-   user gives**. Watch the Actions run.
-5. Then ask whether to open Core Members.
+   user gives** (before the release, a push makes it live early; re-lock it instead and update the 08:00 task).
+   Watch the Actions run.
 
 ### Open Core Members ("make it available")
 In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build + the
@@ -163,6 +174,10 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - Test `firebase.json` changes before deploying: install `firebase-tools` in the scratchpad, copy the built `dist/`
   and the `firebase.json` into a scratch folder, run `firebase emulators:start --only hosting --project demo-bicrec`
   (a `demo-` project needs no login), and read the headers back with `curl -D -`.
+- Result reveal: the scratchpad has `reveal-checks.mjs` (behaviour checks: reduced motion, no match, centring,
+  return, no sideways scroll) and `reveal-capture.mjs` + `reveal-gif.py` (records the reveal through a CDP screencast
+  and makes GIFs; Pillow is in the scratchpad venv). Both run against `npx vite preview --port 4180`. If the
+  scratchpad is gone, rewrite them along those lines.
 - The GitHub check on this repo links to `results.web.app`. That's a naming quirk of Firebase's deploy action; the
   real site is `bicrec-results.web.app`.
 
@@ -214,3 +229,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   for selected, not selected, no match, "Check another result" and reduced motion.
 - **2 Oct:** Reveal sped up at the user's request (about 1.7s from click to the full result). The user asked whether
   the 3 Oct launches need a nudge: they don't. The three scheduled tasks were checked (enabled, right times).
+- **2 Oct:** STATUS.md refreshed: club site's latest commits, all three scheduled tasks, the roster section, one
+  sample-login list, and go-live steps marked as automated.
