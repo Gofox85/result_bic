@@ -140,9 +140,9 @@ This repo has only the `main` branch.
     titles use the official domain names (the user said yes on 2 Oct): PR and Outreach Lead / Co-Lead, Technical
     Lead / Co-Lead, Research and Innovation Lead (Muhilan S was "Research Lead"; M. Harish Karthikeyan already had
     that title). Titles that already named their domain stay (Head of Events, Event Co-Lead, Head of Design,
-    Co-Head of Design, Design Co-Lead, Digital Media Co-Lead), and so does Frontend Lead. **Still to rename:** the
-    two "Media Lead"s (Yogadharshini NK, Keerthana G) and the "Media Co-Lead" (Harshini): asked the user whether
-    each is Visual Media or Digital Media.
+    Co-Head of Design, Design Co-Lead, Digital Media Co-Lead), and so does Frontend Lead. Harshini is
+    **Visual Media Co-Lead** (the user, 2 Oct). **Still to rename:** the two "Media Lead"s (Yogadharshini NK,
+    Keerthana G): Visual Media or Digital Media?
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
   5 albums, 34 photos. **Each album also has its own page**, `/gallery/<slug>` (the user, 2 Oct: an event's photos
   should open that event's gallery, not the whole page): back link to all albums, date and count, title,
@@ -328,8 +328,12 @@ Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 asso
 above). The user only needs to keep this chat session (not archive it).
 
 Open, not blocking (asked on 2 Oct; change only if they answer):
-- **Media titles:** are Yogadharshini NK and Keerthana G ("Media Lead") and Harshini ("Media Co-Lead") Visual Media
-  or Digital Media? Then rename them like the others.
+- **Media titles:** are Yogadharshini NK and Keerthana G ("Media Lead") Visual Media or Digital Media? Then rename
+  them like the others. (Harshini is Visual Media Co-Lead.)
+- **Three member photos to add:** M. Harish Karthikeyan (Research and Innovation Lead), Harshini, Karthick Raja R
+  (PR and Outreach Lead), in that order. The user sent them mid-task on 2 Oct, when attachments aren't saved to
+  disk; asked them to send the photos again as a new message. Then: square-crop to 800×800 JPG with no metadata,
+  save as `src/assets/members/<slug>.jpg` (`m-harish-karthikeyan`, `harshini`, `karthick-raja-r`), and push.
 - **WhatsApp group name:** the user said the group has a name (2 Oct) but hasn't given it yet. It goes in
   `SELECTED_NEXT_STEPS` in `src/data/site.js` (results repo), in place of "the club's WhatsApp group"; before
   11:00 on 3 Oct a push goes live with the sample data only, which is fine.
@@ -490,3 +494,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   News page removed (`/news` redirects to `/events`); DeFi Unlocked names its speaker; core team titles in the
   official domain names (the three Media titles wait on the user); event types and the inauguration confirmed.
   Club e2e passes apart from the five known `/achievements` font checks.
+- **2 Oct (night):** Harshini's title is Visual Media Co-Lead (the user). Her photo and two others are waiting to be
+  sent again (see "Waiting on the user").
