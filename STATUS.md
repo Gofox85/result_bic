@@ -22,10 +22,12 @@ Latest change to each live site (both deploys succeeded):
 - results site: `b152d21`, the club's new result messages (see "Result-page messages"). Before it: `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `2c3cef5`, only Dr. Muneeshwari R as faculty coordinator. Before it: `60d01c0`, the team split into
-  board, core and associate members with "Meet us" (see "Club team pages"), `3e94254` (Gallery page brought back), `77a4118` (official domain names), `8089d4b` (the
-  roster section, now on the Associates page) and `d893df9` (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
-  switched from the header and a `status.md` in the club repo.
+- club site: `2c3cef5`, only Dr. Muneeshwari R as faculty coordinator. Before it: `60d01c0` (the team split into
+  board, core and associate members with "Meet us", see "Club team pages"), `3e94254` (Gallery page brought back),
+  `77a4118` (official domain names), `8089d4b` (the roster section, now on the Associates page) and `d893df9`
+  (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a
+  **dark theme** switched from the header and a `status.md` in the club repo. That `status.md` is the user's own
+  (last updated 1 Oct); this file is the one kept up to date.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
 on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: ask the user.
@@ -35,12 +37,13 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
 - **The file:** `release/results.json.enc` is the verified, sealed `results.json` (244 records), encrypted again
   (AES-256-GCM) with a random key that is **not in this repo**. It was re-sealed on 2 Oct (`b8d470d`) with the official
   domain names in the roles, every login re-verified, and locked again with the same key. The 07:30 and 08:00 tasks
-  were updated with the new file's checksum, and the 10:00 task with the new team names. It's in the repo so the release survives a reset
-  session. It isn't part of the built site, and it's useless without the key.
+  were updated with the new file's checksum, and the 10:00 task with the new team names. It's in the repo so the
+  release survives a reset session. It isn't part of the built site, and it's useless without the key.
 - **Three scheduled tasks (`send_later`) wake this session**, so the user doesn't need to give a notice. The key, the
-  expected sha256, the roster list and the exact steps are in their messages, which are private to the user's account.
+  expected sha256, the associates list and the exact steps are in their messages, which are private to the user's account.
   They don't depend on the scratchpad: the unlock uses plain `node` crypto. All three were checked on 2 Oct (enabled,
-  right times). **This chat session must not be archived or deleted before 10:00 IST on 3 Oct**, since the tasks wake it.
+  right times), and the 08:00 and 10:00 ones again after the team split. **This chat session must not be archived or
+  deleted before 10:00 IST on 3 Oct**, since the tasks wake it. The user can close the app; that's fine.
   - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 07:30 IST: pre-flight. Checks the workflow is enabled, unlocks the file into the
     scratchpad, dry-runs both builds, and alerts the user if anything's wrong.
   - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, 08:00 IST: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
@@ -51,7 +54,8 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
     first checks that the 08:00 release happened. (Updated on 2 Oct for the team split: it used to fill
     `src/data/coreMembers.js`, which is now `associates.js`.)
 - **To move or cancel the release:** `update_trigger` with a new `run_once_at` (keeps the message), or `delete_trigger`
-  the IDs. Move all three together: the roster waits for the release, and the pre-flight comes 30 minutes before it.
+  the IDs. Move all three together: the associates list waits for the release, and the pre-flight comes 30 minutes
+  before it.
 - **Where the selected members' details are:** not in either repo in readable form (both are public). The user
   has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
   From 10:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
@@ -102,9 +106,10 @@ This repo has only the `main` branch.
     The core team's groups on `/team/core` follow the same order.
   - Club Join us page, "Find your team": these seven. The skill chips under each are placeholders picked on 2 Oct
     (the user can change them). Content and Operations teams were removed: they aren't club domains.
-  - Club board page group headings: Design, Event, PR and Outreach, Technical, Research and Innovation, and "Visual
-    and Digital Media" (one group of media leads covering both). People's own titles ("Tech Lead", "Media Lead", …)
-    were left as they are; they're the board's positions.
+  - Club core team page (`/team/core`) group headings, in this order: Event, PR and Outreach, Technical, Design,
+    Research and Innovation, and "Visual and Digital Media" (one group of media leads covering both). People's own
+    titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
+    2 Oct whether to rename them (e.g. "Technical Lead"); no answer yet.
 - **Gallery: back, waiting for real photos.** Removed on 2 Oct at the user's ask, then restored the same day
   (club revert of `5cdd90a`, results footer link re-added) because the club is adding real photos. It still shows
   the 12 placeholder frames (categories and titles are placeholders too) until the photos arrive.
@@ -132,12 +137,11 @@ This repo has only the `main` branch.
   - **Batch 1** (link sent 2 Oct, a Drive folder; the link is in the chat): the inauguration of the **first-tenure
     board**, from when the club was still the **Kerala Blockchain Association (KBA) club**; it was renamed Blockchain
     Innovation Club later. Caption it accordingly.
-- **Photos from Google Drive:** this container can't reach `drive.google.com`, `drive.usercontent.google.com` or
-  `lh3.googleusercontent.com` (blocked by the environment's network policy; checked 2 Oct). To use Drive photos,
-  the user either adds those hosts in the environment's Network access settings (and shares the files as "Anyone
-  with the link") or uploads the photos in the chat. The user may send 5–6 large files (under 2 GB each): about
-  30 GB of disk is free here, so handle them one at a time (download, extract, resize for the web, delete the
-  original). Only web-sized images go into a repo (GitHub refuses files over 100 MB).
+- **Photos from Google Drive:** Drive is reachable from here since 2 Oct: the user set the environment's network
+  access to Custom with `drive.google.com`, `drive.usercontent.google.com` and `*.googleusercontent.com` (plus the
+  default list). Drive files must be shared as "Anyone with the link". The user may send 5–6 large files (under
+  2 GB each): about 30 GB of disk is free here, so handle them one at a time (download, extract, resize for the web,
+  delete the original). Only web-sized images go into a repo (GitHub refuses files over 100 MB).
 - **Faculty coordinator: Dr. Muneeshwari R only** (the user, 2 Oct). Dr. Manoranjini J isn't the club's coordinator,
   so her entry and photo were removed. Text naming the coordinators as a group uses `FACULTY` from the club's
   `src/data/members.js` ("faculty coordinator" while there's one).
@@ -211,8 +215,14 @@ the key):
 
 ## Waiting on the user
 
-Nothing. The 08:00 release and the 10:00 roster are scheduled (see above), and every open question has been
-answered. The user only needs to keep this chat session open. Anything else is new work.
+Nothing blocks the launch: the 07:30 check, the 08:00 release and the 10:00 associates list are scheduled (see
+above). The user only needs to keep this chat session (not archive it).
+
+Open, not blocking (offered to the user on 2 Oct; change only if they answer):
+- **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
+- **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
+- **The skill chips** under each domain on the Join us page: placeholders.
+- **Photos / Gallery:** on hold until the user brings it up (see "Photos: ON HOLD").
 
 ## How to do the pending work
 
@@ -257,6 +267,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   return, no sideways scroll) and `reveal-capture.mjs` + `reveal-gif.py` (records the reveal through a CDP screencast
   and makes GIFs; Pillow is in the scratchpad venv). Both run against `npx vite preview --port 4180`. If the
   scratchpad is gone, rewrite them along those lines.
+- Stopping a local server: never `pkill -f`/`pgrep -f` with a pattern that also appears in your own command line
+  (it kills the shell running it: exit 144). Find the PIDs with `ps -eo pid,args` and `kill` those.
 - The GitHub check on this repo links to `results.web.app`. That's a naming quirk of Firebase's deploy action; the
   real site is `bicrec-results.web.app`.
 
@@ -316,8 +328,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct:** Official domain names applied on both sites, the release file re-sealed with them, and the three
   scheduled tasks updated. Checked: all 244 logins, the 08:00 unlock command, page layouts at 360–1280px with the
   47-member roster filled in temporarily, and the club e2e suite (only the five known `/achievements` font checks fail).
-- **2 Oct:** Gallery restored on both sites for the club's real photos (see "Photos (in progress)"). Drive is still
-  blocked from this container; the user has the steps to allow it.
+- **2 Oct:** Gallery restored on both sites for the club's real photos (see "Photos: ON HOLD"). Drive was still
+  blocked from this container at that point; the user then allowed it.
 - **2 Oct:** Drive access working. Batch 1 download started, then stopped at 97 of 266 when the user said to leave
   the gallery part for now. Photos on hold; the Gallery page is unchanged (placeholders).
 - **2 Oct:** Club team split into board, core and associate members (each page with an "about"), plus "Meet us"
@@ -328,3 +340,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct:** Faculty coordinators: only Dr. Muneeshwari R now (entry and photo of the other removed).
 - **2 Oct:** Result messages changed to the user's new wording (selected and not selected). Checked on desktop and
   phone with the sample logins.
+- **2 Oct:** STATUS.md checked against both repos (all pushed to `main`, both sites deployed) and tidied: Drive
+  access, the core team's group headings, the open (non-blocking) questions, and a note on stopping servers safely.
