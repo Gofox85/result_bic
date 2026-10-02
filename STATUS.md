@@ -19,15 +19,27 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site:
-- results site: last deployed commit is `a8543d5`. Since then the deploy workflow has been **switched off** (see
-  below), so `a691582` (the "applied" wording and "selected as a/an <role>") is on GitHub but not live.
+- results site: `c73305f` and earlier: the "applied" wording and "selected as a/an <role>". The live data is still
+  the sample data until the release.
 - club site: `b5f36f4`, on top of the user's own `9ab2722`. That merge, from another session, added a **dark theme**
   switched from the header and a `status.md` in the club repo.
 
-**The results site's deploy workflow is switched off.** "Deploy to Firebase Hosting" in `Gofox85/result_bic` was
-disabled manually on 1 Oct at 22:20 IST; the API shows `disabled_manually`. Pushes still land on `main` but don't
-deploy. Don't re-enable it without the user's say-so. **It must be on before go-live:** the user re-enables it under
-Actions → Deploy to Firebase Hosting → "Enable workflow". Then push, or use "Run workflow" on `main`.
+**Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
+on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: ask the user.
+
+## Release scheduled: 3 Oct 2026, 08:00 IST (02:30 UTC)
+
+- **The file:** `release/results.json.enc` is the verified, sealed `results.json` (244 records), encrypted again
+  (AES-256-GCM) with a random key that is **not in this repo**. It's in the repo so the release survives a reset
+  session. It isn't part of the built site, and it's useless without the key.
+- **Two scheduled tasks (`send_later`) wake this session.** The key, the expected sha256 and the exact steps are in
+  their messages, which are private to the user's account.
+  - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 07:30 IST: pre-flight. Checks the workflow is enabled, unlocks the file into the
+    scratchpad, dry-runs both builds, and alerts the user if anything's wrong.
+  - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, 08:00 IST: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
+    removes `release/` and pushes. Then sets `RECRUITMENT_RESULTS_OPEN = true` on the club site and pushes, watches
+    both deploys, and tells the user.
+- **To move or cancel the release:** `delete_trigger` both IDs, and schedule again if needed.
 
 This repo has only the `main` branch.
 
@@ -86,8 +98,7 @@ matching.
 
 ## Waiting on the user
 
-1. **The go-live time.** Results and Core Members switch together.
-2. **Re-enabling the results deploy workflow** (or saying why it's off).
+1. Nothing for the release: it's scheduled (see above). Anything else is new work.
 3. **The result-page messages** (`src/data/site.js` here): keep the current ones or send new text.
 4. **Contact form:** keep accepting any email (recommended), or college-only?
 
@@ -166,6 +177,8 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   Club site now tells browsers not to cache pages (`no-cache`), so changes show without a hard refresh.
 - **1 Oct:** STATUS.md checked against both repos and brought up to date. Nothing is in progress; the next step
   is the user's results sheet and publish time.
+- **2 Oct:** Go-live set by the user for 3 Oct 08:00 IST. Locked release file committed, and the 07:30 pre-flight
+  and 08:00 release scheduled.
 - **2 Oct:** Real data received (4 shortlist sheets + selection list, then the master sheet as source of truth).
   The user chose "every applicant can check" and to publish at a time they give, with Core Members switching at
   the same moment. Wording changed from "interviewed" to "applied" on both sites, and the result reads "selected as
