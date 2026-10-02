@@ -19,8 +19,9 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site (both deploys succeeded):
-- results site: `b8d470d`, the official domain names in the roles (see "Official domain names"), after `f0c7cfe` (no
-  Gallery link) and the result reveal. The live data is still the sample data until the release.
+- results site: `b152d21`, the club's new result messages (see "Result-page messages"). Before it: `b8d470d` (official
+  domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
+  until the release.
 - club site: `2c3cef5`, only Dr. Muneeshwari R as faculty coordinator. Before it: `60d01c0`, the team split into
   board, core and associate members with "Meet us" (see "Club team pages"), `3e94254` (Gallery page brought back), `77a4118` (official domain names), `8089d4b` (the
   roster section, now on the Associates page) and `d893df9` (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a **dark theme**
@@ -143,7 +144,16 @@ This repo has only the `main` branch.
 - **Links are underlined** on both sites. The exceptions are buttons, logos, header nav cells and boxed social links.
 - **Club Contact form:** takes only `@rajalakshmi.edu.in` addresses (the user's choice, 2 Oct). Anything else shows
   "enter valid email id". A line under the form points people outside REC to the club's email.
-- **Result-page messages** (`src/data/site.js`): the user confirmed on 2 Oct to keep them as they are.
+- **Result-page messages** (`src/data/site.js`), as the user worded them on 2 Oct (lightly tidied: "applying to
+  BIC/REC", an em dash). The user said Claude may refine them.
+  - Selected, under the title: "A new block has been added to the chain! Congratulations on being selected as a/an
+    **<role>**. The journey starts now." (`SELECTED_OPENING` + the role sentence in `ResultCard.jsx` +
+    `SELECTED_CLOSING`.) The next-steps line ("Keep an eye on your college email…", `SELECTED_NEXT_STEPS`) stays
+    under the details.
+  - Not selected (`NOT_SELECTED_MESSAGE`): "Thank you for applying to BIC/REC. We truly value your interest and
+    participation. Although you weren't selected this time, our events and workshops stay open to everyone — come
+    build with us."
+  - The titles are unchanged: "Welcome to the chain, <first name>." and "Not this time, <first name>."
 - **Result reveal** (the user's ask, 2 Oct: "when I click Reveal my result, the content to the left of the box should
   be removed, with custom animations"). On a match:
   1. The form says "Unlocked". The "How it works" blocks lock amber and shunt off the left of the page, top first,
@@ -316,3 +326,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   known `/achievements` font checks), including new tests for Meet us, member links and the old-link redirect, and
   the associates tests with the 47 filled in temporarily.
 - **2 Oct:** Faculty coordinators: only Dr. Muneeshwari R now (entry and photo of the other removed).
+- **2 Oct:** Result messages changed to the user's new wording (selected and not selected). Checked on desktop and
+  phone with the sample logins.
