@@ -22,7 +22,8 @@ Latest change to each live site (both deploys succeeded):
 - results site: `b152d21`, the club's new result messages (see "Result-page messages"). Before it: `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `2c3cef5`, only Dr. Muneeshwari R as faculty coordinator. Before it: `60d01c0` (the team split into
+- club site: `52bd3b5`, Join us removed (recruitment is over) and Kabilan S removed from the Technical team. Before
+  it: `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
   board, core and associate members with "Meet us", see "Club team pages"), `3e94254` (Gallery page brought back),
   `77a4118` (official domain names), `8089d4b` (the roster section, now on the Associates page) and `d893df9`
   (Contact form college-only). Further back is the user's own `9ab2722`, a merge from another session that added a
@@ -72,7 +73,8 @@ This repo has only the `main` branch.
   and an "about" section:
   - **Board members** (`/team/board`): the faculty coordinator, then the **core board** (President, Vice President,
     ambassadors) and the **executive team**: 8 people. Profiles at `/team/board/<slug>`.
-  - **Core members** (`/team/core`): everyone else from the old board page, the domain leads and co-leads (17),
+  - **Core members** (`/team/core`): everyone else from the old board page, the domain leads and co-leads (16;
+    Kabilan S, the Technical team's Blockchain Lead, was removed on 2 Oct at the user's request, with his photo),
     grouped by domain in the official order. Profiles at `/team/core/<slug>`; an old `/team/board/<slug>` link to a
     core member redirects. The header has a "2026–27 recruitment" button to the Associates page, for anyone arriving
     from an old link (this address used to be the recruitment page).
@@ -104,8 +106,6 @@ This repo has only the `main` branch.
   - Results: roles are `<domain> Associate` (e.g. "Technical Associate", "PR and Outreach Associate").
   - Club `src/data/domains.js`: `DOMAINS` (the associates' tabs, in this order); each associate's `team` must match.
     The core team's groups on `/team/core` follow the same order.
-  - Club Join us page, "Find your team": these seven. The skill chips under each are placeholders picked on 2 Oct
-    (the user can change them). Content and Operations teams were removed: they aren't club domains.
   - Club core team page (`/team/core`) group headings, in this order: Event, PR and Outreach, Technical, Design,
     Research and Innovation, and "Visual and Digital Media" (one group of media leads covering both). People's own
     titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
@@ -114,7 +114,9 @@ This repo has only the `main` branch.
   (club revert of `5cdd90a`, results footer link re-added) because the club is adding real photos. It still shows
   the 12 placeholder frames (categories and titles are placeholders too) until the photos arrive.
 - **Photos: ON HOLD.** On 2 Oct the user said to leave the gallery part for now, so don't process photos or change
-  the Gallery page until they bring it up again. It stays as it is (placeholder frames). Where it got to:
+  the Gallery page until they bring it up again. Later that day they asked whether they could send **5–10 photos
+  per gallery, with each gallery's details**, for Claude to add: the answer was yes, and what to send (see "When
+  the photos come"). It stays as it is (placeholder frames). Where it got to:
   - **Drive access works now** (the user set the environment's network access on 2 Oct).
   - Batch 1 is a Drive folder of 266 separate JPGs (not a zip), from a Canon EOS 80D at 6000×4000, about 6 MB each.
     The camera's clock was wrong: the EXIF dates say February 2016, so dates can't be used to match these photos to
@@ -122,6 +124,12 @@ This repo has only the `main` branch.
     `https://drive.usercontent.google.com/download?id=<file id>&export=download&confirm=t`.
   - The download was stopped at 97 of 266 photos. Those 97 are in the scratchpad (`photos/batch1-raw/`, private,
     never commit).
+
+  **When the photos come** (the user's 5–10 per gallery): for each gallery the user gives a title, the date, a line
+  or two about it, and optionally a caption per photo; photos attached in the chat or as a shared Drive link. Then:
+  resize to web sizes (a large view and a thumbnail, about 200–300 KB at most each), strip all metadata (GPS above
+  all), and rebuild the Gallery page from the placeholder frames into one album per gallery, with a full-size view
+  when a photo is clicked. Show the user screenshots before pushing.
 
   The plan agreed earlier, for when it resumes. The user sends photos **one batch at a time** as Drive links:
   - Handle one zip at a time: download, unzip, read each photo's metadata (date taken, camera, size, GPS present),
@@ -142,6 +150,11 @@ This repo has only the `main` branch.
   default list). Drive files must be shared as "Anyone with the link". The user may send 5–6 large files (under
   2 GB each): about 30 GB of disk is free here, so handle them one at a time (download, extract, resize for the web,
   delete the original). Only web-sized images go into a repo (GitHub refuses files over 100 MB).
+- **No Join us** (the user, 2 Oct: the recruitment period is over). The Join page, its route and share tags, the
+  amber Join cell in the header, the footer's "Join the club" and the Join buttons on Home and About are gone. Home's
+  hero now offers "Explore events" and "Meet us"; the closing calls to action point to events and the contact page.
+  An old `/join` link redirects to `/team/associates`. The "members" figure on Home and /achievements now counts the
+  board and core lists (`teamMembers.length` in the club's `src/data/achievements.js`): 24 now, was a fixed 25.
 - **Faculty coordinator: Dr. Muneeshwari R only** (the user, 2 Oct). Dr. Manoranjini J isn't the club's coordinator,
   so her entry and photo were removed. Text naming the coordinators as a group uses `FACULTY` from the club's
   `src/data/members.js` ("faculty coordinator" while there's one).
@@ -221,7 +234,6 @@ above). The user only needs to keep this chat session (not archive it).
 Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 - **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
-- **The skill chips** under each domain on the Join us page: placeholders.
 - **Photos / Gallery:** on hold until the user brings it up (see "Photos: ON HOLD").
 
 ## How to do the pending work
@@ -342,3 +354,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   phone with the sample logins.
 - **2 Oct:** STATUS.md checked against both repos (all pushed to `main`, both sites deployed) and tidied: Drive
   access, the core team's group headings, the open (non-blocking) questions, and a note on stopping servers safely.
+- **2 Oct:** Join us removed (recruitment is over; `/join` redirects to the Associates page) and Kabilan S removed
+  from the Technical team. Club e2e suite passes apart from the five known `/achievements` font checks.
