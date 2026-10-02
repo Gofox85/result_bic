@@ -14,7 +14,7 @@ It holds no secrets and no candidate data. This repo is public.
   faculty coordinator; no Join us; Gallery has 5 real albums, 34 photos (DeFi Unlocked, 11 Apr 2026; Hack to
   Blockchain, 13 Feb 2026; European Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC
   inauguration, 18 Sep 2025), each with its own page (`/gallery/<slug>`). The Events page lists the club's 6 real
-  events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "See all N photos" opens its album page.
+  events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery" button opens its album page.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   10:30 pre-flight check → **11:00 real results live** + Associates page says "Check your result" → 13:00 the 47
   associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
@@ -39,7 +39,7 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `de391ef`, photos for Karthick Raja R, M. Harish Karthikeyan and Harshini: **every board and
+- club site: `1ff5b47`, the event button reads "Explore gallery" (the user). Before it: `de391ef`, photos for Karthick Raja R, M. Harish Karthikeyan and Harshini: **every board and
   core member now has a photo**. Before it: `cd9e0f6` (four member photos, Pavithra J on the core board, Padma Priya J removed),
   `aa6fc0f` (Mohammed Irfan S, Media Director, and the "Media" group), `d02d641`
   (Harshini's title) and `3f7a0b3`: Byte the Dust's write-up, the club's figures counted from the Events page, the News
@@ -225,7 +225,7 @@ This repo has only the `main` branch.
   6. **DeFi Unlocked**, 11 Apr 2026 (Workshop). Speaker: Janakiraman K, Cryptocortex Crew (from the closing
      slide; the user confirmed naming him).
   - Fields: `time`, `venue`, `highlights`, `speakers`, `certificate` are optional (only what's known is shown);
-    `album` is the gallery slug. An event with an album shows four of its photos and "See all N photos", which
+    `album` is the gallery slug. An event with an album shows four of its photos and an "Explore gallery" button, which
     opens the album's own page (`/gallery/<slug>`); without one it says "Photos pending". The filter tabs are built from the events' types.
   - Types: Byte the Dust and Hack to Blockchain are "Technical Event", and the inauguration is listed as an
     event (both confirmed by the user). Venues are "Rajalakshmi Engineering College" for the five with photos (they
@@ -506,3 +506,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   user). Pavithra J (Secretary) moved to the core board; Padma Priya J (Head of Events) removed with her photo.
 - **2 Oct (night):** Photos for Karthick Raja R, M. Harish Karthikeyan and Harshini (resent as a normal message, so
   they were saved). Every board and core member has a photo now.
+- **2 Oct (night):** The button under an event's photos reads "Explore gallery" (was "See all N photos"); it opens
+  that event's album page.
