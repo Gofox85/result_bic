@@ -21,6 +21,10 @@ It holds no secrets and no candidate data. This repo is public.
   - **Events:** the club's 6 real events (those 5 plus Byte the Dust, 12 Feb 2026); an event's "Explore gallery"
     button opens its album page. Home and Achievements count their figures from this list.
   - No Join us, no News page.
+- **Both sites stay light on phones set to dark mode** (the user, 2 Oct): they declare `color-scheme: only light`
+  (a meta tag in `index.html` and the CSS), so browsers with a forced dark mode (Chrome's auto-dark, Samsung
+  Internet) no longer repaint them dark. The club site's own dark theme (header switch) switches the declaration to
+  `dark`. Verified with Chromium's forced dark mode; club e2e test added.
 - **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
   10:30 pre-flight check → **11:00 real results live** + Associates page says "Check your result" → 13:00 the 47
   associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
@@ -42,11 +46,13 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site (both deploys succeeded):
-- results site: `3b2011f`, WhatsApp in the selected results' next steps. Before it: `b152d21` (the club's new result
+- results site: `fa1255c`, stays light on phones set to dark mode. Before it: `3b2011f` (WhatsApp in the selected
+  results' next steps), `b152d21` (the club's new result
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `1ff5b47`, the event button reads "Explore gallery". The 2 Oct changes before it, newest first:
+- club site: `f84d736`, light by default on phones set to dark mode. The 2 Oct changes before it, newest first:
+  - `1ff5b47`: the event button reads "Explore gallery".
   - `de391ef`, `cd9e0f6`: member photos (every board and core member has one now); Pavithra J moved to the core
     board; Padma Priya J removed.
   - `aa6fc0f`, `d02d641`: Mohammed Irfan S (Media Director); the "Media" group; the media titles.
@@ -350,6 +356,12 @@ Open, not blocking (asked on 2 Oct; change only if they answer):
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
 - **Events:** Byte the Dust's venue and photos; times and venues for the others, if they have them.
+- **Orphanage visit (waiting on the date):** the user sent 3 photos and the details: a visit to **Home of Hope
+  Children's Home** (a unit of the Rose Bedeiah Foundation), near Porur; 30 children, 7 staff. No date given, and
+  the photos carry none, so it isn't published yet. Ready in the scratchpad (`orphanage/out/`, frames trimmed, no
+  metadata; order: the team's group photo outside, then the two photos inside with the children). Asked for the
+  date, and whether the home is fine with the children being recognisable (a few boys' faces show in photo 2;
+  most children face away); offered to blur them. Then: album + event (type e.g. "Outreach"), push.
 
 ## How to do the pending work
 
@@ -515,3 +527,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   they were saved). Every board and core member has a photo now.
 - **2 Oct (night):** The button under an event's photos reads "Explore gallery" (was "See all N photos"); it opens
   that event's album page.
+- **2 Oct (night):** Both sites declare "only light", so phones in dark mode no longer repaint them dark (the club's
+  own dark theme still works). Orphanage visit photos prepared, waiting on its date.
