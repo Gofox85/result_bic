@@ -19,8 +19,15 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site:
-- results site: `f451491` "Remove the chain field background animation" (later commits only touch this file);
-- club site: `11f066b` "Stop browsers caching the site's pages".
+- results site: last deployed commit is `a8543d5`. Since then the deploy workflow has been **switched off** (see
+  below), so `a691582` (the "applied" wording and "selected as a/an <role>") is on GitHub but not live.
+- club site: `b5f36f4`, on top of the user's own `9ab2722`. That merge, from another session, added a **dark theme**
+  switched from the header and a `status.md` in the club repo.
+
+**The results site's deploy workflow is switched off.** "Deploy to Firebase Hosting" in `Gofox85/result_bic` was
+disabled manually on 1 Oct at 22:20 IST; the API shows `disabled_manually`. Pushes still land on `main` but don't
+deploy. Don't re-enable it without the user's say-so. **It must be on before go-live:** the user re-enables it under
+Actions → Deploy to Firebase Hosting → "Enable workflow". Then push, or use "Run workflow" on `main`.
 
 This repo has only the `main` branch.
 
@@ -72,7 +79,7 @@ matching.
 
 **Go-live steps** (only at the time the user gives):
 1. Results site: copy `ready-results.json` to `src/data/results.json`, run `npm test && npm run build`, commit
-   only that file, and push.
+   only that file, and push. **Check the deploy workflow is enabled first** (see the warning near the top).
 2. Club site: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/club.js`, run lint + build, and push. The user
    wants Core Members to switch **at the same time** as the results go live.
 3. Watch both deploys, then tell the user.
@@ -80,6 +87,7 @@ matching.
 ## Waiting on the user
 
 1. **The go-live time.** Results and Core Members switch together.
+2. **Re-enabling the results deploy workflow** (or saying why it's off).
 3. **The result-page messages** (`src/data/site.js` here): keep the current ones or send new text.
 4. **Contact form:** keep accepting any email (recommended), or college-only?
 
