@@ -5,6 +5,17 @@ _Last updated: 2 Oct 2026_
 The running record of this work across chats. **Read it before starting; update it before finishing.**
 It holds no secrets and no candidate data. This repo is public.
 
+## At a glance (end of 2 Oct)
+
+- **Both repos are pushed to `main` and deployed** (results `Gofox85/result_bic`, club `SaIdEeVaN/BIC-REC_Site`).
+- **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in.
+- **Club site:** team split into Board (8), Core (16) and Associates, with "Meet us"; official domain names; one
+  faculty coordinator; no Join us; Gallery shows placeholders.
+- **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
+  07:30 pre-flight check → 08:00 real results live + Associates page says "Check your result" → 10:00 the 47
+  associates listed. All three were confirmed enabled at the end of 2 Oct.
+- **Open, not blocking:** see "Waiting on the user". Photos for the Gallery are on hold until the user sends them.
+
 ## The two sites
 
 | | Results site | Club site |
@@ -91,7 +102,8 @@ This repo has only the `main` branch.
   - Data: `src/data/members.js` (`boardGroups`/`coreGroups`, `boardMembers`/`coreTeamMembers`, `memberPath`),
     `src/data/associates.js`, `src/data/domains.js`. The "about" texts are in each page file (`ABOUT`); they're
     first drafts the user can change.
-  - The main menu's side padding is tighter below 1280px so its seven items fit on one line at 1024px.
+  - The main menu (Home, About us, Meet us, Events, Gallery, Contact us, then the theme switch; no Join since 2 Oct)
+    has tighter side padding below 1280px so it fits on one line at 1024px.
 - **Sign-in rules** (results form and Excel converter both enforce them):
   - Email must end in `@rajalakshmi.edu.in`; otherwise the error is "enter valid email id".
   - The roll number is the password: digits only (letters are dropped as typed) and exactly 9 digits.
@@ -356,3 +368,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   access, the core team's group headings, the open (non-blocking) questions, and a note on stopping servers safely.
 - **2 Oct:** Join us removed (recruitment is over; `/join` redirects to the Associates page) and Kabilan S removed
   from the Technical team. Club e2e suite passes apart from the five known `/achievements` font checks.
+- **2 Oct (end of day):** STATUS.md checked again: both repos in sync with `main`, the three 3 Oct tasks enabled
+  (07:30, 08:00, 10:00 IST). Added "At a glance".
