@@ -35,7 +35,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `8c202d1`, four more photos in the Gallery's first album (nine now, see "Gallery"). Before it:
+- club site: `068b1c6`, KBA spelled out as the Kerala Blockchain Academy everywhere. Before it: `8c202d1` (four
+  more photos in the Gallery's first album, nine now, see "Gallery"),
   `8c165b2` (the Gallery's first real album), `52bd3b5` (Join us removed,
   Kabilan S removed from the Technical team), `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
   board, core and associate members with "Meet us", see "Club team pages"), `3e94254` (Gallery page brought back),
@@ -134,8 +135,10 @@ This repo has only the `main` branch.
     lecture hall, three students listening. The captions and alt texts are neutral first drafts: nobody is named,
     since the user didn't name anyone. Photos in the folder are numbered in that order (re-processed when the
     order changed).
-  - The user said KBA was the "Kerala Blockchain Association"; the event's own screen reads "Kerala Blockchain
-    Academy Club REC". The album only says "KBA Club REC" until the user says which to spell out.
+  - **KBA = Kerala Blockchain Academy** (the user confirmed on 2 Oct; the event's screen says so too). The album says
+    "the Kerala Blockchain Academy Club REC (KBA Club REC)". Every "Kerala Blockchain Association" on both sites
+    was corrected to "Academy": both footers, the club's Achievements page and figures, a news item and the
+    hackathon story.
   - **How it's built** (club repo): `src/data/gallery.js` (albums: slug, title, date, datetime, tags, description,
     photos with `n`, `alt`, `caption`), `src/lib/galleryPhotos.js` (resolves the files),
     `src/assets/gallery/<slug>/<nn>.webp` (1600px) and `<nn>-thumb.webp` (960px), README in that folder.
@@ -248,8 +251,7 @@ above). The user only needs to keep this chat session (not archive it).
 Open, not blocking (offered to the user on 2 Oct; change only if they answer):
 - **People's titles** on the core team page ("Tech Lead", "Media Lead", …): rename to the official domain names?
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
-- **Gallery:** more albums to come from the user. For album 1: names for the people in the photos (optional), and
-  whether "KBA" should read Kerala Blockchain Association or Kerala Blockchain Academy.
+- **Gallery:** more albums to come from the user. For album 1: names for the people in the photos (optional).
 - **WhatsApp group name:** the selected results say "the club's WhatsApp group". If the group has a name (e.g.
   "BIC/REC Associates"), it can go in `SELECTED_NEXT_STEPS` in `src/data/site.js`.
 
@@ -381,3 +383,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   included) apart from the five known `/achievements` font checks.
 - **2 Oct:** Four more inauguration photos added (nine in the album), the first board's group photo now leads, and
   the description says the first board was inaugurated too. Gallery tests pass at every width.
+- **2 Oct:** KBA is the Kerala Blockchain Academy (the user). "Association" corrected to "Academy" on both sites
+  (8 places), and the inauguration album spells it out.

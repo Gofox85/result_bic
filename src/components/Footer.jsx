@@ -42,7 +42,7 @@ export default function Footer({ published }) {
           <p className="t-body footer-blurb">
             Blockchain Innovation Club, Rajalakshmi Engineering College. Innovate. Decentralize. Build the future.
           </p>
-          <p className="meta">in partnership with kerala blockchain association</p>
+          <p className="meta">in partnership with kerala blockchain academy</p>
           <ul className="footer-socials">
             {socialLinks.map((link) => (
               <li key={link.label}>
