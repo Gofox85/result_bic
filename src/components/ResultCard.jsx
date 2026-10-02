@@ -52,13 +52,13 @@ export default function ResultCard({ result, published, revealDelay = 0, heading
         <span className="meta">
           <Scramble
             text={`record ${shortHash(result.rollNo)} · sealed ${sealedDate(published)}`}
-            delay={revealDelay + 0.3}
+            delay={revealDelay + 0.2}
           />
         </span>
       </div>
 
       <h2 className="t-h3 result-title" id="result-title" ref={headingRef} tabIndex={-1}>
-        <SplitText text={title} delay={revealDelay + 0.15} stagger={0.045} />
+        <SplitText text={title} delay={revealDelay + 0.1} stagger={0.035} />
       </h2>
 
       {result.selected ? (

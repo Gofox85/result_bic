@@ -83,7 +83,8 @@ This repo has only the `main` branch.
   While the key is being derived, the three "How it works" blocks light up in turn. "Check another result" brings
   "How it works" back, shunting in from the left. A no-match leaves the page as it is. With reduced motion, a match
   goes straight to the result with no animation. Timings are `LEAVE_MS`/`SLIDE_MS`/`REVEAL_MS` in `App.jsx` and the
-  matching CSS delays in `index.css`.
+  matching CSS delays in `index.css`. The user asked for it faster, so it now takes about 1.7s from click to the full
+  result (was 2.5s), including the 0.5s minimum unlock wait (`MIN_UNLOCK_MS`, was 0.7s).
 - **Sample logins** (live until the release): `250701499@rajalakshmi.edu.in` / `250701499` (selected, Tech
   Associate), `250701501@…` / `250701501` (selected, Design Associate), `250701502@…` / `250701502` (not selected).
 
@@ -211,3 +212,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   a/an <role>". Sealed data verified and ready (see "Results data: ready").
 - **2 Oct:** Result reveal animation added (see "Current state"). Checked in Chromium at desktop and phone sizes,
   for selected, not selected, no match, "Check another result" and reduced motion.
+- **2 Oct:** Reveal sped up at the user's request (about 1.7s from click to the full result). The user asked whether
+  the 3 Oct launches need a nudge: they don't. The three scheduled tasks were checked (enabled, right times).

@@ -18,7 +18,7 @@ import {
 
 // Unlocking takes a moment by design (the key derivation is slow on purpose); holding the "unlocking" state
 // for at least this long keeps a fast device from flashing it.
-const MIN_UNLOCK_MS = 700;
+const MIN_UNLOCK_MS = 500;
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const validators = { email: validateEmail, rollNo: validateRollNumber };
@@ -26,9 +26,9 @@ const validators = { email: validateEmail, rollNo: validateRollNumber };
 // The reveal, after a match: the explainer's blocks shunt off the page while the form is sealed under a shutter
 // (LEAVE_MS). Then the result panel takes the whole row: it's carried over from where the form was and set down
 // (SLIDE_MS), and its shutter opens. The card's own entrances wait REVEAL_MS so they play once it's open.
-const LEAVE_MS = 440;
-const SLIDE_MS = 500;
-const REVEAL_MS = 440;
+const LEAVE_MS = 300;
+const SLIDE_MS = 360;
+const REVEAL_MS = 300;
 const SHUNT = 'cubic-bezier(0.77, 0, 0.175, 1)';
 const SPRING = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
 const INK = '#14110e';
