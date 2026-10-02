@@ -22,7 +22,7 @@ test('unlocks a selected result with the matching email and roll number', async 
     rollNo: '250701499',
     name: 'Sanjay Kumar',
     selected: true,
-    role: 'Technical Team',
+    role: 'Tech Associate',
     department: 'CSE',
   });
 });
@@ -48,7 +48,7 @@ test('returns not-found when either half does not match', async () => {
 
 test('publishes no names, emails or roll numbers in the clear', () => {
   const raw = JSON.stringify(vault);
-  for (const value of ['Sanjay', 'rajalakshmi.edu.in', '250701499', 'Technical Team']) {
+  for (const value of ['Sanjay', 'rajalakshmi.edu.in', '250701499', 'Tech Associate']) {
     assert.equal(raw.includes(value), false, value);
   }
 });
