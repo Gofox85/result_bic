@@ -29,7 +29,7 @@ Don't put anything in the sheet you wouldn't want that candidate's classmates to
 
    | Email | Roll Number | Name | Department | Selected | Role |
    | --- | --- | --- | --- | --- | --- |
-   | 250701499@rajalakshmi.edu.in | 250701499 | Sanjay Kumar | CSE | Yes | Tech Associate |
+   | 250701499@rajalakshmi.edu.in | 250701499 | Sanjay Kumar | CSE | Yes | Technical Associate |
    | 250701502@rajalakshmi.edu.in | 250701502 | Aarav Mehta | ECE | No | |
 
    - **Email**, **Roll Number**, **Name** and **Selected** are required. **Role** is required when Selected is yes.
