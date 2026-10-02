@@ -35,7 +35,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `8c165b2`, the Gallery's first real album (see "Gallery"). Before it: `52bd3b5` (Join us removed,
+- club site: `8c202d1`, four more photos in the Gallery's first album (nine now, see "Gallery"). Before it:
+  `8c165b2` (the Gallery's first real album), `52bd3b5` (Join us removed,
   Kabilan S removed from the Technical team), `2c3cef5` (only Dr. Muneeshwari R as faculty coordinator), `60d01c0` (the team split into
   board, core and associate members with "Meet us", see "Club team pages"), `3e94254` (Gallery page brought back),
   `77a4118` (official domain names), `8089d4b` (the roster section, now on the Associates page) and `d893df9`
@@ -125,11 +126,14 @@ This repo has only the `main` branch.
     titles ("Tech Lead", "Media Lead", …) were left as they are; they're their positions. The user was asked on
     2 Oct whether to rename them (e.g. "Technical Lead"); no answer yet.
 - **Gallery: real albums** (from 2 Oct). The placeholder frames are gone; the page lists albums, newest first.
-  - **Album 1:** "KBAIC Inauguration Ceremony", **18 September 2025**: the club's inauguration as KBA Club REC
-    (since renamed the Blockchain Innovation Club), with the Department of CSE, theme "Unlocking the Future of
-    Blockchain". 5 photos the user sent in the chat on 2 Oct (the dais, a welcome with flowers, a speaker at the
-    podium, the front row, the full hall). The captions and alt texts are neutral first drafts: nobody is named,
-    since the user didn't name anyone.
+  - **Album 1:** "KBAIC Inauguration Ceremony", **18 September 2025**: the start of the club (as KBA Club REC,
+    since renamed the Blockchain Innovation Club) and the inauguration of its **first board** (the user, 2 Oct),
+    with the Department of CSE, theme "Unlocking the Future of Blockchain". 9 photos the user sent in the chat on
+    2 Oct, in this order: the first board's group photo outside the REC Tech Lounge (the lead), the dais, a welcome
+    with flowers, a speaker at the podium, the appointment letters and badges, the front row, the full hall, the
+    lecture hall, three students listening. The captions and alt texts are neutral first drafts: nobody is named,
+    since the user didn't name anyone. Photos in the folder are numbered in that order (re-processed when the
+    order changed).
   - The user said KBA was the "Kerala Blockchain Association"; the event's own screen reads "Kerala Blockchain
     Academy Club REC". The album only says "KBA Club REC" until the user says which to spell out.
   - **How it's built** (club repo): `src/data/gallery.js` (albums: slug, title, date, datetime, tags, description,
@@ -375,3 +379,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct:** Gallery rebuilt around real albums; the first is the KBAIC inauguration (18 Sep 2025, 5 photos the user
   sent). Photos web-sized as WebP with no metadata; full-screen viewer. Club e2e suite passes (new gallery tests
   included) apart from the five known `/achievements` font checks.
+- **2 Oct:** Four more inauguration photos added (nine in the album), the first board's group photo now leads, and
+  the description says the first board was inaugurated too. Gallery tests pass at every width.
