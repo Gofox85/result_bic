@@ -51,7 +51,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `e2d1a93`, the Home of Hope visit (album and event). The 2 Oct changes before it, newest first:
+- club site: `e0dee7b`, Pavithra J right after the Vice President. The 2 Oct changes before it, newest first:
+  - `e2d1a93`: the Home of Hope visit (album and event).
   - `f84d736`: light by default on phones set to dark mode.
   - `1ff5b47`: the event button reads "Explore gallery".
   - `de391ef`, `cd9e0f6`: member photos (every board and core member has one now); Pavithra J moved to the core
@@ -115,7 +116,8 @@ This repo has only the `main` branch.
 - **Club team pages** (the user's structure, 2 Oct). The club's members are in three teams, each with its own page
   and an "about" section:
   - **Board members** (`/team/board`): the faculty coordinator, then the **core board** (President, Vice President,
-    two ambassadors, and the Secretary, Pavithra J, moved up from the executive team on 2 Oct at the user's word)
+    the Secretary, Pavithra J, then two ambassadors; Pavithra J moved up from the executive team on 2 Oct and sits
+    right after the Vice President, both at the user's word)
     and the **executive team** (Operations Executive, Technology Executive, Treasurer): 8 people. Profiles at `/team/board/<slug>`.
   - **Core members** (`/team/core`): everyone else from the old board page, the domain leads and co-leads (16;
     Kabilan S, the Technical team's Blockchain Lead, and Padma Priya J, Head of Events, were removed on 2 Oct at the
@@ -359,13 +361,11 @@ the key):
 Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 associates list are scheduled (see
 above). The user only needs to keep this chat session (not archive it).
 
-Open, not blocking (asked on 2 Oct; change only if they answer):
-- **WhatsApp group name:** the user said the group has a name (2 Oct) but hasn't given it yet. It goes in
-  `SELECTED_NEXT_STEPS` in `src/data/site.js` (results repo), in place of "the club's WhatsApp group"; before
-  11:00 on 3 Oct a push goes live with the sample data only, which is fine.
-- **Associates list time:** 13:00 IST on 3 Oct unless the user picks another time after 11:00.
-- **Pavithra J's place:** last in the core board, right above the executive team. Offered to put her after the
-  Vice President instead.
+Settled by the user on 2 Oct: the WhatsApp wording stays as it is ("the club's WhatsApp group"); the schedule
+stays (results site live at 11:00 IST, the associates list on the club site at 13:00); Pavithra J sits right after
+the Vice President.
+
+Open, not blocking (change only if they answer):
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
 - **Events:** Byte the Dust's venue and photos; times and venues for the others, if they have them.
@@ -541,3 +541,5 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **2 Oct (night):** Home of Hope visit (26 Jan 2026) added as an album and an event (block #0004; the three later
   events moved up one). Children's faces blurred. Event photo strips fit their photo count. Swept both sites for
   stale links and names (removed pages, old event addresses, removed members): nothing left.
+- **2 Oct (night):** The user settled the open questions: WhatsApp wording unchanged; results at 11:00 and the
+  associates list at 13:00 as scheduled; Pavithra J moved to right after the Vice President.
