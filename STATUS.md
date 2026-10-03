@@ -1,15 +1,18 @@
 # Status: BIC/REC recruitment results
 
-_Last updated: 2 Oct 2026_
+_Last updated: 3 Oct 2026_
 
 The running record of this work across chats. **Read it before starting; update it before finishing.**
 It holds no secrets and no candidate data. This repo is public.
 
-## At a glance (end of 2 Oct)
+## At a glance (3 Oct, after the release)
 
 - **Both repos are pushed to `main` and deployed** (results `Gofox85/result_bic`, club `SaIdEeVaN/BIC-REC_Site`).
-- **Results site:** live with the 3 sample logins; the result reveal animation and the new result messages are in
-  (selected results' next steps now mention WhatsApp and the club's WhatsApp group).
+- **RESULTS ARE PUBLISHED** (3 Oct, **10:41 IST**, 05:11 UTC): the user asked to go live straight away rather than
+  wait for 11:00 ("it will make lots of confusions"). Results site `9ef5a15` (the 244 sealed records, sha256
+  `08146bf3…`, release file removed) and club site `c5f6e40` (Associates page says "Check your result"); both deploys
+  succeeded, and the live results bundle was checked to hold all 244 records. The sample logins no longer work.
+  The 11:00 go-live task was **disabled** (it had nothing left to do); the 10:30 pre-flight passed first.
 - **Club site:**
   - **Team:** Board (8: core board 5, in order President, Vice President, Secretary, two ambassadors; executive
     team 3), Core (16, by domain, with a "Media"
@@ -27,9 +30,9 @@ It holds no secrets and no candidate data. This repo is public.
   (a meta tag in `index.html` and the CSS), so browsers with a forced dark mode (Chrome's auto-dark, Samsung
   Internet) no longer repaint them dark. The club site's own dark theme (header switch) switches the declaration to
   `dark`. Verified with Chromium's forced dark mode; club e2e test added.
-- **3 Oct, automatic** (scheduled tasks wake this chat; the user doesn't need to do anything):
-  10:30 pre-flight check → **11:00 real results live** + Associates page says "Check your result" → 13:00 the 47
-  associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
+- **Still to come, automatic:** **13:00 IST** the 47 associates listed on the club site's Associates page (task
+  `trig_01Nib2VAvwLAabvG7uBFVDh4`, enabled; it checks the release happened, which it has). History of the schedule:
+  10:30 pre-flight check → 11:00 real results live → 13:00 the 47 associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
   tasks were moved together (they were 07:30 / 08:00 / 10:00). Re-checked again late on 2 Oct, after the last
   site changes: all three enabled, next runs 05:00, 05:30 and 07:30 UTC on 3 Oct, unchanged steps (key, checksum
   `08146bf3…`, the 47 associates). The user confirmed: results at 11:00, associates list at 13:00.
@@ -49,7 +52,8 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site (both deploys succeeded):
-- results site: `fa1255c`, stays light on phones set to dark mode. Before it: `3b2011f` (WhatsApp in the selected
+- results site: `9ef5a15`, **the 2026 recruitment results, published** (3 Oct 10:41 IST). Before it: `fa1255c`
+  (stays light on phones set to dark mode), `3b2011f` (WhatsApp in the selected
   results' next steps), `b152d21` (the club's new result
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
@@ -78,7 +82,7 @@ Latest change to each live site (both deploys succeeded):
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
 on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: ask the user.
 
-## Release scheduled: 3 Oct 2026, 11:00 IST (05:30 UTC)
+## Release: published 3 Oct 2026, 10:41 IST (planned for 11:00)
 
 - **The file:** `release/results.json.enc` is the verified, sealed `results.json` (244 records), encrypted again
   (AES-256-GCM) with a random key that is **not in this repo**. It was re-sealed on 2 Oct (`b8d470d`) with the official
@@ -113,7 +117,8 @@ This repo has only the `main` branch.
 
 ## Current state
 
-- **Results site is live with sample data only** until 11:00 IST on 3 Oct. Sample logins:
+- **Results site is live with the real results** since 3 Oct 10:41 IST (244 records). Until then it ran on sample
+  data, whose logins (below, for reference) no longer work:
   - `250701499@rajalakshmi.edu.in` / `250701499`: selected, Technical Associate
   - `250701501@rajalakshmi.edu.in` / `250701501`: selected, Design Associate
   - `250701502@rajalakshmi.edu.in` / `250701502`: not selected
@@ -131,9 +136,8 @@ This repo has only the `main` branch.
     from an old link (this address used to be the recruitment page).
   - **Associate members** (`/team/associates`): the new recruits ("associates"). This is the recruitment page that
     used to be `/team/core`: it says **"Results coming soon"** until `RECRUITMENT_RESULTS_OPEN` (club
-    `src/data/club.js`, now `false`) is set to `true`, then "Check your result" with a button to the results site.
-    The 11:00 task opens it right after the results go live; don't open it before, or every candidate gets "no
-    match". Its roster (domain tabs, a card per associate with name, department and "<domain> Associate") renders
+    `src/data/club.js`) is set to `true`, then "Check your result" with a button to the results site. **It's
+    `true` since 3 Oct 10:41 IST** (opened together with the results). Its roster (domain tabs, a card per associate with name, department and "<domain> Associate") renders
     only when `associates` in `src/data/associates.js` is non-empty. It's empty now; the 13:00 task fills it.
   - **Meet us**: a section with three cells linking to the three pages (`src/components/MeetUs.jsx`, data in
     `src/data/teams.js`). It's its own page (`/team`, "Meet us" in the main menu), sits on Home and About, and ends
@@ -321,7 +325,7 @@ This repo has only the `main` branch.
   matching CSS delays in `index.css`. The user asked for it faster, so it now takes about 1.7s from click to the full
   result (was 2.5s), including the 0.5s minimum unlock wait (`MIN_UNLOCK_MS`, was 0.7s).
 
-## Results data: ready, release scheduled for 3 Oct 11:00 IST
+## Results data: published 3 Oct 10:41 IST
 
 **Source of truth:** the master form-response sheet ("BIC Recruitment 2026-27 Responses"), which the user says is
 100% correct. It supplies every email, roll number, name and department.
@@ -352,8 +356,7 @@ survive a reset, and the release doesn't need it):
 If the scratchpad is gone and the data has to be rebuilt, ask the user to re-upload the master sheet and the
 selection list, then redo the matching.
 
-**Go-live steps:** automated by the 11:00 task. If it ever has to be done by hand, follow that task's message (it has
-the key):
+**Go-live steps (done on 3 Oct, by hand, at the user's word; kept for the record):**
 1. Results site: unlock `release/results.json.enc` into `src/data/results.json`, check the sha256, run
    `npm test && npm run build`, `git rm -r release`, commit and push. **Check the deploy workflow is enabled first**
    (see the warning near the top).
@@ -363,8 +366,8 @@ the key):
 
 ## Waiting on the user
 
-Nothing blocks the launch: the 10:30 check, the 11:00 release and the 13:00 associates list are scheduled (see
-above). The user only needs to keep this chat session (not archive it).
+The results are out (3 Oct 10:41 IST). The 13:00 associates list is scheduled; the user only needs to keep this
+chat session (not archive it) until then.
 
 Settled by the user on 2 Oct: the WhatsApp wording stays as it is ("the club's WhatsApp group"); the schedule
 stays (results site live at 11:00 IST, the associates list on the club site at 13:00); Pavithra J sits right after
@@ -550,3 +553,10 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   associates list at 13:00 as scheduled; Pavithra J moved to right after the Vice President.
 - **2 Oct (night):** Byte the Dust was part of Titanium 2026 (the user): its page says so and gives the REC venue;
   Hack to Blockchain is the club's second event there.
+- **3 Oct, 10:30 IST:** Pre-flight passed: both repos clean and current, both deploy workflows active, the release
+  unlocked (sha256 `08146bf3…`, 244 records), dry runs of both sites built and passed (club e2e with the Associates
+  page open: all green apart from the five local font checks). Nothing published.
+- **3 Oct, 10:41 IST:** **Results published early, at the user's request** (to avoid confusion): results site
+  `9ef5a15` (real results in, release file removed), club site `c5f6e40` (Associates page open). Both deploys
+  succeeded; the live bundle holds all 244 records. The 11:00 go-live task disabled. The 13:00 associates list
+  stays scheduled.
