@@ -16,7 +16,7 @@ It holds no secrets and no candidate data. This repo is public.
 - **Club site:**
   - **Team:** Board (8: core board 5, in order President, Vice President, Secretary, two ambassadors; executive
     team 3), Core (16, by domain, with a "Media"
-    group led by the new Media Director, Mohammed Irfan S) and Associates (empty until 13:00 on 3 Oct), with
+    group led by the new Media Director, Mohammed Irfan S) and Associates (47, listed since 13:00 on 3 Oct), with
     "Meet us". **Every board and core member has a photo.** Titles use the official domain names. One faculty
     coordinator. Padma Priya J and Kabilan S removed.
   - **Gallery:** 6 real albums, 37 photos (DeFi Unlocked, 11 Apr 2026; Hack to Blockchain, 13 Feb 2026; Home of
@@ -30,9 +30,10 @@ It holds no secrets and no candidate data. This repo is public.
   (a meta tag in `index.html` and the CSS), so browsers with a forced dark mode (Chrome's auto-dark, Samsung
   Internet) no longer repaint them dark. The club site's own dark theme (header switch) switches the declaration to
   `dark`. Verified with Chromium's forced dark mode; club e2e test added.
-- **Still to come, automatic:** **13:00 IST** the 47 associates listed on the club site's Associates page (task
-  `trig_01Nib2VAvwLAabvG7uBFVDh4`, enabled; it checks the release happened, which it has). History of the schedule:
-  10:30 pre-flight check → 11:00 real results live → 13:00 the 47 associates listed. **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
+- **THE 47 ASSOCIATES ARE LISTED** (3 Oct, 13:00 IST): club site `4af4347`, `/team/associates` shows "Check your
+  result" and the roster (domain tabs, a card per associate). Each associate was checked against the published
+  results first: the same 47 people, the same roles. Deploy succeeded; the live site carries the list. **All of the
+  3 Oct schedule is done**; no scheduled tasks are left (the 11:00 one was disabled, the other two fired). **The user moved the release from 08:00 to 11:00 IST** on the evening of 2 Oct; all three
   tasks were moved together (they were 07:30 / 08:00 / 10:00). Re-checked again late on 2 Oct, after the last
   site changes: all three enabled, next runs 05:00, 05:30 and 07:30 UTC on 3 Oct, unchanged steps (key, checksum
   `08146bf3…`, the 47 associates). The user confirmed: results at 11:00, associates list at 13:00.
@@ -58,7 +59,9 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `35eb99b`, Byte the Dust marked as part of Titanium 2026. The 2 Oct changes before it, newest first:
+- club site: `4af4347`, **the 47 associates published** (3 Oct 13:00 IST). Before it: `c5f6e40` (Associates page
+  opened with the results, 3 Oct 10:41 IST) and `35eb99b` (Byte the Dust marked as part of Titanium 2026). The 2 Oct
+  changes before those, newest first:
   - `e0dee7b`: Pavithra J right after the Vice President.
   - `e2d1a93`: the Home of Hope visit (album and event).
   - `f84d736`: light by default on phones set to dark mode.
@@ -111,7 +114,7 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
   before it.
 - **Where the selected members' details are:** not in either repo in readable form (both are public). The user
   has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
-  From 13:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
+  Since 13:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
 
 This repo has only the `main` branch.
 
@@ -138,7 +141,7 @@ This repo has only the `main` branch.
     used to be `/team/core`: it says **"Results coming soon"** until `RECRUITMENT_RESULTS_OPEN` (club
     `src/data/club.js`) is set to `true`, then "Check your result" with a button to the results site. **It's
     `true` since 3 Oct 10:41 IST** (opened together with the results). Its roster (domain tabs, a card per associate with name, department and "<domain> Associate") renders
-    only when `associates` in `src/data/associates.js` is non-empty. It's empty now; the 13:00 task fills it.
+    only when `associates` in `src/data/associates.js` is non-empty. It holds the 47 associates since 3 Oct 13:00 IST.
   - **Meet us**: a section with three cells linking to the three pages (`src/components/MeetUs.jsx`, data in
     `src/data/teams.js`). It's its own page (`/team`, "Meet us" in the main menu), sits on Home and About, and ends
     each team page with the current team inked. The associates' cell says "results soon"/"results are live" until
@@ -366,8 +369,8 @@ selection list, then redo the matching.
 
 ## Waiting on the user
 
-The results are out (3 Oct 10:41 IST). The 13:00 associates list is scheduled; the user only needs to keep this
-chat session (not archive it) until then.
+The results are out (3 Oct 10:41 IST) and the 47 associates are listed (13:00 IST). Nothing is scheduled any
+more; the chat session no longer needs to be kept for the release.
 
 Settled by the user on 2 Oct: the WhatsApp wording stays as it is ("the club's WhatsApp group"); the schedule
 stays (results site live at 11:00 IST, the associates list on the club site at 13:00); Pavithra J sits right after
@@ -560,3 +563,7 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   `9ef5a15` (real results in, release file removed), club site `c5f6e40` (Associates page open). Both deploys
   succeeded; the live bundle holds all 244 records. The 11:00 go-live task disabled. The 13:00 associates list
   stays scheduled.
+- **3 Oct, 13:00 IST:** The 47 associates published on the club site's Associates page (`4af4347`), by the
+  scheduled task. Checked first: 47 entries, per-domain counts as selected, every domain official, and each
+  associate matches their published result (same person, same role). Club e2e green apart from the five local font
+  checks; deploy succeeded.
