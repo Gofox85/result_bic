@@ -1,6 +1,6 @@
 # Status: BIC/REC recruitment results
 
-_Last updated: 3 Oct 2026_
+_Last updated: 6 Oct 2026_
 
 The running record of this work across chats. **Read it before starting; update it before finishing.**
 It holds no secrets and no candidate data. This repo is public.
@@ -59,7 +59,8 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `4af4347`, **the 47 associates published** (3 Oct 13:00 IST). Before it: `c5f6e40` (Associates page
+- club site: `c7ad46d` (6 Oct), **associates grouped by domain, each with their own page** and LinkedIn/Instagram.
+  Before it: `4af4347`, **the 47 associates published** (3 Oct 13:00 IST), `c5f6e40` (Associates page
   opened with the results, 3 Oct 10:41 IST) and `35eb99b` (Byte the Dust marked as part of Titanium 2026). The 2 Oct
   changes before those, newest first:
   - `e0dee7b`: Pavithra J right after the Vice President.
@@ -141,7 +142,22 @@ This repo has only the `main` branch.
     used to be `/team/core`: it says **"Results coming soon"** until `RECRUITMENT_RESULTS_OPEN` (club
     `src/data/club.js`) is set to `true`, then "Check your result" with a button to the results site. **It's
     `true` since 3 Oct 10:41 IST** (opened together with the results). Its roster (domain tabs, a card per associate with name, department and "<domain> Associate") renders
-    only when `associates` in `src/data/associates.js` is non-empty. It holds the 47 associates since 3 Oct 13:00 IST.
+    only when `associates` in `src/data/associates.js` is non-empty.
+    **Since 6 Oct (the user) the roster looks like the core team's:** a section per domain in the club's order, a
+    `MemberCell` per associate (initials until their photo is added), each linking to their own page at
+    `/team/associates/<slug>` (`MemberDetail` with `team="associates"`: role, department, LinkedIn, Instagram,
+    previous/next within the associates). Data: `src/data/associates.js` entries carry `slug`, `linkedin`,
+    `instagram`; `src/data/members.js` builds `associateGroups` / `associateMembers` and `memberPages` (everyone
+    with a page: board, core, associates), which routes, share tags and `getMemberBySlug` use. `teamMembers`
+    stays board + core, so the "members" figure on Home and /achievements still counts the leadership (24).
+    - LinkedIn/Instagram come from the user's "ASSOCIATE MEMBERS Responses" form (49 rows: 3 duplicates, so 46
+      people; every domain agrees with the results). Cleaned to plain profile URLs. Missing: **Arunachalam J**
+      (Technical) isn't in the form; **Hemavarshni S** gave an Instagram invite link, not a profile; one has no
+      LinkedIn and one no Instagram (left blank). The form's roll numbers, phones, genders and emails are **not**
+      used (public repo). The form copy is in the scratchpad only (`assoc-form/`), never committed.
+    - **Photos:** the form's "Professional Photo" links are Google Drive uploads that need the form owner's
+      sign-in, so they couldn't be fetched. To add them: share the photos folder ("Anyone with the link") or
+      send the photos; then square-crop to 800×800 JPG, sRGB, no metadata, as `src/assets/members/<slug>.jpg`. It holds the 47 associates since 3 Oct 13:00 IST.
   - **Meet us**: a section with three cells linking to the three pages (`src/components/MeetUs.jsx`, data in
     `src/data/teams.js`). It's its own page (`/team`, "Meet us" in the main menu), sits on Home and About, and ends
     each team page with the current team inked. The associates' cell says "results soon"/"results are live" until
@@ -377,6 +393,8 @@ stays (results site live at 11:00 IST, the associates list on the club site at 1
 the Vice President.
 
 Open, not blocking (change only if they answer):
+- **Associates' photos:** shared Drive folder or the photos themselves (see "Associate members").
+- **Arunachalam J's** LinkedIn/Instagram (not in the form), and **Hemavarshni S's** Instagram profile link.
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
 - **Events:** Byte the Dust's photos; times for all of them, if they have them.
@@ -567,3 +585,6 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   scheduled task. Checked first: 47 entries, per-domain counts as selected, every domain official, and each
   associate matches their published result (same person, same role). Club e2e green apart from the five local font
   checks; deploy succeeded.
+- **6 Oct:** Associates page rebuilt like the core team's (sections per domain, member cells, a page per associate
+  with LinkedIn and Instagram from the associates' form); 47 new pages with their own share tags (96 routes).
+  Photos pending (private Drive uploads). Club e2e green apart from the five local font checks.
