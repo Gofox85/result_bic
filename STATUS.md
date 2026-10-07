@@ -15,9 +15,9 @@ It holds no secrets and no candidate data. This repo is public.
   The 11:00 go-live task was **disabled** (it had nothing left to do); the 10:30 pre-flight passed first.
 - **Club site:**
   - **Team:** Board (8: core board 5, in order President, Vice President, Secretary, two ambassadors; executive
-    team 3), Core (16, by domain, with a "Media"
+    team 3), Core (17, by domain, led in Event by the new Event Lead, Madhu Narayanan N, and with a "Media"
     group led by the new Media Director, Mohammed Irfan S) and Associates (47, listed since 13:00 on 3 Oct), with
-    "Meet us". **Every board and core member has a photo.** Titles use the official domain names. One faculty
+    "Meet us". **Every member has a photo: board, core and all 47 associates.** Titles use the official domain names. One faculty
     coordinator. Padma Priya J and Kabilan S removed.
   - **Gallery:** 6 real albums, 37 photos (DeFi Unlocked, 11 Apr 2026; Hack to Blockchain, 13 Feb 2026; Home of
     Hope Visit, 26 Jan 2026; European Immersion Program, 6 Jan 2026; Decode Blockchain, 15 Oct 2025; the KBAIC
