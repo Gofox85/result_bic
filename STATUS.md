@@ -1,6 +1,6 @@
 # Status: BIC/REC recruitment results
 
-_Last updated: 6 Oct 2026_
+_Last updated: 7 Oct 2026_
 
 The running record of this work across chats. **Read it before starting; update it before finishing.**
 It holds no secrets and no candidate data. This repo is public.
@@ -59,7 +59,9 @@ Latest change to each live site (both deploys succeeded):
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `c7ad46d` (6 Oct), **associates grouped by domain, each with their own page** and LinkedIn/Instagram.
+- club site: `5c0f833` (7 Oct), Madhu Narayanan N's photo as a square crop. Before it, the user's own commits on
+  6 Oct evening: `628b972` (Madhu Narayanan N added as Event Lead), `209bba2` + `44fb19e` (photos for all 47
+  associates). Then `c7ad46d` (6 Oct), **associates grouped by domain, each with their own page** and LinkedIn/Instagram.
   Before it: `4af4347`, **the 47 associates published** (3 Oct 13:00 IST), `c5f6e40` (Associates page
   opened with the results, 3 Oct 10:41 IST) and `35eb99b` (Byte the Dust marked as part of Titanium 2026). The 2 Oct
   changes before those, newest first:
@@ -138,6 +140,11 @@ This repo has only the `main` branch.
     grouped by domain in the official order. Profiles at `/team/core/<slug>`; an old `/team/board/<slug>` link to a
     core member redirects. The header has a "2026–27 recruitment" button to the Associates page, for anyone arriving
     from an old link (this address used to be the recruitment page).
+  - **Event Lead: Madhu Narayanan N** (CSE), added by the user on 6 Oct (`628b972`), first in the core team's Event
+    group above Satyaa S (Event Co-Lead); the core team is 17. His page has email, LinkedIn and Instagram; his roll
+    number and phone, which the user also sent, are not published. His photo was a 2.4 MB full-length PNG that
+    the square cells cropped to his chest and college ID card; replaced on 7 Oct with an 800×800 head-and-shoulders
+    crop above the ID card (`5c0f833`).
   - **Associate members** (`/team/associates`): the new recruits ("associates"). This is the recruitment page that
     used to be `/team/core`: it says **"Results coming soon"** until `RECRUITMENT_RESULTS_OPEN` (club
     `src/data/club.js`) is set to `true`, then "Check your result" with a button to the results site. **It's
@@ -155,9 +162,8 @@ This repo has only the `main` branch.
       (Technical) isn't in the form; **Hemavarshni S** gave an Instagram invite link, not a profile; one has no
       LinkedIn and one no Instagram (left blank). The form's roll numbers, phones, genders and emails are **not**
       used (public repo). The form copy is in the scratchpad only (`assoc-form/`), never committed.
-    - **Photos:** the form's "Professional Photo" links are Google Drive uploads that need the form owner's
-      sign-in, so they couldn't be fetched. To add them: share the photos folder ("Anyone with the link") or
-      send the photos; then square-crop to 800×800 JPG, sRGB, no metadata, as `src/assets/members/<slug>.jpg`. It holds the 47 associates since 3 Oct 13:00 IST.
+    - **Photos:** the user added all 47 themselves on 6 Oct (`209bba2`, `44fb19e`): square JPGs, 60–150 KB, no
+      EXIF or location data (checked 7 Oct). **Every board, core and associate member now has a photo.** It holds the 47 associates since 3 Oct 13:00 IST.
   - **Meet us**: a section with three cells linking to the three pages (`src/components/MeetUs.jsx`, data in
     `src/data/teams.js`). It's its own page (`/team`, "Meet us" in the main menu), sits on Home and About, and ends
     each team page with the current team inked. The associates' cell says "results soon"/"results are live" until
@@ -393,7 +399,6 @@ stays (results site live at 11:00 IST, the associates list on the club site at 1
 the Vice President.
 
 Open, not blocking (change only if they answer):
-- **Associates' photos:** shared Drive folder or the photos themselves (see "Associate members").
 - **Arunachalam J's** LinkedIn/Instagram (not in the form), and **Hemavarshni S's** Instagram profile link.
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
@@ -588,3 +593,6 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **6 Oct:** Associates page rebuilt like the core team's (sections per domain, member cells, a page per associate
   with LinkedIn and Instagram from the associates' form); 47 new pages with their own share tags (96 routes).
   Photos pending (private Drive uploads). Club e2e green apart from the five local font checks.
+- **7 Oct:** Madhu Narayanan N (Event Lead, added by the user) given a square photo that shows his face rather than
+  his ID card; name and links tidied. Checked the user's 47 associate photos: square, small, no hidden data. Every
+  member has a photo now.
