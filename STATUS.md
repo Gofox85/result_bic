@@ -1,6 +1,6 @@
 # Status: BIC/REC recruitment results
 
-_Last updated: 7 Oct 2026_
+_Last updated: 8 Oct 2026_
 
 The running record of this work across chats. **Read it before starting; update it before finishing.**
 It holds no secrets and no candidate data. This repo is public.
@@ -53,13 +53,16 @@ Both repos: **commit and push straight to `main`**, no branches or PRs (the user
 deploy, so run the checks first.
 
 Latest change to each live site (both deploys succeeded):
-- results site: `9ef5a15`, **the 2026 recruitment results, published** (3 Oct 10:41 IST). Before it: `fa1255c`
+- results site: `9977387` (8 Oct), cleanup: two helpers in `resultVault.js` no longer exported (only used inside
+  it), README says the sample data is for the tests only. Before it: `9ef5a15`, **the 2026 recruitment results,
+  published** (3 Oct 10:41 IST), and `fa1255c`
   (stays light on phones set to dark mode), `3b2011f` (WhatsApp in the selected
   results' next steps), `b152d21` (the club's new result
   messages, see "Result-page messages"), `b8d470d` (official
   domain names in the roles), the Gallery footer link and the result reveal. The live data is still the sample data
   until the release.
-- club site: `5c0f833` (7 Oct), Madhu Narayanan N's photo as a square crop. Before it, the user's own commits on
+- club site: `946889f` (8 Oct), **cleanup of what the site no longer used** (see the 8 Oct log entry). Before it:
+  `5c0f833` (7 Oct), Madhu Narayanan N's photo as a square crop, and the user's own commits on
   6 Oct evening: `628b972` (Madhu Narayanan N added as Event Lead), `209bba2` + `44fb19e` (photos for all 47
   associates). Then `c7ad46d` (6 Oct), **associates grouped by domain, each with their own page** and LinkedIn/Instagram.
   Before it: `4af4347`, **the 47 associates published** (3 Oct 13:00 IST), `c5f6e40` (Associates page
@@ -82,8 +85,8 @@ Latest change to each live site (both deploys succeeded):
     coordinator; the board/core/associates split with "Meet us"; the Gallery page back; official domain names.
   - Earlier: `8089d4b` (the roster section, now on the Associates page), `d893df9` (Contact form college-only),
     and the user's own `9ab2722`, a merge from another session that added a **dark theme** switched from the
-    header and a `status.md` in the club repo. That `status.md` is the user's own (last updated 1 Oct); this file
-    is the one kept up to date.
+    header and a `status.md` in the club repo. That `status.md` (last updated 1 Oct) was removed on 8 Oct as stale;
+    this file is the one kept up to date.
 
 **Results deploy workflow:** it was switched off manually on 1 Oct at 22:20 IST and the user turned it back on
 on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: ask the user.
@@ -119,7 +122,11 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
   has their master sheet and selection list, plus a private spreadsheet of the 47 sent in the chat on 2 Oct.
   Since 13:00 IST on 3 Oct, the club repo's `src/data/associates.js` holds names, teams and departments only.
 
-This repo has only the `main` branch.
+This repo has only the `main` branch. The club repo also has `copilot/explain-repository-structure`: deprecated
+(never merged, no pull request, last commit
+[`d1adeca5`](https://github.com/SaIdEeVaN/BIC-REC_Site/commit/d1adeca5608f1e42c00eb1a219986fdfa7f876a8),
+"Added README.md file", 22 Aug 2026). Deleting it on 8 Oct was blocked by this session's permission settings, so it
+is still there; see "Waiting on the user".
 
 ## Current state
 
@@ -399,6 +406,11 @@ stays (results site live at 11:00 IST, the associates list on the club site at 1
 the Vice President.
 
 Open, not blocking (change only if they answer):
+- **The club repo's deprecated branch** `copilot/explain-repository-structure`: delete it on GitHub (Branches page,
+  bin icon), or allow this session to (`git push origin --delete copilot/explain-repository-structure`). It can be
+  restored from `d1adeca5` (above).
+- **The disabled 11:00 go-live task** (`trig_01XRSKMF8P4NDU9YUDNHRFJr`) is still stored. It never fired and
+  never will; it can be deleted from the Routines list, or by this session if the user says so.
 - **Arunachalam J's** LinkedIn/Instagram (not in the form), and **Hemavarshni S's** Instagram profile link.
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
@@ -596,3 +608,13 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
 - **7 Oct:** Madhu Narayanan N (Event Lead, added by the user) given a square photo that shows his face rather than
   his ID card; name and links tidied. Checked the user's 47 associate photos: square, small, no hidden data. Every
   member has a photo now.
+- **8 Oct:** Removed what wasn't used or was deprecated (the user). Club site (`946889f`): the `NodeMesh` drawing
+  (on no page; `lib/mesh.js` keeps only the figures Home quotes: 9 peers, 11 links, 4 hops), the event page's
+  Winners Ledger (no event has winners), `stripEmoji` and the `getTheme` export (never called), the stale
+  `status.md`, and their mentions in README and DESIGN_SYSTEM. Results site (`9977387`): two exports only used
+  inside `resultVault.js`, and the README's out-of-date note about sample data. knip reports nothing unused in
+  either repo; no dependency is deprecated. Kept on purpose: the old-link redirects (`/join`, `/news`, board→core),
+  the optional event fields for future events (time, venue, highlights, speakers, certificate, registration link),
+  the recruitment open/closed switch for next year, and the sample results the tests and CI use. Club e2e green
+  apart from the five local font checks; results tests 9/9. Not done: deleting the club repo's deprecated branch
+  (blocked by permissions) and the disabled go-live task (see "Waiting on the user").
