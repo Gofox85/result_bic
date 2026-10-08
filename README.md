@@ -57,10 +57,9 @@ Don't put anything in the sheet you wouldn't want that candidate's classmates to
 Wording on the page (next steps for selected candidates, the message for everyone else, club links) lives in
 `src/data/site.js`.
 
-Until real results are published, `results.json` is sealed from the fictional `scripts/sample-results.csv`. Try
-`250701499@rajalakshmi.edu.in` / `250701499` (selected) or `250701502@rajalakshmi.edu.in` / `250701502` (not selected).
-The tests use their own copy of the sample (`tests/fixtures/sample-results.json`), so replacing `results.json`
-with the real results doesn't break them.
+`results.json` holds the real results, published on 3 Oct 2026. The fictional `scripts/sample-results.csv` is
+kept for the tests only: CI seals it into `tests/fixtures/sample-results.json` on every run, and the tests sign in
+with its rows (e.g. `250701499@rajalakshmi.edu.in` / `250701499`, selected), so they never depend on the real results.
 
 ## Running locally
 

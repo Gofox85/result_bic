@@ -16,8 +16,8 @@ const rollNumberPattern = new RegExp(`^\\d{${ROLL_NUMBER_LENGTH}}$`);
 export const EMAIL_ERROR = 'enter valid email id';
 export const ROLL_NUMBER_ERROR = `enter valid roll number (${ROLL_NUMBER_LENGTH} digits)`;
 
-export const normalizeEmail = (value) => value.trim().toLowerCase();
-export const normalizeRollNumber = (value) => value.replace(/\s+/g, '').toUpperCase();
+const normalizeEmail = (value) => value.trim().toLowerCase();
+const normalizeRollNumber = (value) => value.replace(/\s+/g, '').toUpperCase();
 
 // What the roll number field keeps of whatever is typed or pasted into it: digits only, never more than nine.
 export const rollNumberInput = (value) => value.replace(/\D/g, '').slice(0, ROLL_NUMBER_LENGTH);
