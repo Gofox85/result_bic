@@ -106,7 +106,7 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
   archived or deleted before 13:00 IST on 3 Oct**, since the tasks wake it. The user can close the app; that's fine.
   - `trig_01BN4Hrjf62vF58FCSDNZAfX`, 10:30 IST (05:00 UTC): pre-flight. Checks the workflow is enabled, unlocks the file into the
     scratchpad, dry-runs both builds, and alerts the user if anything's wrong.
-  - `trig_01XRSKMF8P4NDU9YUDNHRFJr`, **11:00 IST (05:30 UTC)**: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
+  - `trig_01XRSKMF8P4NDU9YUDNHRFJr` (disabled 3 Oct, deleted 8 Oct), **11:00 IST (05:30 UTC)**: go. Unlocks into `src/data/results.json`, checks the sha256, tests,
     removes `release/` and pushes. Then sets `RECRUITMENT_RESULTS_OPEN = true` on the club site (which opens the
     Associates page, `/team/associates`) and pushes, watches both deploys, and tells the user.
   - `trig_01Nib2VAvwLAabvG7uBFVDh4`, 13:00 IST (07:30 UTC): the associates. Fills `src/data/associates.js` in the
@@ -125,8 +125,9 @@ on 2 Oct. If it's ever `disabled_manually` again, don't re-enable it yourself: a
 This repo has only the `main` branch. The club repo also has `copilot/explain-repository-structure`: deprecated
 (never merged, no pull request, last commit
 [`d1adeca5`](https://github.com/SaIdEeVaN/BIC-REC_Site/commit/d1adeca5608f1e42c00eb1a219986fdfa7f876a8),
-"Added README.md file", 22 Aug 2026). Deleting it on 8 Oct was blocked by this session's permission settings, so it
-is still there; see "Waiting on the user".
+"Added README.md file", 22 Aug 2026). The user asked for it to be deleted on 8 Oct, but this container's GitHub
+connection refuses branch deletion (HTTP 403 for both `git push --delete` and the API), so the user deletes it on
+GitHub; see "Waiting on the user".
 
 ## Current state
 
@@ -406,11 +407,9 @@ stays (results site live at 11:00 IST, the associates list on the club site at 1
 the Vice President.
 
 Open, not blocking (change only if they answer):
-- **The club repo's deprecated branch** `copilot/explain-repository-structure`: delete it on GitHub (Branches page,
-  bin icon), or allow this session to (`git push origin --delete copilot/explain-repository-structure`). It can be
-  restored from `d1adeca5` (above).
-- **The disabled 11:00 go-live task** (`trig_01XRSKMF8P4NDU9YUDNHRFJr`) is still stored. It never fired and
-  never will; it can be deleted from the Routines list, or by this session if the user says so.
+- **The club repo's deprecated branch** `copilot/explain-repository-structure`: the user wants it deleted (8 Oct).
+  They delete it on GitHub (github.com/SaIdEeVaN/BIC-REC_Site/branches, bin icon next to it); this container can't.
+  It can be restored from `d1adeca5` (above).
 - **Arunachalam J's** LinkedIn/Instagram (not in the form), and **Hemavarshni S's** Instagram profile link.
 - **The "about" texts** on the three team pages, and the Meet us blurbs: first drafts, the user may reword them.
 - **Gallery:** more albums to come from the user. Optional: names for the people in the photos.
@@ -616,5 +615,7 @@ In `SaIdEeVaN/BIC-REC_Site`: set `RECRUITMENT_RESULTS_OPEN = true` in `src/data/
   either repo; no dependency is deprecated. Kept on purpose: the old-link redirects (`/join`, `/news`, board→core),
   the optional event fields for future events (time, venue, highlights, speakers, certificate, registration link),
   the recruitment open/closed switch for next year, and the sample results the tests and CI use. Club e2e green
-  apart from the five local font checks; results tests 9/9. Not done: deleting the club repo's deprecated branch
-  (blocked by permissions) and the disabled go-live task (see "Waiting on the user").
+  apart from the five local font checks; results tests 9/9. Both deploys succeeded.
+- **8 Oct:** At the user's word, the disabled, never-fired 11:00 go-live task (`trig_01XRSKMF8P4NDU9YUDNHRFJr`)
+  deleted; no scheduled tasks are left. Deleting the club repo's deprecated branch was refused by this container's
+  GitHub connection (HTTP 403), so the user deletes it on GitHub (see "Waiting on the user").
